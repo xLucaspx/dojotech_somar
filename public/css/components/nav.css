@@ -1,0 +1,17 @@
+.nav__list {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.nav__link {
+  border-bottom: 2px solid transparent;
+  outline: none;
+  transition: 0.5s ease-out;
+}
+
+.nav__link:hover,
+.nav__link:focus {
+  filter: brightness(90%);
+  border-color: var(--azul);
+}
