@@ -1,0 +1,27 @@
+.ods__img {
+  content: url("../../../img/home/grid_ods_invertido.png");
+  max-height: 650px;
+  margin: 1rem auto;
+}
+
+.ods__conteudo {
+  background-color: var(--fundo_branco);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 3.5rem 5%;
+}
+
+.ods__conteudo__img {
+  content: url("../../../img/home/mandala_5p.png");
+  max-height: 475px;
+}
+
+.ods__descricao {
+  max-width: 700px;
+  padding: 2rem;
+}
+
+.ods__texto {
+  margin: 1rem;
+}
