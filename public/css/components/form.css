@@ -1,0 +1,86 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.form__fieldset--texto,
+.form__fieldset--btn {
+  display: flex;
+  flex-direction: column;
+  gap: 3px
+}
+
+.form__fieldset--texto {
+  padding: 0 0.35rem;
+  width: 100%;
+  max-width: 575px;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.form__input_label {
+  padding: 0 0.35rem;
+  width: 100%;
+  max-width: 575px;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.form__texto {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  border: none;
+  border-bottom: 2px solid var(--cinza_escuro);
+  outline: none;
+  padding: 1rem 0.5rem 0.3rem;
+  margin: 0.5rem 0.5rem 0;
+  transition: 0.25s ease-out;
+}
+
+.form__texto::placeholder {
+  visibility: hidden;
+}
+
+.form__texto:focus {
+  border-color: var(--azul);
+}
+
+.form__label {
+  position: absolute;
+  top: 1.2rem;
+  left: 1rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--fonte_titulo);
+  transition: all 0.3s;
+}
+
+.form__texto:not(:placeholder-shown) + .form__label,
+.form__texto:focus + .form__label {
+  font-size: 0.75rem;
+  top: 0.3rem;
+  left: 1rem;
+}
+
+.form__input {
+  max-height: 50px;
+}
+
+.form__textarea {
+  resize: none;
+  max-height: 125px;
+}
+
+.form__fieldset__msg {
+  height: 15px;
+  font-size: 15px;
+  margin: 0 0.5rem 7px;
+  text-align: left;
+  color: #ff0000;
+}

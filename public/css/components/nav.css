@@ -7,11 +7,11 @@
 .nav__link {
   border-bottom: 2px solid transparent;
   outline: none;
+  transition: 0.5s ease-out;
 }
 
 .nav__link:hover,
 .nav__link:focus {
-  transition: 0.5s ease-out;
   filter: brightness(90%);
   border-color: var(--azul);
 }
