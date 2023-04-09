@@ -1,0 +1,19 @@
+.contato {
+  background-color: var(--fundo_cinza_medio);
+  text-align: center;
+}
+
+.contato__form__descricao {
+  line-height: 1.8;
+  font-size: 18px;
+  margin-bottom: 1.8rem;
+}
+
+.contato__descricao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.75rem;
+  font-size: 18px;
+}

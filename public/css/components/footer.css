@@ -1,0 +1,44 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background-color: #3e3e3e;
+  color: #fff;
+}
+
+.footer__social {
+  display: flex;
+  gap: 1rem;
+}
+
+.social__link {
+  display: block;
+  width: 45px;
+  height: 45px;
+  border: none;
+  overflow: hidden;
+}
+
+.social__link:hover,
+.social__link:focus {
+  transition: 0.5s ease-in;
+  opacity: 75%;
+}
+
+.social__link--linkedin {
+  background-image: url("../../img/redes/logo-linkedin.svg");
+}
+
+.social__link--instagram {
+  background-image: url("../../img/redes/logo-instagram.png");
+}
+
+.social__link--twitter {
+  background-image: url("../../img/redes/logo-twitter.svg");
+}
+
+.creditos {
+  font-size: 14px;
+  font-weight: 300;
+}

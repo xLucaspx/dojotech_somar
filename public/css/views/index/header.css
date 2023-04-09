@@ -1,0 +1,17 @@
+.header {
+  position: absolute;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btnLogin {
+  color: #fff;
+  border-color: #fff;
+}
+
+.btnLogin:hover,
+.btnLogin:focus {
+  background-color: #fff;
+  color: var(--cor_fonte);
+}

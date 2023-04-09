@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Website para registro e mapeamento dos projetos realizados dentro do programa Somar.">
+
+  <title>Programa Somar</title>
+
+  <link rel="icon" href="../img/logos/logo_cores_ods.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700&family=Ubuntu:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <!-- Components CSS -->
+  <link rel="stylesheet" href="../css/components/logo.css">
+  <link rel="stylesheet" href="../css/components/nav.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/components/form.css">
+  <!-- Sections CSS -->
+  <link rel="stylesheet" href="../css/views/index/header.css">
+  <link rel="stylesheet" href="../css/views/index/apresentacao.css">
+  <link rel="stylesheet" href="../css/views/index/sobre.css">
+  <link rel="stylesheet" href="../css/views/index/ods.css">
+  <link rel="stylesheet" href="../css/views/index/contato.css">
+</head>
+
+<body>
+  <header id="dynamic_header" class="container header"></header>
+  <!-- Fim cabeçalho -->
+
+  <main>
+    <section class="apresentacao container">
+      <h1 class="apresentacao__titulo titulo">Lorem Ipsum</h1>
+      <p class="apresentacao__texto">Lorem ipsum dolor sit amet, consecteur adipiscing elit. Morbi blandit dolor ac lacus tincidunt.</p>
+      <a href="" class="apresentacao__link btn btnSecundario">Conheça nossos projetos</a>
+    </section>
+    <!-- Fim apresentação -->
+
+    <section id="sobre" class="sobre container">
+      <h2 class="sobre__titulo titulo">Sobre</h2>
+  
+      <div class="sobre__conteudo">
+        <div class="sobre__descricao">
+          <p class="sobre__texto">Lorem ipsum dolor sit amet, <strong class="sobre__texto--destaque">consectetur adipiscing elit!</strong></p>
+          <p class="sobre__texto">Curabitur in lobortis massa, id feugiat enim. Praesent commodo placerat gravida. Aenean tristique pulvinar nibh vitae mollis. Sed sed libero sit amet odio maximus semper. Nam lacinia arcu lorem, a semper turpis viverra sit amet. Aliquam sed urna vel diam consectetur dignissim. Quisque sit amet pellentesque nibh.</p>
+          <p class="sobre__texto">Pellentesque libero purus, <strong class="sobre__texto--destaque">viverra luctus faucibus dapibus, iaculis ut odio</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  
+          <div class="sobre__linebreak"></div>
+          <img src="../img/logos/logo_programa_somar.png" alt class="sobre__logo-somar">
+        </div>
+        <div class="sobre__img img"></div>
+    </div>
+    </section>  
+    <!-- Fim sobre -->
+
+    <section id="ods" class="ods">
+      <div class="container">
+        <h2 class="ods__titulo titulo">Objetivos de Desenvolvimento Sustentável</h2>
+        <div class="ods__img"></div>
+      </div>
+  
+      <div class="ods__conteudo">
+        <div class="ods__conteudo__img"></div>
+  
+        <div class="ods__descricao">
+          <p class="ods__texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce consectetur augue pretium, ultrices mauris eu, dictum ipsum. Praesent ac consequat nulla, et ornare turpis. Maecenas non hendrerit lacus, in maximus tellus.</p>
+          <p class="ods__texto">Nullam convallis sit amet justo sed sagittis. Curabitur pellentesque, ante ac venenatis tincidunt, tellus nisl tempor mauris, ut vehicula velit ex sit amet velit. Curabitur ac euismod enim.</p>
+          <p class="ods__texto">Cras dictum aliquam metus et lobortis. Cras non pellentesque tellus. Donec hendrerit est sapien, et posuere enim finibus non. Suspendisse massa metus, euismod vel metus id, luctus venenatis.</p>
+          <p class="ods__texto">Donec aliquet sed enim in tristique. Nam sed urna a erat porta fermentum quis at lacus. Vivamus odio leo, condimentum id tellus non, hendrerit varius nisi.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Fim ODS -->
+
+    <section id="contato" class="contato container">
+      <h2 class="contato__titulo titulo">Contato</h2>
+      
+      <form action="" class="contato__form form">
+        <p class="contato__form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma mensagem:</p>
+
+        <fieldset class="form__fieldset--texto">
+            <input type="text" id="contato__nome" class="form__input form__texto" name="nome" placeholder="Digite seu nome" data-tipo="nome" maxlength="50" required>
+            <label for="contato__nome" class="form__label">Nome</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <fieldset class="form__fieldset--texto">
+          <input type="email" id="contato__email" class="form__input form__texto" name="email" placeholder="Digite seu email" data-tipo="email" maxlength="50" required>
+          <label for="contato__email" class="form__label">Email</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <fieldset class="form__fieldset--texto">
+          <input type="tel" id="contato__telefone" class="form__input form__texto" name="telefone" placeholder="Digite seu telefone com ddd" data-tipo="telefone" maxlength="25" required>
+          <label for="contato__telefone" class="form__label">Telefone</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <fieldset class="form__fieldset--texto">
+          <textarea name="mensagem" id="contato__mensagem" class="form__textarea form__texto" cols="30" rows="10" placeholder="Digite sua mensagem" data-tipo="mensagem" maxlength="255" required></textarea>
+          <label for="contato__mensagem" class="form__label">Mensagem</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <fieldset class="form__fieldset--btn">
+          <button type="submit" class="contato__form__btnEnviar btn btnPadrao">Enviar mensagem</button>
+        </fieldset>
+      </form>
+
+      <div class="contato__descricao">
+        <p class="contato__texto">Av. Lorem Ipsum, 1234 - Bairro X, Cidade Y, UF</p>
+        <a href="mailto:contato@projetosomar.com" class="link" title="Abrir com Email">contato@projetosomar.com</a>
+        <a href="tel:(51)3333-3333" class="link" title="Ligar para o número">(51) 3333-3333</a>
+      </div>
+    </section>
+    <!-- Fim contato -->
+  </main>
+  <!-- Fim conteúdo principal -->
+
+  <footer id="dynamic_footer" class="container footer"></footer>
+  <!-- Fim footer -->
+</body>
+
+<script src="../js/insertHeaderAndFooter.js"></script>
+
+</html>

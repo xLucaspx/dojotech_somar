@@ -1,0 +1,49 @@
+.sobre {
+  background-color: var(--fundo_cinza_claro);
+}
+
+.sobre__conteudo {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sobre__descricao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sobre__texto,
+.sobre__linebreak {
+  width: calc(50vw - 5%);
+  max-width: 600px;
+}
+
+.sobre__texto {
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+
+.sobre__texto--destaque {
+  font-weight: 700;
+}
+
+.sobre__linebreak {
+  height: 1px;
+  margin: 2rem 1rem 0 1rem;
+  background-color: var(--cinza_escuro);
+}
+
+.sobre__logo-somar {
+  width: 25rem;
+  height: auto;
+  max-height: 275px;
+}
+
+.sobre__img {
+  content: url("../../../img/home/sobre_img.jpg");
+  width: 45%;
+  max-width: 400px;
+  height: auto;
+  max-height: 550px;
+}

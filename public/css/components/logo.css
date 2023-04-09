@@ -1,0 +1,17 @@
+.logo__link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  transition: 0.5s ease-in-out;
+}
+
+.logo__link:hover,
+.logo__link:focus {
+  filter: brightness(75%);
+}
+
+.logo__texto {
+  font-family: var(--fonte_titulo);
+  font-size: 40px;
+  font-weight: 700;
+}
