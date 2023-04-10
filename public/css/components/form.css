@@ -9,7 +9,7 @@
 .form__fieldset--btn {
   display: flex;
   flex-direction: column;
-  gap: 3px
+  gap: 3px;
 }
 
 .form__fieldset--texto {
@@ -68,6 +68,14 @@
   left: 1rem;
 }
 
+.form__texto--valido {
+  border-color: var(--verde);
+}
+
+.form__texto--invalido {
+  border-color: var(--vermelho);
+}
+
 .form__input {
   max-height: 50px;
 }
@@ -82,5 +90,5 @@
   font-size: 15px;
   margin: 0 0.5rem 7px;
   text-align: left;
-  color: #ff0000;
+  color: var(--vermelho);
 }
