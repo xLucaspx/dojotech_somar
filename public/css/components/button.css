@@ -21,8 +21,8 @@
 
 .btnPadrao:hover,
 .btnPadrao:focus {
-  background-color: var(--azul-escuro);
-  border-color: var(--azul-escuro);
+  background-color: var(--azul_escuro);
+  border-color: var(--azul_escuro);
 }
 
 .btnSecundario {

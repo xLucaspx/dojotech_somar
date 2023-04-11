@@ -8,7 +8,7 @@
   <meta name="description"
     content="Website para registro e mapeamento dos projetos realizados dentro do programa Somar.">
 
-  <title>Programa Somar</title>
+  <title>Home | Programa Somar</title>
 
   <link rel="icon" href="../img/logos/logo_cores_ods.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../css/reset.css">
@@ -32,11 +32,13 @@
 </head>
 
 <body>
+  <a href="#main" class="pularNavegacao">Pular para o conteúdo principal</a> <!-- Link acessível com TAB -->
+
   <header id="dynamic_header" class="container header"></header>
   <!-- Fim cabeçalho -->
 
   <main>
-    <section class="apresentacao container">
+    <section id="main" class="apresentacao container">
       <h1 class="apresentacao__titulo titulo">Lorem Ipsum</h1>
       <p class="apresentacao__texto">Lorem ipsum dolor sit amet, consecteur adipiscing elit. Morbi blandit dolor ac lacus tincidunt.</p>
       <a href="" class="apresentacao__link btn btnSecundario">Conheça nossos projetos</a>
@@ -48,9 +50,9 @@
   
       <div class="sobre__conteudo">
         <div class="sobre__descricao">
-          <p class="sobre__texto">Lorem ipsum dolor sit amet, <strong class="sobre__texto--destaque">consectetur adipiscing elit!</strong></p>
+          <p class="sobre__texto">Lorem ipsum dolor sit amet, <strong class="texto--destaque">consectetur adipiscing elit!</strong></p>
           <p class="sobre__texto">Curabitur in lobortis massa, id feugiat enim. Praesent commodo placerat gravida. Aenean tristique pulvinar nibh vitae mollis. Sed sed libero sit amet odio maximus semper. Nam lacinia arcu lorem, a semper turpis viverra sit amet. Aliquam sed urna vel diam consectetur dignissim. Quisque sit amet pellentesque nibh.</p>
-          <p class="sobre__texto">Pellentesque libero purus, <strong class="sobre__texto--destaque">viverra luctus faucibus dapibus, iaculis ut odio</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p class="sobre__texto">Pellentesque libero purus, <strong class="texto--destaque">viverra luctus faucibus dapibus, iaculis ut odio</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   
           <div class="sobre__linebreak"></div>
           <img src="../img/logos/logo_programa_somar.png" alt class="sobre__logo-somar">
@@ -83,7 +85,7 @@
       <h2 class="contato__titulo titulo">Contato</h2>
       
       <form action="" class="contato__form form">
-        <p class="contato__form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma
+        <p class="contato__form__descricao form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma
           mensagem:</p>
       
         <fieldset class="form__fieldset--texto">
@@ -136,9 +138,12 @@
 
   <footer id="dynamic_footer" class="container footer"></footer>
   <!-- Fim footer -->
+
+  <a href="#dynamic_header" class="scrollTop hidden" title="Voltar ao topo"></a> <!-- Link voltar ao topo -->
 </body>
 
 <script src="../js/insertHeaderAndFooter.js"></script>
+<script src="../js/scrollTop.js"></script>
 <script src="../js/validaInputs.js"></script>
 
 </html>
