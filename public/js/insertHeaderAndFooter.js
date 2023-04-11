@@ -30,7 +30,7 @@
     <div class="header__div">
       ${nav}
 
-      <a href="" class="btnLogin btn btnSecundario">Login</a>
+      <a href="login.html" class="btnLogin btn btnSecundario">Login</a>
     </div>`;
 
   footer.innerHTML = `${logo}

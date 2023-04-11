@@ -8,7 +8,7 @@
   <meta name="description"
     content="Website para registro e mapeamento dos projetos realizados dentro do programa Somar.">
 
-  <title>Programa Somar</title>
+  <title>Home | Programa Somar</title>
 
   <link rel="icon" href="../img/logos/logo_cores_ods.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../css/reset.css">
@@ -19,6 +19,7 @@
   <!-- Components CSS -->
   <link rel="stylesheet" href="../css/components/logo.css">
   <link rel="stylesheet" href="../css/components/nav.css">
+  <link rel="stylesheet" href="../css/components/button.css">
   <link rel="stylesheet" href="../css/components/header.css">
   <link rel="stylesheet" href="../css/components/footer.css">
   <link rel="stylesheet" href="../css/components/form.css">
@@ -31,11 +32,13 @@
 </head>
 
 <body>
+  <a href="#main" class="pularNavegacao">Pular para o conteúdo principal</a> <!-- Link acessível com TAB -->
+
   <header id="dynamic_header" class="container header"></header>
   <!-- Fim cabeçalho -->
 
   <main>
-    <section class="apresentacao container">
+    <section id="main" class="apresentacao container">
       <h1 class="apresentacao__titulo titulo">Lorem Ipsum</h1>
       <p class="apresentacao__texto">Lorem ipsum dolor sit amet, consecteur adipiscing elit. Morbi blandit dolor ac lacus tincidunt.</p>
       <a href="" class="apresentacao__link btn btnSecundario">Conheça nossos projetos</a>
@@ -47,9 +50,9 @@
   
       <div class="sobre__conteudo">
         <div class="sobre__descricao">
-          <p class="sobre__texto">Lorem ipsum dolor sit amet, <strong class="sobre__texto--destaque">consectetur adipiscing elit!</strong></p>
+          <p class="sobre__texto">Lorem ipsum dolor sit amet, <strong class="texto--destaque">consectetur adipiscing elit!</strong></p>
           <p class="sobre__texto">Curabitur in lobortis massa, id feugiat enim. Praesent commodo placerat gravida. Aenean tristique pulvinar nibh vitae mollis. Sed sed libero sit amet odio maximus semper. Nam lacinia arcu lorem, a semper turpis viverra sit amet. Aliquam sed urna vel diam consectetur dignissim. Quisque sit amet pellentesque nibh.</p>
-          <p class="sobre__texto">Pellentesque libero purus, <strong class="sobre__texto--destaque">viverra luctus faucibus dapibus, iaculis ut odio</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p class="sobre__texto">Pellentesque libero purus, <strong class="texto--destaque">viverra luctus faucibus dapibus, iaculis ut odio</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   
           <div class="sobre__linebreak"></div>
           <img src="../img/logos/logo_programa_somar.png" alt class="sobre__logo-somar">
@@ -82,32 +85,42 @@
       <h2 class="contato__titulo titulo">Contato</h2>
       
       <form action="" class="contato__form form">
-        <p class="contato__form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma mensagem:</p>
-
+        <p class="contato__form__descricao form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma
+          mensagem:</p>
+      
         <fieldset class="form__fieldset--texto">
-            <input type="text" id="contato__nome" class="form__input form__texto" name="nome" placeholder="Digite seu nome" data-tipo="nome" maxlength="50" required>
-            <label for="contato__nome" class="form__label">Nome</label>
+          <input type="text" id="contato__nome" class="form__input form__texto" name="nome" placeholder="Digite seu nome"
+            data-tipo="nome" maxlength="50" required>
+
+          <label for="contato__nome" class="form__label">Nome</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-
+      
         <fieldset class="form__fieldset--texto">
-          <input type="email" id="contato__email" class="form__input form__texto" name="email" placeholder="Digite seu email" data-tipo="email" maxlength="50" required>
+          <input type="email" id="contato__email" class="form__input form__texto" name="email" placeholder="Digite seu email"
+            data-tipo="email" maxlength="50" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+
           <label for="contato__email" class="form__label">Email</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-
+      
         <fieldset class="form__fieldset--texto">
-          <input type="tel" id="contato__telefone" class="form__input form__texto" name="telefone" placeholder="Digite seu telefone com ddd" data-tipo="telefone" maxlength="25" required>
+          <input type="tel" id="contato__telefone" class="form__input form__texto" name="telefone"
+            placeholder="Digite seu telefone com ddd" data-tipo="telefone" maxlength="25" required
+            pattern="^[(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[)]? ?(?:[2-8]|9 ?[1-9])[0-9]{3}[-]? ?[0-9]{4}$">
+
           <label for="contato__telefone" class="form__label">Telefone</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-
+      
         <fieldset class="form__fieldset--texto">
-          <textarea name="mensagem" id="contato__mensagem" class="form__textarea form__texto" cols="30" rows="10" placeholder="Digite sua mensagem" data-tipo="mensagem" maxlength="255" required></textarea>
+          <textarea name="mensagem" id="contato__mensagem" class="form__textarea form__texto" cols="30" rows="10"
+            placeholder="Digite sua mensagem" data-tipo="mensagem" maxlength="255" required></textarea>
+
           <label for="contato__mensagem" class="form__label">Mensagem</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-
+      
         <fieldset class="form__fieldset--btn">
           <button type="submit" class="contato__form__btnEnviar btn btnPadrao">Enviar mensagem</button>
         </fieldset>
@@ -125,8 +138,12 @@
 
   <footer id="dynamic_footer" class="container footer"></footer>
   <!-- Fim footer -->
+
+  <a href="#dynamic_header" class="scrollTop hidden" title="Voltar ao topo"></a> <!-- Link voltar ao topo -->
 </body>
 
 <script src="../js/insertHeaderAndFooter.js"></script>
+<script src="../js/scrollTop.js"></script>
+<script src="../js/validaInputs.js"></script>
 
 </html>
