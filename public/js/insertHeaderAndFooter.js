@@ -17,7 +17,7 @@
             <a href="index.html#contato" class="nav__link">Contato</a>
           </li>
           <li class="nav__list__item">
-            <a href="" class="nav__link">Projetos</a>
+            <a href="projetos.html" class="nav__link">Projetos</a>
           </li>
         </ul>
       </nav>`;

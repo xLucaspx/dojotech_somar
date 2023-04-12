@@ -45,8 +45,8 @@ function mostraErro(input, tipoInput) {
 
 const tiposErro = [
   "valueMissing",
-  "tooShort",
   "customError",
+  "tooShort",
   "patternMismatch",
 ];
 
@@ -67,8 +67,7 @@ const mensagemErro = {
   senha: {
     valueMissing: 'O campo "Senha" deve ser preenchido.',
     tooShort: "A senha deve ter entre 8 e 50 caracteres.",
-    patternMismatch:
-      "Erro: insira letras maiúsculas e minúsculas, números e caracteres especiais.",
+    patternMismatch: "Mín: 8 caracteres, letras maiúsculas, minúsculas, 1 número e 1 caractere especial.",
   },
   telefone: {
     valueMissing: 'O campo "Telefone" deve ser preenchido.',
@@ -77,8 +76,8 @@ const mensagemErro = {
   },
   cep: {
     valueMissing: 'O campo "CEP" deve ser preenchido.',
-    tooShort: "O CEP deve ter 8 ou 9 dígitos.",
     customError: "Não foi possível buscar o CEP",
+    tooShort: "O CEP deve ter 8 ou 9 dígitos.",
     patternMismatch: "CEP inválido.",
   },
   mensagem: {

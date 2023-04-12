@@ -80,7 +80,12 @@ body {
 }
 
 .img {
-  box-shadow: 5px 7px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 7px 7px rgba(0, 0, 0, 0.25);
+  transition: 0.3s ease-out;
+}
+
+.img:hover {
+  box-shadow: 7px 9px 5px rgba(0, 0, 0, 0.45);
 }
 
 .link {

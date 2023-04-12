@@ -8,6 +8,6 @@
   scrollBtn.onclick = () => {
     setTimeout(() => {
       scrollBtn.classList.add("hidden");
-    }, 1000)
+    }, 1000);
   };
 })();
