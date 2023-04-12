@@ -15,3 +15,14 @@
   font-size: 40px;
   font-weight: 700;
 }
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .logo__link {
+    width: 100%;
+  }
+
+  .logo__texto {
+    font-size: 35px;
+  }
+}

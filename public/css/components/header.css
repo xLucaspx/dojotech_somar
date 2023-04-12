@@ -16,3 +16,26 @@
   height: 32px;
   padding: 5px;
 }
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .header,
+  .header__div {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btnLogin {
+    margin: 0 auto;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .header {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

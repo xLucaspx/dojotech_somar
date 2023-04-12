@@ -36,3 +36,11 @@
   background-color: var(--cinza_escuro);
   color: #fff;
 }
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .btn {
+    width: 100%;
+    max-width: 350px;
+  }
+}

@@ -100,3 +100,10 @@
   text-align: left;
   color: var(--vermelho);
 }
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .form__descricao {
+    font-size: 17px;
+  }
+}

@@ -43,3 +43,50 @@
   height: auto;
   max-height: 550px;
 }
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .sobre__conteudo {
+    flex-direction: column;
+  }
+
+  .sobre__descricao {
+    align-items: initial;
+  }
+
+  .sobre__texto,
+  .sobre__linebreak {
+    width: auto;
+  }
+
+  .sobre__img {
+    display: none;
+  }
+
+  .sobre__logo-somar {
+    width: 20rem;
+    margin: 0 auto;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .sobre__descricao {
+    align-items: initial;
+  }
+
+  .sobre__texto,
+  .sobre__linebreak {
+    width: auto;
+  }
+
+  .sobre__img {
+    display: none;
+  }
+
+  .sobre__logo-somar {
+    margin: 0 auto;
+  }
+}

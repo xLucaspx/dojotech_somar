@@ -1,5 +1,6 @@
 .apresentacao {
-  background: url("../../../img/home/apresentacao_bg.jpg") no-repeat center / cover;
+  background: url("../../../img/home/apresentacao_bg.jpg") no-repeat center /
+    cover;
   height: calc(100vh - 15rem);
   color: #fff;
   text-align: center;
@@ -31,4 +32,38 @@
 .apresentacao__link:focus {
   background-color: #fff;
   color: var(--cor_fonte);
+}
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .apresentacao {
+    padding-top: 15rem;
+  }
+
+  .apresentacao__titulo {
+    font-size: 45px;
+  }
+
+  .apresentacao__texto {
+    width: auto;
+    font-size: 20px;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .apresentacao {
+    padding-top: 13.75rem;
+  }
+
+  .apresentacao__titulo {
+    font-size: 50;
+  }
+
+  .apresentacao__texto {
+    width: 620px;
+    font-size: 22px;
+  }
 }

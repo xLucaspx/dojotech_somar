@@ -1,5 +1,6 @@
 .ods__img {
   content: url("../../../img/home/grid_ods_invertido.png");
+  max-width: calc(100vw - 10%);
   max-height: 650px;
   margin: 1rem auto;
 }
@@ -24,4 +25,51 @@
 
 .ods__texto {
   margin: 1rem;
+}
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .ods__img {
+    content: url("../../../img/home/grid_ods_invertido_mobile.png");
+    margin: 0 auto;
+  }
+
+  .ods__conteudo {
+    flex-direction: column;
+    padding: 0 5% 3.5rem;
+  }
+
+  .ods__descricao {
+    align-items: initial;
+    padding: initial;
+  }
+
+  .ods__texto {
+    width: auto;
+  }
+
+  .ods__conteudo__img {
+    order: 1;
+    max-width: calc(100vw - 10%);
+    margin: 0 auto;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .ods__img {
+    content: url("../../../img/home/grid_ods_invertido_mobile.png");
+    margin: 0 auto;
+  }
+
+  .ods__conteudo {
+    flex-direction: column;
+    padding: 0 5% 3.5rem;
+  }
+
+  .ods__conteudo__img {
+    order: 1;
+  }
 }

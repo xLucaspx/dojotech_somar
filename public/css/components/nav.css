@@ -15,3 +15,10 @@
   filter: brightness(90%);
   border-color: var(--azul);
 }
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .nav__list {
+    gap: 0.75rem;
+  }
+}

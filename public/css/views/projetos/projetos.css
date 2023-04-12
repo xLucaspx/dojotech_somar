@@ -6,7 +6,8 @@
 .projetos__descricao {
   line-height: 1.8;
   font-size: 20px;
-  margin-bottom: 2rem;
+  max-width: 46rem;
+  margin: 0 auto 2rem;
 }
 
 .projetos__lista_ods {
@@ -38,4 +39,38 @@
   content: url("../../../img/logos/logo_ods_com_tagline.png");
   width: 60vw;
   margin: 2.75rem auto;
+}
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .projetos__descricao {
+    font-size: 17px;
+  }
+
+  .projetos__lista_ods {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem 0.5rem;
+  }
+
+  .lista_ods__img {
+    width: calc(75vw / 3);
+  }
+
+  .projetos__logo_ods {
+    width: 85vw;
+    margin: 1.75rem auto;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .projetos__descricao {
+    font-size: 18px;
+  }
 }
