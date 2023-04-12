@@ -32,6 +32,10 @@
   gap: 1.75rem;
 }
 
+.form__fieldset--readonly {
+  background-color: var(--cinza_claro);
+}
+
 .form__texto {
   font-family: inherit;
   color: inherit;
@@ -78,6 +82,10 @@
 
 .form__input {
   max-height: 50px;
+}
+
+.form__input--readonly {
+  background-color: inherit;
 }
 
 .form__textarea {
