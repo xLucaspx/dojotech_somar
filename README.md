@@ -55,11 +55,13 @@ Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade v
 - [x] Decidir linguagens, frameworks e ferramentas que serão utilizados;
 - [x] Elaboração de protótipo do site;
 - [x] Criação do banco de dados;
-- [ ] Desenvolver página inicial;
-- [ ] Desenvolver página de login;
+- [x] Desenvolver página inicial;
+- [x] Desenvolver página de login;
+- [x] Desenvolver página de cadstro de usuário;
 - [ ] Desenvolver página de cadastro de projeto;
 - [ ] Desenvolver página “Conheça nossos projetos”;
 - [ ] Desenvolver página de projeto;
+- [ ] Realizar integração com banco de dados;
 - [ ] Desenvolver funcionalidades.
 
 ## Diagramas
