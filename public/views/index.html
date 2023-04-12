@@ -85,12 +85,11 @@
       <h2 class="contato__titulo titulo">Contato</h2>
       
       <form action="" class="contato__form form">
-        <p class="contato__form__descricao form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma
-          mensagem:</p>
+        <p class="contato__form__descricao form__descricao">Tem alguma dúvida? Fale conosco!<br>Preencha o formulário abaixo para enviar uma mensagem:</p>
       
         <fieldset class="form__fieldset--texto">
           <input type="text" id="contato__nome" class="form__input form__texto" name="nome" placeholder="Digite seu nome"
-            data-tipo="nome" maxlength="50" required>
+            data-tipo="nome" minlength="3" maxlength="75" required>
 
           <label for="contato__nome" class="form__label">Nome</label>
           <span class="form__fieldset__msg"></span>
@@ -106,7 +105,7 @@
       
         <fieldset class="form__fieldset--texto">
           <input type="tel" id="contato__telefone" class="form__input form__texto" name="telefone"
-            placeholder="Digite seu telefone com ddd" data-tipo="telefone" maxlength="25" required
+            placeholder="Digite seu telefone com ddd" data-tipo="telefone" minlength="10" maxlength="25" required
             pattern="^[(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[)]? ?(?:[2-8]|9 ?[1-9])[0-9]{3}[-]? ?[0-9]{4}$">
 
           <label for="contato__telefone" class="form__label">Telefone</label>
@@ -115,7 +114,7 @@
       
         <fieldset class="form__fieldset--texto">
           <textarea name="mensagem" id="contato__mensagem" class="form__textarea form__texto" cols="30" rows="10"
-            placeholder="Digite sua mensagem" data-tipo="mensagem" maxlength="255" required></textarea>
+            placeholder="Digite sua mensagem" data-tipo="mensagem" minlength="10" maxlength="255" required></textarea>
 
           <label for="contato__mensagem" class="form__label">Mensagem</label>
           <span class="form__fieldset__msg"></span>

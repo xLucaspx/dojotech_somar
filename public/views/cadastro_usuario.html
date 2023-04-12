@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Página de cadastro de usuário na plataforma do Programa Somar.">
+
+  <title>Cadastre-se | Programa Somar</title>
+
+  <link rel="icon" href="../img/logos/logo_cores_ods.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700&family=Ubuntu:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <!-- Components CSS -->
+  <link rel="stylesheet" href="../css/components/logo.css">
+  <link rel="stylesheet" href="../css/components/nav.css">
+  <link rel="stylesheet" href="../css/components/button.css">
+  <link rel="stylesheet" href="../css/components/header.css">
+  <link rel="stylesheet" href="../css/components/footer.css">
+  <link rel="stylesheet" href="../css/components/form.css">
+  <!-- Sections CSS -->
+  <link rel="stylesheet" href="../css/views/cadastro_usuario/cadastro_usuario.css">
+</head>
+
+<body>
+  <a href="#main" class="pularNavegacao">Pular para o conteúdo principal</a> <!-- Link acessível com TAB -->
+  
+  <header id="dynamic_header" class="container header"></header>
+  <!-- Fim cabeçalho -->
+
+  <main>
+    <section id="main" class="cadastro_usuario container">
+      <h1 class="titulo">Cadastro de usuário</h1>
+
+      <form action="" class="cadastro_usuario__form form">
+        <!-- Nome -->
+        <fieldset class="form__fieldset--texto">
+          <input type="text" id="cadastro_usuario__nome" class="form__input form__texto" name="nome" placeholder="Digite seu nome completo" data-tipo="nome" minlength="3" maxlength="75"  required>
+
+          <label for="cadastro_usuario__nome" class="form__label">Nome completo</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Email -->
+        <fieldset class="form__fieldset--texto">
+           <input type="email" id="cadastro_usuario__email" class="form__input form__texto" name="email" placeholder="Digite seu email" data-tipo="email" maxlength="50" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+
+           <label for="cadastro_usuario__email" class="form__label">Email</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+        
+        <!-- Nome de usuário -->
+        <fieldset class="form__fieldset--texto">
+          <input type="text" id="cadastro_usuario__usuario" class="form__input form__texto" name="usuario" placeholder="Digite um nome de usuário" data-tipo="usuario" minlength="3" maxlength="20" required pattern="^[\w-]*$">
+          
+          <label for="cadastro_usuario__usuario" class="form__label">Nome de usuário</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Telefone -->
+        <fieldset class="form__fieldset--texto">
+          <input type="tel" id="cadastro_usuario__telefone" class="form__input form__texto" name="telefone" placeholder="Digite seu telefone" data-tipo="telefone" minlength="10" maxlength="25" required pattern="^[(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[)]? ?(?:[2-8]|9 ?[1-9])[0-9]{3}[-]? ?[0-9]{4}$">
+
+          <label for="cadastro_usuario__telefone" class="form__label">Telefone</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Senha -->
+        <fieldset class="form__fieldset--texto">
+           <input type="password" id="cadastro_usuario__senha" class="form__input form__texto" name="senha" placeholder="Digite uma senha" data-tipo="senha" minlength="8" maxlength="50" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*()_+\-={[}\]:;>.<,?/|\\])[A-Za-z\d!@#$%&*()_+\-={[}\]:;>.<,?/|\\]{8,}$">
+
+           <label for="cadastro_usuario__senha" class="form__label">Senha</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Cep -->
+        <fieldset class="form__fieldset--texto">
+           <input type="text" id="cadastro_usuario__cep" class="form__input form__texto" name="cep" placeholder="Digite seu cep" data-tipo="cep" maxlength="9" required pattern="^[\d]{5}-?[\d]{3}$">
+
+           <label for="" class="form__label">CEP</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Logradouro -->
+        <fieldset class="form__fieldset--texto form__fieldset--readonly">
+           <input type="text" id="cadastro_usuario__logradouro" class="form__input form__input--readonly form__texto" name="logradouro" placeholder="Endereço" data-tipo="logradouro" maxlength="100" required readonly>
+
+           <label for="cadastro_usuario__logradouro" class="form__label">Endereço</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Bairro -->
+        <fieldset class="form__fieldset--texto form__fieldset--readonly">
+          <input type="text" id="cadastro_usuario__bairro" class="form__input form__input--readonly form__texto" name="bairro" placeholder="Bairro" data-tipo="bairro" maxlength="50" required readonly>
+
+          <label for="cadastro_usuario__bairro" class="form__label">Bairro</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Número -->
+        <fieldset class="form__fieldset--texto">
+          <input type="text" id="cadastro_usuario__numero" class="form__input form__texto" name="numero" placeholder="Digite o número do endereço" data-tipo="numero">
+          
+          <label for="cadastro_usuario__numero" class="form__label">Número</label>
+          <span class="form__fieldset__msg"></span>
+       </fieldset>
+
+        <!-- Complemento -->
+        <fieldset class="form__fieldset--texto">
+           <input type="text" id="cadastro_usuario__complemento" class="form__input form__texto" name="complemento" placeholder="Digite o complemento do endereço" data-tipo="complemento" maxlength="50">
+
+           <label for="cadastro_usuario__complemento" class="form__label">Complemento</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- Cidade -->
+        <fieldset class="form__fieldset--texto form__fieldset--readonly">
+           <input type="text" id="cadastro_usuario__cidade" class="form__input form__input--readonly form__texto" name="cidade" placeholder="Cidade" data-tipo="cidade" maxlength="50" required readonly>
+
+           <label for="cadastro_usuario__cidade" class="form__label">Cidade</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <!-- UF -->
+        <fieldset class="form__fieldset--texto form__fieldset--readonly">
+           <input type="text" id="cadastro_usuario__uf" class="form__input form__input--readonly form__texto" name="uf" placeholder="UF" data-tipo="uf" maxlength="2" required readonly>
+
+           <label for="cadastro_usuario__uf" class="form__label">UF</label>
+           <span class="form__fieldset__msg"></span>
+        </fieldset>
+
+        <fieldset class="form__fieldset--btn">
+          <button type="submit" class="btn btnPadrao">Fazer cadastro</button>
+        </fieldset>
+      </form>
+    </section>
+</main>
+<!-- Fim conteúdo principal -->
+
+<footer id="dynamic_footer" class="container footer"></footer>
+<!-- Fim footer -->
+</body>
+
+<script src="../js/insertHeaderAndFooter.js"></script>
+<script src="../js/validaInputs.js" type="module"></script>
+
+</html>

@@ -1,0 +1,9 @@
+.cadastro_usuario {
+  background-color: var(--fundo_branco);
+}
+
+.cadastro_usuario__form {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
