@@ -57,9 +57,9 @@ Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade v
 - [x] Criação do banco de dados;
 - [x] Desenvolver página inicial;
 - [x] Desenvolver página de login;
-- [x] Desenvolver página de cadstro de usuário;
+- [x] Desenvolver página de cadastro de usuário;
+- [x] Desenvolver página “Conheça nossos projetos”;
 - [ ] Desenvolver página de cadastro de projeto;
-- [ ] Desenvolver página “Conheça nossos projetos”;
 - [ ] Desenvolver página de projeto;
 - [ ] Realizar integração com banco de dados;
 - [ ] Desenvolver funcionalidades.
@@ -115,7 +115,7 @@ Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade v
 
 ### Back-end
 
-- Java;
+- Node.js;
 - MySQL;
 - brModelo;
 - Astah UML.
