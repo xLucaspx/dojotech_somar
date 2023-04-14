@@ -30,6 +30,7 @@
 .form__fieldset--btn {
   align-items: center;
   gap: 1.75rem;
+  width: 100%;
 }
 
 .form__fieldset--readonly {

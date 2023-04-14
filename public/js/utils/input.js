@@ -72,7 +72,7 @@ const mensagemErro = {
   telefone: {
     valueMissing: 'O campo "Telefone" deve ser preenchido.',
     tooShort: "O telefone deve ter entre 10 e 25 caracteres.",
-    patternMismatch: "Insira ddd e telefone válidos.",
+    patternMismatch: "Insira DDD e número de telefone válidos.",
   },
   cep: {
     valueMissing: 'O campo "CEP" deve ser preenchido.',
