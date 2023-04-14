@@ -1,5 +1,5 @@
 import { UsuarioServices } from "../services/UsuarioServices.js";
-import { limpaInputs, validaInput } from "../utils/input.js";
+import { limpaInputs } from "../utils/input.js";
 
 const usuarioServices = new UsuarioServices();
 
@@ -16,26 +16,11 @@ const inputComplemento = document.getElementById( "cadastro_usuario__complemento
 const inputCidade = document.getElementById("cadastro_usuario__cidade");
 const inputUf = document.getElementById("cadastro_usuario__uf");
 
-const inputs = [
-  inputNome,
-  inputEmail,
-  inputUsuario,
-  inputTelefone,
-  inputSenha,
-  inputCep,
-  inputLogradouro,
-  inputBairro,
-  inputNumero,
-  inputComplemento,
-  inputCidade,
-  inputUf,
-];
-
 const btnCadastro = document.getElementById("cadastro_usuario__btnCadastro");
 
 btnCadastro.onclick = async (event) => {
   event.preventDefault();
-  
+
   const usuario = {
     nome: inputNome.value,
     email: inputEmail.value,
@@ -55,9 +40,22 @@ btnCadastro.onclick = async (event) => {
     await usuarioServices.cadastra(usuario);
 
     alert("Usuário cadastrado com sucesso!");
-    limpaInputs(inputs);
+    limpaInputs([
+      inputNome,
+      inputEmail,
+      inputUsuario,
+      inputTelefone,
+      inputSenha,
+      inputCep,
+      inputLogradouro,
+      inputBairro,
+      inputNumero,
+      inputComplemento,
+      inputCidade,
+      inputUf,
+    ]);
     window.location.href = "login.html";
   } catch (error) {
-    alert("Erro ao cadastrar usuário: " + error.message);
+    alert("Erro ao cadastrar usuário\n" + error.message);
   }
 };

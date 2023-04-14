@@ -1,6 +1,6 @@
 import { buscaCep, preencheCamposCep } from "./cep.js";
 
-export async function validaInput(input) {
+async function validaInput(input) {
   const tipoInput = input.dataset.tipo;
   const mensagemErro = input.parentElement.querySelector(
     ".form__fieldset__msg"
@@ -18,6 +18,7 @@ export async function validaInput(input) {
     input.classList.remove("form__texto--valido");
     input.classList.add("form__texto--invalido");
     mensagemErro.innerHTML = mostraErro(input, tipoInput);
+    return false;
   }
 }
 
@@ -41,6 +42,10 @@ function mostraErro(input, tipoInput) {
     }
   });
   return mensagem;
+}
+
+function limpaInputs(inputs) {
+  inputs.forEach((input) => (input.value = ""));
 }
 
 const tiposErro = [
@@ -67,7 +72,8 @@ const mensagemErro = {
   senha: {
     valueMissing: 'O campo "Senha" deve ser preenchido.',
     tooShort: "A senha deve ter entre 8 e 50 caracteres.",
-    patternMismatch: "Mín: 8 caracteres, letras maiúsculas, minúsculas, 1 número e 1 caractere especial.",
+    patternMismatch:
+      "Mín: 8 caracteres, letras maiúsculas, minúsculas, 1 número e 1 caractere especial.",
   },
   telefone: {
     valueMissing: 'O campo "Telefone" deve ser preenchido.',
@@ -85,3 +91,5 @@ const mensagemErro = {
     tooShort: "A mensagem deve ter entre 10 e 255 caracteres.",
   },
 };
+
+export { validaInput, limpaInputs };

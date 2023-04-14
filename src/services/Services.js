@@ -1,4 +1,5 @@
 const db = require("../models");
+const NotFoundError = require("../errors/NotFoundError");
 
 class Services {
   constructor(nomeDoModelo) {
@@ -6,15 +7,33 @@ class Services {
   }
 
   async buscaRegistros(where = {}) {
-    return db[this.nomeDoModelo].findAll({ where: { ...where } });
+    try {
+      return await db[this.nomeDoModelo].findAll({ where: { ...where } });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async buscaUmRegistro(where = {}) {
-    return db[this.nomeDoModelo].findOne({ where: { ...where } });
+    try {
+      const registro = await db[this.nomeDoModelo].findOne({
+        where: { ...where },
+      });
+      if (registro) {
+        return registro;
+      }
+      throw new NotFoundError("Usuário não encontrado");
+    } catch (error) {
+      throw error;
+    }
   }
 
   async criaRegistro(dados) {
-    return db[this.nomeDoModelo].create(dados);
+    try {
+      return await db[this.nomeDoModelo].create(dados);
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

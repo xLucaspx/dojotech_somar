@@ -9,7 +9,6 @@ export class Services {
     try {
       return await axios.post(this.url, dados);
     } catch (error) {
-      console.log({ error });
       throw new Error(error.response.data.message);
     }
   }

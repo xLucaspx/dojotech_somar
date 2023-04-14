@@ -1,4 +1,6 @@
+const { ValidationError } = require("sequelize");
 const { UsuarioServices } = require("../services");
+const NotFoundError = require("../errors/NotFoundError");
 
 const usuarioServices = new UsuarioServices();
 
@@ -8,7 +10,7 @@ class UsuarioController {
       const usuarios = await usuarioServices.buscaRegistros();
       return res.status(200).json(usuarios);
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json({ message: error.message });
     }
   }
 
@@ -19,7 +21,9 @@ class UsuarioController {
       const registro = await usuarioServices.buscaUmRegistro({ usuario });
       return res.status(200).json(registro);
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res
+        .status(error instanceof NotFoundError ? 404 : 500)
+        .json({ message: error.message });
     }
   }
 
@@ -30,7 +34,9 @@ class UsuarioController {
       const registro = await usuarioServices.buscaUmRegistro({ email });
       return res.status(200).json(registro);
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res
+        .status(error instanceof NotFoundError ? 404 : 500)
+        .json({ message: error.message });
     }
   }
 
@@ -41,7 +47,21 @@ class UsuarioController {
       const cadastro = await usuarioServices.criaRegistro(usuario);
       return res.status(201).json(cadastro);
     } catch (error) {
-      return res.status(500).json(error.message);
+      if (error instanceof ValidationError) {
+        const { fields } = error;
+        if (fields && fields.usuario) {
+          return res.status(409).json({
+            message: `O nome de usuário ${fields.usuario} não está disponível!`,
+          });
+        } else if (fields && fields.email) {
+          return res
+            .status(409)
+            .json({ message: `O email ${fields.email} já foi cadastrado!` });
+        } else {
+          return res.status(400).json({ message: error.message });
+        }
+      }
+      return res.status(500).json({ message: error.message });
     }
   }
 }
