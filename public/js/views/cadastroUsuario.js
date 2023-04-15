@@ -16,9 +16,9 @@ const inputComplemento = document.getElementById( "cadastro_usuario__complemento
 const inputCidade = document.getElementById("cadastro_usuario__cidade");
 const inputUf = document.getElementById("cadastro_usuario__uf");
 
-const btnCadastro = document.getElementById("cadastro_usuario__btnCadastro");
+const form = document.querySelector(".cadastro_usuario__form");
 
-btnCadastro.onclick = async (event) => {
+form.onsubmit = async (event) => {
   event.preventDefault();
 
   const usuario = {

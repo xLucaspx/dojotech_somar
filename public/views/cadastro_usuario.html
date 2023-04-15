@@ -102,7 +102,7 @@
         <!-- Logradouro -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__logradouro" class="form__input form__texto" name="logradouro"
-            placeholder="Endereço" data-tipo="logradouro" maxlength="100" required>
+            placeholder="Endereço" data-tipo="logradouro" minlength="5" maxlength="100" required>
       
           <label for="cadastro_usuario__logradouro" class="form__label">Endereço</label>
           <span class="form__fieldset__msg"></span>
@@ -111,7 +111,7 @@
         <!-- Bairro -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__bairro" class="form__input form__texto" name="bairro" placeholder="Bairro"
-            data-tipo="bairro" maxlength="50" required>
+            data-tipo="bairro" minlength="3" maxlength="50" required>
       
           <label for="cadastro_usuario__bairro" class="form__label">Bairro</label>
           <span class="form__fieldset__msg"></span>
@@ -120,7 +120,7 @@
         <!-- Número -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__numero" class="form__input form__texto" name="numero"
-            placeholder="Digite o número do endereço" data-tipo="numero" maxlength="=10">
+            placeholder="Digite o número do endereço" data-tipo="numero" maxlength="10">
       
           <label for="cadastro_usuario__numero" class="form__label">Número</label>
           <span class="form__fieldset__msg"></span>
@@ -138,7 +138,7 @@
         <!-- Cidade -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__cidade" class="form__input form__texto" name="cidade" placeholder="Cidade"
-            data-tipo="cidade" maxlength="50" required>
+            data-tipo="cidade" minlength="3" maxlength="50" required>
       
           <label for="cadastro_usuario__cidade" class="form__label">Cidade</label>
           <span class="form__fieldset__msg"></span>
@@ -147,7 +147,7 @@
         <!-- UF -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__uf" class="form__input form__texto" name="uf" placeholder="UF"
-            data-tipo="uf" maxlength="2" required>
+            data-tipo="uf" minlength="2" maxlength="2" required>
       
           <label for="cadastro_usuario__uf" class="form__label">UF</label>
           <span class="form__fieldset__msg"></span>

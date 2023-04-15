@@ -27,7 +27,7 @@
 
 .btnSecundario {
   color: var(--cor_fonte);
-  background-color: transparent;
+  background: rgba(0, 0, 0, 0.35);
   border: 1px solid var(--cinza_escuro);
 }
 

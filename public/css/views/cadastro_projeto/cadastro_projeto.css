@@ -1,9 +1,13 @@
-.cadastro_usuario {
+.cadastro_projeto {
   background-color: var(--fundo_platina);
 }
 
-.cadastro_usuario__form {
+.cadastro_projeto__form {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.form__fieldset--texto:nth-last-of-type(2){
+  max-width: 850px;
 }
