@@ -10,7 +10,7 @@
   gap: 2.5rem;
 }
 
-.btnLogin {
+.btnLog {
   font-size: 15px;
   width: 90px;
   height: 32px;
@@ -25,7 +25,7 @@
     gap: 1rem;
   }
 
-  .btnLogin {
+  .btnLog {
     margin: 0 auto;
   }
 }
