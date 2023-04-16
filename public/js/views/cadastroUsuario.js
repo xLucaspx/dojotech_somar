@@ -1,7 +1,21 @@
 import { UsuarioServices } from "../services/UsuarioServices.js";
+import { buscaCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
 
+const tokenJwt = buscaCookie("tokenJwt");
 const usuarioServices = new UsuarioServices();
+
+if (tokenJwt) {
+  try {
+    await usuarioServices.autenticaUsuario({ tokenJwt });
+    alert("Você já possui um cadastro!");
+    window.location.href = "index.html";
+  } catch (error) {
+    alert(`Erro ao autenticar usuário:\n${error.message}`);
+    removeCookie("tokenJwt");
+    window.location.href = "login.html";
+  }
+}
 
 const inputNome = document.getElementById("cadastro_usuario__nome");
 const inputEmail = document.getElementById("cadastro_usuario__email");

@@ -1,33 +1,42 @@
 import { UsuarioServices } from "../services/UsuarioServices.js";
+import { buscaCookie, defineCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
 
+const tokenJwt = buscaCookie("tokenJwt");
 const usuarioServices = new UsuarioServices();
+
+if (tokenJwt) {
+  try {
+    await usuarioServices.autenticaUsuario({ tokenJwt });
+    alert("Você já está logado!");
+    window.location.href = "index.html";
+  } catch (error) {
+    alert(`Erro ao autenticar usuário:\n${error.message}`);
+    removeCookie("tokenJwt");
+    location.reload();
+  }
+}
 
 const inputUsuario = document.getElementById("login__usuario");
 const inputSenha = document.getElementById("login__senha");
 
-const btnLogin = document.getElementById("login__btnLogin");
+const form = document.querySelector(".login__form");
 
-btnLogin.onclick = async (event) => {
+form.onsubmit = async (event) => {
   event.preventDefault();
 
-  const usuario = inputUsuario.value;
+  const usuarioDigitado = inputUsuario.value;
   const senhaDigitada = inputSenha.value;
 
   try {
-    // descobrir se usuário digitou email ou username
-    let res = usuario.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g)
-      ? await usuarioServices.buscaPorEmail(usuario)
-      : await usuarioServices.buscaPorUsuario(usuario);
-
-    // necessário guardar token de sessão e desenvolver logout
-    if (res.senha === senhaDigitada) {
-      window.location.href = "index.html";
-    } else {
-      alert("Erro ao fazer login\nusuário ou senha incorretos!");
-    }
+    const tokenJwt = await usuarioServices.logaUsuario({
+      usuarioDigitado,
+      senhaDigitada,
+    });
+    defineCookie("tokenJwt", tokenJwt);
+    window.location.href = "index.html";
   } catch (error) {
-    alert("Erro ao fazer login\n" + error.message);
+    alert(`Erro ao fazer login:\n${error.message}`);
   } finally {
     limpaInputs([inputSenha]);
   }

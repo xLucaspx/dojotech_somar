@@ -1,6 +1,9 @@
 const { ValidationError } = require("sequelize");
 const { UsuarioServices } = require("../services");
-const NotFoundError = require("../errors/NotFoundError");
+const { NotFoundError, UnauthorizedError } = require("../errors");
+const geraJwt = require("../utils/token/geraJwt");
+const verificaJwt = require("../utils/token/verificaJwt");
+const { JsonWebTokenError } = require("jsonwebtoken");
 
 const usuarioServices = new UsuarioServices();
 
@@ -58,15 +61,51 @@ class UsuarioController {
             .status(409)
             .json({ message: `O email ${fields.email} já foi cadastrado!` });
         } else {
-          return res
-            .status(400)
-            .json({
-              message:
-                "Por favor, verifique se os campos estão preenchidos corretamente!",
-            });
+          return res.status(400).json({
+            message:
+              "Por favor, verifique se os campos estão preenchidos corretamente!",
+          });
         }
       }
       return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async logaUsuario(req, res) {
+    const { usuarioDigitado, senhaDigitada } = req.body;
+
+    try {
+      const { id, usuario, senha } = usuarioDigitado.match(
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
+      )
+        ? await usuarioServices.buscaUmRegistro({ email: usuarioDigitado })
+        : await usuarioServices.buscaUmRegistro({ usuario: usuarioDigitado });
+
+      if (senhaDigitada === senha) {
+        const tokenJwt = geraJwt({ id, usuario });
+        return res.status(200).json(tokenJwt);
+      }
+      throw new UnauthorizedError("Senha incorreta!");
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        return res.status(404).json({ message: error.message });
+      } else if (error instanceof UnauthorizedError) {
+        return res.status(401).json({ message: error.message });
+      }
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async autenticaUsuario(req, res) {
+    const { tokenJwt } = req.body;
+
+    try {
+      const token = verificaJwt(tokenJwt);
+      return res.status(200).json(token);
+    } catch (error) {
+      return res
+        .status(error instanceof JsonWebTokenError ? 401 : 500)
+        .json({ message: `${error.message}` });
     }
   }
 }
