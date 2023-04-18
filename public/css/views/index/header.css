@@ -5,13 +5,14 @@
   box-sizing: border-box;
 }
 
-.btnLogin {
+.btnLog {
   color: #fff;
   border-color: #fff;
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
-.btnLogin:hover,
-.btnLogin:focus {
+.btnLog:hover,
+.btnLog:focus {
   background-color: #fff;
   color: var(--cor_fonte);
 }

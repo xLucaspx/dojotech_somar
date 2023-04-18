@@ -16,20 +16,44 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Projeto.belongsToMany(models.Ods, {
-        through: 'Projeto_ods',
+        through: models.Projeto_ods,
         foreignKey: { name: "id_projeto", allowNull: false },
       });
     }
   }
   Projeto.init(
     {
-      nome: { type: DataTypes.STRING, allowNull: false },
-      causa: { type: DataTypes.STRING, allowNull: false },
-      objetivo: { type: DataTypes.STRING, allowNull: false },
-      cidade: { type: DataTypes.STRING, allowNull: false },
-      parceiros: { type: DataTypes.STRING, allowNull: false },
-      publico_alvo: { type: DataTypes.STRING, allowNull: false },
-      resumo: { type: DataTypes.TEXT, allowNull: false },
+      nome: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { notEmpty: true, len: [3, 75] },
+      },
+      causa: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { notEmpty: true, len: [3, 75] },
+      },
+      objetivo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { notEmpty: true, len: [10, 125] },
+      },
+      cidade: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { notEmpty: true, len: [3, 50] },
+      },
+      parceiros: { type: DataTypes.STRING },
+      publico_alvo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: { notEmpty: true, len: [3, 75] },
+      },
+      resumo: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: { notEmpty: true, len: [10, 475] },
+      },
     },
     {
       sequelize,

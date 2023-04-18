@@ -5,11 +5,11 @@ export class UsuarioServices extends Services {
     super("usuarios/");
   }
 
-  async buscaPorUsuario(usuario) {
-    const url = this.url + `usuario/${usuario}`;
+  async logaUsuario(dados) {
+    const url = this.url + "login/";
     try {
-      const user = await axios.get(url);
-      return user.data;
+      const res = await axios.post(url, dados);
+      return res.data;
     } catch (error) {
       if (error.response.data.message) {
         throw new Error(error.response.data.message);
@@ -19,11 +19,11 @@ export class UsuarioServices extends Services {
     }
   }
 
-  async buscaPorEmail(email) {
-    const url = this.url + `email/${email}`;
+  async autenticaUsuario(tokenJwt) {
+    const url = this.url + "autenticar/";
     try {
-      const user = await axios.get(url);
-      return user.data;
+      const res = await axios.post(url, tokenJwt);
+      return res.data;
     } catch (error) {
       if (error.response.data.message) {
         throw new Error(error.response.data.message);

@@ -12,10 +12,19 @@
 
 - [Produto](#produto)
 - [Objetivo (meta)](#objetivo-meta)
+- [Rodando o projeto](#rodando-o-projeto)
+  - [Instalações necessárias](#o-que-é-preciso-instalar)
+  - [Configurando o ambiente](#configurando-o-ambiente)
+  - [Executando](#executando)
 - [Requisitos](#requisitos)
+  - [Funcionais](#funcionais)
+  - [Não funcionais](#não-funcionais)
 - [Tarefas](#o-que-é-preciso-fazer)
 - [Diagramas](#diagramas)
 - [Cronograma](#cronograma)
+  - [Fase 1 - até 05/05](#fase-1---projeto-base-mvp)
+  - [Fase 2 - até 16/06](#fase-2---funcionalidades-recomendáveis)
+  - [Fase 3 - até 25/08](#fase-3---funcionalidades-diferenciadas)
 - [Linguagens, frameworks e ferramentas](#linguagens-frameworks-e-ferramentas)
 - [Questões](#questões)
 - [Design e layouts](#design-e-layouts)
@@ -27,6 +36,57 @@ Website para registro e mapeamento dos projetos realizados dentro do programa So
 ## Objetivo (meta)
 
 Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade via exposição dos projetos e divulgação dos Objetivos de Desenvolvimento Sustentável (ODS).
+
+## Rodando o projeto
+
+### O que é preciso instalar?
+
+Para executar o projeto é preciso ter instalado o [_Node.js_](https://nodejs.org/pt-br); a versão utilizada para o desenvolvimento foi a _18.13.0 LTS_.
+
+Também será necessário instalar o [_MySQL_](https://dev.mysql.com/downloads/windows/installer/8.0.html); a versão utilizada para o desenvolvimento foi a _8.0.31_.
+
+É recomendado que o usuário utilize as versões mais próximas possíveis das utilizadas em desenvolvimento. Tenha em mente que versões anteriores podem causar problemas de compatibilidade e erros na execução do projeto.
+
+Por fim, é altamente recomendado que a IDE utilizada para rodar o projeto seja o [_VS Code_](https://code.visualstudio.com/).
+
+### Configurando o ambiente
+
+#### MySQL
+
+Este projeto utiliza o [_Sequelize_](https://sequelize.org/) como _ORM_ para realizar ações no banco de dados. Para que isso funcione corretamente, você precisa criar um banco de dados (o nome utilizado durante o desenvolvimento do projeto foi "dojotech_somar") e, no arquivo [config.json](src/config/config.json), na área _development_, você deve substituir os valores de _username_ pelo nome do seu usuário que vai acessar o banco de dados no _MySQL_ (lembrando que o usuário deve ter as permissões necessárias para realizar as operações), _password_ pela senha deste usuário ou `null` caso não tenha senha e _database_ pelo nome do banco de dados que você criou. Exemplo:
+
+```json
+  "development": {
+    "username": "seu_usuario",
+    "password": "sua_senha" ou null,
+    "database": "seu_banco",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+```
+
+#### VS Code
+
+Você vai precisar da extensão [_Live Server_](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) para rodar o _frontend_ do projeto. Isso é importante, pois caso você tente executar apenas os arquivos _HTML_ do projeto, ocorrerão erros do [_CORS_](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/CORS) e não será possível utilizar nenhuma funcionalidade.
+
+Após instalar a extensão, deve aparecer um botão no canto inferior direito do _VS CODE_ escrito "Go Live".
+
+#### Node
+
+Clone o projeto e navegue até a pasta [**src**](src/) pelo terminal. Execute comando `npm i` para instalar as dependências do projeto. Quando a instalação for concluída, execute os comandos a seguir para criar as tabelas do banco e inserir alguns dados nelas, respectivamente:
+
+```
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+```
+
+Agora você já deve ter todas as tabelas do projeto criadas no seu banco, com os dados dos arquivos [_seeders_](src/seeders/) inseridos.
+
+### Executando
+
+Para rodar o servidor no _backend_ do projeto, ainda no terminal e na pasta [**src**](src/), execute o comando `npm run server`.
+
+Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) abra o arquivo [index.html](public/views/index.html) e clique no botão "Go Live" do _Live Server_.
 
 ## Requisitos
 
@@ -59,7 +119,7 @@ Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade v
 - [x] Desenvolver página de login;
 - [x] Desenvolver página de cadastro de usuário;
 - [x] Desenvolver página “Conheça nossos projetos”;
-- [ ] Desenvolver página de cadastro de projeto;
+- [x] Desenvolver página de cadastro de projeto;
 - [ ] Desenvolver página de projeto;
 - [ ] Realizar integração com banco de dados;
 - [ ] Desenvolver funcionalidades.
@@ -83,11 +143,11 @@ Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade v
 - [x] 17/03 - Início do projeto;
 - [x] 24/03 - Início da documentação técnica e primeiro esboço do projeto;
 - [x] 31/03 - Diagramação e escolha das linguagens e _frameworks_ que serão utilizados;
-- [ ] 07/04 - Avaliação das entregas pela banca avaliadora.
+- [x] 07/04 - Avaliação das entregas pela banca avaliadora.
 
 ### Fase 1 - Projeto Base (_MVP_)
 
-- [ ] 14/04 - Página inicial e página de login;
+- [x] 14/04 - Página inicial e página de login;
 - [ ] 21/04 - Página “conheça nossos projetos”;
 - [ ] 28/04 - Página de projeto;
 - [ ] 05/05 - Apresentação da **Fase 1** para a equipe do comitê de sustentabilidade.

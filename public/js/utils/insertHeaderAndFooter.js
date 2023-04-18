@@ -1,4 +1,4 @@
-(() => {
+export function insertHeaderAndFooter() {
   const logo = `<div class="logo">
       <a href="index.html" class="logo__link" title="Home | Programa Somar">
         <img src="../img/logos/logo_cores_ods.svg" alt width="50" height="50">
@@ -30,7 +30,7 @@
     <div class="header__div">
       ${nav}
 
-      <a href="login.html" class="btnLogin btn btnSecundario">Login</a>
+      <button type="button" id="btnLog" class="btnLog btn btnSecundario"></button>
     </div>`;
 
   footer.innerHTML = `${logo}
@@ -47,4 +47,4 @@
       </ul>
 
       <p class="creditos">Devs da 222 &copy; 2023</p>`;
-})();
+}
