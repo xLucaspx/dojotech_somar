@@ -1,6 +1,6 @@
 .login {
   background-color: var(--fundo_platina);
-  height: 50vh;
+  min-height: 50vh;
 }
 
 .form__fieldset--texto {

@@ -8,7 +8,7 @@ class UsuarioServices extends Services {
 
   async buscaUsuario(filtro) {
     try {
-      await this.buscaUmRegistro(filtro);
+      return await this.buscaUmRegistro(filtro);
     } catch (error) {
       if (error instanceof NotFoundError) {
         throw new NotFoundError("Usuário não encontrado!");

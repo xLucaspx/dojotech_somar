@@ -10,11 +10,8 @@ export class Services {
       const dados = await axios.get(this.url);
       return dados.data;
     } catch (error) {
-      if (error.response.data.message) {
-        throw new Error(error.response.data.message);
-      } else {
-        throw error;
-      }
+      console.log(error);
+      throw new Error(error.response?.data?.message || error.message);
     }
   }
 
@@ -22,11 +19,7 @@ export class Services {
     try {
       return await axios.post(this.url, dados);
     } catch (error) {
-      if (error.response.data.message) {
-        throw new Error(error.response.data.message);
-      } else {
-        throw error;
-      }
+      throw new Error(error.response?.data?.message || error.message);
     }
   }
 }

@@ -13,11 +13,7 @@ export class ProjetoServices extends Services {
       const projetos = await axios.get(url);
       return projetos.data;
     } catch (error) {
-      if (error.response.data.message) {
-        throw new Error(error.response.data.message);
-      } else {
-        throw error;
-      }
+      throw new Error(error.response?.data?.message || error.message);
     }
   }
 }

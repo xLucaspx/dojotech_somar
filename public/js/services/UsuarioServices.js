@@ -11,11 +11,7 @@ export class UsuarioServices extends Services {
       const res = await axios.post(url, dados);
       return res.data;
     } catch (error) {
-      if (error.response.data.message) {
-        throw new Error(error.response.data.message);
-      } else {
-        throw error;
-      }
+      throw new Error(error.response?.data?.message || error.message);
     }
   }
 
@@ -25,11 +21,7 @@ export class UsuarioServices extends Services {
       const res = await axios.post(url, tokenJwt);
       return res.data;
     } catch (error) {
-      if (error.response.data.message) {
-        throw new Error(error.response.data.message);
-      } else {
-        throw error;
-      }
+      throw new Error(error.response?.data?.message || error.message);
     }
   }
 }
