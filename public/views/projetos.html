@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../css/components/form.css">
   <!-- Sections CSS -->
   <link rel="stylesheet" href="../css/views/projetos/projetos.css">
+  <link rel="stylesheet" href="../css/views/projetos/busca.css">
 </head>
 
 <body>
@@ -44,85 +45,47 @@
         </a>
       </p>
 
-      <div class="projetos__lista_ods">
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_1.svg" alt="1 - Erradicação da pobreza" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_2.svg" alt="2 - Fome zero e agricultura sustentável" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_3.svg" alt="3 - Saúde e bem-estar" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_4.svg" alt="4 - Educação de qualidade" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_5.svg" alt="5 - Igualdade de gênero" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_6.svg" alt="6 - Água potável e saneamento" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_7.svg" alt="7 - Energia limpa e acessível" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_8.svg" alt="8 - Trabalho decente e crescimento econômico" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_9.svg" alt="9 - Indústria, inovação e infraestrutura" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_10.svg" alt="10 - Redução das desigualdades" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_11.svg" alt="11 - Cidades e comunidades sustentáveis" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_12.svg" alt="12 - Consumo e produção responsáveis" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_13.svg" alt="13 - Ação contra a mudança global do clima" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_14.svg" alt="14 - Vida na água" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_15.svg" alt="15 - Vida terrestre" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_16.svg" alt="16 - Paz, justiça e instituições eficazes" class="lista_ods__img img">
-        </a>
-
-        <a href="#" class="lista_ods__link">
-          <img src="../img/ods/ods_17.svg" alt="17 - Parcerias e meios de implementação" class="lista_ods__img img">
-        </a>
-      </div>
+      <ul class="projetos__lista_ods"></ul>
 
       <div class="projetos__logo_ods"></div>
     </section>
+    <!-- Fim projetos -->
+
+    <section id="busca" class="projetos__busca container">
+      <form action="" class="busca__form form">
+        <fieldset class="form__fieldset--texto">
+          <input type="search" id="busca__input" class="form__input form__texto" name="busca" placeholder="Digite aqui para buscar projetos" incremental>
+          <label for="busca__input" class="form__label">Busca</label>
+        </fieldset>
+
+        <fieldset class="form__fieldset--select">
+          <legend class="form__fieldset__legend">Filtro</legend>
+        
+          <label for="busca__filtro" class="hidden">Escolha um filtro</label>
+          <select name="busca__filtro" id="busca__filtro" class="form__select">
+            <option value="ods">ODS</option>
+            <option value="nome">Nome</option>
+            <option value="cidade">Cidade</option>
+            <option value="causa">Causa de Atuação</option>
+            <option value="publico_alvo">Público-alvo</option>
+          </select>
+        </fieldset>
+      </form>
+
+      <ul class="busca__lista"></ul>
+    </section>
+    <!-- Fim busca -->
   </main>
   <!-- Fim conteúdo principal -->
 
   <footer id="dynamic_footer" class="container footer"></footer>
   <!-- Fim footer -->
+
+  <a href="#" class="scrollTop hidden" title="Voltar ao topo"></a> <!-- Link voltar ao topo -->
 </body>
 
 <script src="../js/index.js" type="module"></script>
+<script src="../js/scrollTop.js"></script>
+<script src="../js/views/projetos.js" type="module"></script>
 
 </html>

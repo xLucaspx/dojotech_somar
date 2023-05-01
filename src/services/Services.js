@@ -22,7 +22,7 @@ class Services {
       if (registro) {
         return registro;
       }
-      throw new NotFoundError("Usuário não encontrado");
+      throw new NotFoundError("Registro não encontrado");
     } catch (error) {
       throw error;
     }
