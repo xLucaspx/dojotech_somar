@@ -94,11 +94,11 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 
 - [ ] CRUD projetos;
 - [ ] CRUD usuários;
-- [ ] Deve ser possível realizar a filtragem de projetos:
-  - [ ] por ODS;
-  - [ ] por cidade;
-  - [ ] por causa de atuação;
-  - [ ] por público-alvo.
+- [x] Deve ser possível realizar a filtragem de projetos:
+  - [x] por ODS;
+  - [x] por cidade;
+  - [x] por causa de atuação;
+  - [x] por público-alvo.
 - [ ] Deve ser possível adicionar até 5 imagens por projeto;
 - [ ] Deve ser possível adicionar um vídeo de até 2min de duração por projeto;
 - [ ] Deve ser possível visualizar a quantidade total de projetos;
@@ -121,7 +121,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] Desenvolver página “Conheça nossos projetos”;
 - [x] Desenvolver página de cadastro de projeto;
 - [ ] Desenvolver página de projeto;
-- [ ] Realizar integração com banco de dados;
+- [x] Realizar integração com banco de dados;
 - [ ] Desenvolver funcionalidades.
 
 ## Diagramas
@@ -148,8 +148,8 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 ### Fase 1 - Projeto Base (_MVP_)
 
 - [x] 14/04 - Página inicial e página de login;
-- [ ] 21/04 - Página “conheça nossos projetos”;
-- [ ] 28/04 - Página de projeto;
+- [x] 21/04 - Página “conheça nossos projetos”;
+- [x] 28/04 - Página de projeto;
 - [ ] 05/05 - Apresentação da **Fase 1** para a equipe do comitê de sustentabilidade.
 
 ### Fase 2 - Funcionalidades Recomendáveis
