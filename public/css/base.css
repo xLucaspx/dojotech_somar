@@ -30,7 +30,8 @@ body {
   line-height: 1.5;
 }
 
-.pularNavegacao {
+.pularNavegacao,
+.hidden {
   display: block;
   overflow: hidden;
   width: 0;
@@ -48,10 +49,6 @@ body {
   background-color: var(--azul);
   width: fit-content;
   height: 20px;
-}
-
-.hidden {
-  display: none;
 }
 
 .container {

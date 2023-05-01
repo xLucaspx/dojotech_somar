@@ -4,4 +4,20 @@ export class ProjetoServices extends Services {
   constructor() {
     super("projetos/");
   }
+
+  async filtraProjetos(query) {
+    const filtro = Object.keys(query)[0];
+    const url = this.url + `filtro?${filtro}=${query[filtro]}`;
+
+    try {
+      const projetos = await axios.get(url);
+      return projetos.data;
+    } catch (error) {
+      if (error.response.data.message) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw error;
+      }
+    }
+  }
 }

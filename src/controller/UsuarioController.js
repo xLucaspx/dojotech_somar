@@ -17,32 +17,6 @@ class UsuarioController {
     }
   }
 
-  static async buscaPorUsuario(req, res) {
-    const { usuario } = req.params;
-
-    try {
-      const registro = await usuarioServices.buscaUmRegistro({ usuario });
-      return res.status(200).json(registro);
-    } catch (error) {
-      return res
-        .status(error instanceof NotFoundError ? 404 : 500)
-        .json({ message: error.message });
-    }
-  }
-
-  static async buscaPorEmail(req, res) {
-    const { email } = req.params;
-
-    try {
-      const registro = await usuarioServices.buscaUmRegistro({ email });
-      return res.status(200).json(registro);
-    } catch (error) {
-      return res
-        .status(error instanceof NotFoundError ? 404 : 500)
-        .json({ message: error.message });
-    }
-  }
-
   static async cadastraUsuario(req, res) {
     const usuario = req.body;
 
@@ -78,8 +52,8 @@ class UsuarioController {
       const { id, usuario, senha } = usuarioDigitado.match(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
       )
-        ? await usuarioServices.buscaUmRegistro({ email: usuarioDigitado })
-        : await usuarioServices.buscaUmRegistro({ usuario: usuarioDigitado });
+        ? await usuarioServices.buscaUsuario({ email: usuarioDigitado })
+        : await usuarioServices.buscaUsuario({ usuario: usuarioDigitado });
 
       if (senhaDigitada === senha) {
         const tokenJwt = geraJwt({ id, usuario });

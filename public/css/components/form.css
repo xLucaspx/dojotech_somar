@@ -48,7 +48,29 @@
   font-family: var(--fonte_titulo);
   font-weight: 500;
   font-size: 1.2rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.form__select {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: #fff;
+  border: 1px solid var(--cinza_escuro);
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+  min-width: 150px;
+  width: 100%;
+  cursor: pointer;
+  line-height: 1.1;
+  transition: 0.3s;
+}
+
+.form__select:hover {
+  filter: brightness(80%);
+}
+
+.form__select:focus {
+  outline: 2px solid var(--azul);
 }
 
 .form__input--checkbox,

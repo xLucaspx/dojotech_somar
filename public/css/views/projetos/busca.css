@@ -1,0 +1,120 @@
+.projetos__busca {
+  background-color: var(--fundo_platina);
+}
+
+.busca__form {
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.form__fieldset--texto {
+  height: 70px;
+  max-width: calc(100vw - 30%);
+}
+
+.form__fieldset--select {
+  display: flex;
+}
+
+.busca__lista {
+  display: grid;
+  grid-template-columns: calc(85vw / 3) calc(85vw / 3) calc(85vw / 3);
+  grid-template-rows: 475px;
+  justify-content: center;
+  align-items: start;
+  gap: 2rem 1.75rem;
+}
+
+.projeto__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: calc(85vw / 3);
+  height: 475px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #fff;
+  outline: 4px outset transparent;
+  outline-offset: 3px;
+  border-radius: 5px;
+  box-shadow: 5px 7px 7px rgba(0, 0, 0, 0.25);
+  transition: 0.3s ease-out;
+}
+
+.projeto__link:focus {
+  outline-color: var(--azul);
+}
+
+.projeto__link:hover,
+.projeto__link:focus {
+  box-shadow: 7px 9px 5px rgba(0, 0, 0, 0.45);
+  filter: brightness(95%);
+}
+
+.projeto__img {
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  max-width: 600px;
+  max-height: 320px;
+  align-self: center;
+}
+
+.projeto__titulo,
+.projeto__cidade,
+.projeto__causa {
+  margin: 0 0.5rem;
+}
+
+.projeto__cidade,
+.projeto__causa {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .busca__form {
+    flex-wrap: wrap;
+  }
+
+  .busca__lista {
+    grid-template-columns: auto;
+  }
+
+  .projeto__link {
+    width: auto;
+    max-width: 375px;
+    height: 445px;
+  }
+
+  .projeto__img {
+    max-width: 375px;
+    max-height: 250px;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .busca__lista {
+    grid-template-columns: calc(85vw / 2) calc(85vw / 2);
+  }
+
+  .projeto__link {
+    width: calc(85vw / 2);
+  }
+}
+
+/* telas maiores que 2300px */
+@media screen and (min-width: 2300px) {
+  .projeto__link {
+    height: 475px;
+  }
+
+  .projeto__img {
+    margin-top: 0.5rem;
+    border-radius: 5px;
+  }
+}
