@@ -1,6 +1,7 @@
 .nav__list {
+  width: 300px;
   display: flex;
-  gap: 1.5rem;
+  justify-content: space-evenly;
   font-size: 1.2rem;
 }
 
@@ -19,6 +20,6 @@
 /* telas até 700px */
 @media screen and (max-width: 700px) {
   .nav__list {
-    gap: 0.75rem;
+    width: 250px;
   }
 }

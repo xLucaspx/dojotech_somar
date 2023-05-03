@@ -4,6 +4,17 @@
   align-items: center;
 }
 
+.logo__link {
+  display: flex;
+  justify-content: center;
+  transition: 0.5s ease-in-out;
+}
+
+.logo__link:hover,
+.logo__link:focus {
+  filter: brightness(75%);
+}
+
 .header__div {
   display: flex;
   align-items: flex-end;
@@ -22,7 +33,11 @@
   .header,
   .header__div {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.75rem;
+  }
+
+  .logo__link {
+    width: 100%;
   }
 
   .btnLog {

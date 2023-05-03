@@ -7,9 +7,23 @@
   color: #fff;
 }
 
-.footer__social {
+.footer__img {
+  width: 300px;
+  height: 110px;
+}
+
+.footer__div {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
-  gap: 1rem;
+  align-items: last baseline;
+  justify-content: space-evenly;
+}
+
+.footer__social {
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .social__link {
@@ -41,4 +55,28 @@
 .creditos {
   font-size: 14px;
   font-weight: 300;
+}
+
+/* telas até 880px */
+@media screen
+and (max-width: 880px) {
+  .footer__img {
+    width: 250px;
+    height: 90px;
+  }
+
+  .footer__div {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .footer__social {
+    order: 1;
+    width: 250px;
+  }
+
+  .nav__list {
+    order: 0;
+  }
 }
