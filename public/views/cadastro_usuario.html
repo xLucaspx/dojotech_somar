@@ -51,7 +51,7 @@
         <fieldset class="form__fieldset--texto">
           <input type="email" id="cadastro_usuario__email" class="form__input form__texto" name="email"
             placeholder="Digite seu email" data-tipo="email" maxlength="50" required
-            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            pattern="^\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})+$">
       
           <label for="cadastro_usuario__email" class="form__label">Email</label>
           <span class="form__fieldset__msg"></span>
@@ -61,7 +61,7 @@
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__usuario" class="form__input form__texto" name="usuario"
             placeholder="Digite um nome de usuário" title="Apenas letras, números, hífen e undeline" data-tipo="usuario"
-            minlength="3" maxlength="20" required pattern="^[\w-]*$">
+            minlength="3" maxlength="20" required pattern="^[\w\-]*$">
       
           <label for="cadastro_usuario__usuario" class="form__label">Nome de usuário</label>
           <span class="form__fieldset__msg"></span>
@@ -72,7 +72,7 @@
           <input type="tel" id="cadastro_usuario__telefone" class="form__input form__texto" name="telefone"
             placeholder="Digite seu telefone" title="Insira DDD e número de telefone" data-tipo="telefone" minlength="10"
             maxlength="25" required
-            pattern="^[(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[)]? ?(?:[2-8]|9 ?[1-9])[0-9]{3}[-]? ?[0-9]{4}$">
+            pattern="^[\(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[\)]? ?(?:[2-8]|9 ?[1-9])[0-9]{3}[\-]? ?[0-9]{4}$">
       
           <label for="cadastro_usuario__telefone" class="form__label">Telefone</label>
           <span class="form__fieldset__msg"></span>
@@ -84,7 +84,7 @@
             placeholder="Digite uma senha"
             title="Pelo menos 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial"
             data-tipo="senha" minlength="8" maxlength="50" required
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*()_+\-={[}\]:;>.<,?/|\\])[A-Za-z\d!@#$%&*()_+\-={[}\]:;>.<,?/|\\]{8,}$">
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*\(\)_+\-=\{\[\}\]:;>.<,?\/\|\\])[A-Za-z\d!@#$%&*\(\)_+\-=\{\[\}\]:;>.<,?\/\|\\]{8,}$">
       
           <label for="cadastro_usuario__senha" class="form__label">Senha</label>
           <span class="form__fieldset__msg"></span>
