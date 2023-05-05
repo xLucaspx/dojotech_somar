@@ -106,8 +106,8 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 
 ### Não funcionais
 
-- [ ] O site deve ser acessível a todos os tipos de usuários (acessibilidade);
-- [ ] O site deve ser responsivo e funcionar em desktop e dispositivos móveis.
+- [x] O site deve ser acessível a todos os tipos de usuários (acessibilidade);
+- [x] O site deve ser responsivo e funcionar em desktop e dispositivos móveis.
 
 ## O que é preciso fazer?
 
@@ -120,7 +120,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] Desenvolver página de cadastro de usuário;
 - [x] Desenvolver página “Conheça nossos projetos”;
 - [x] Desenvolver página de cadastro de projeto;
-- [ ] Desenvolver página de projeto;
+- [x] Desenvolver página de projeto;
 - [x] Realizar integração com banco de dados;
 - [ ] Desenvolver funcionalidades.
 

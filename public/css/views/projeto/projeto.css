@@ -40,7 +40,11 @@
 .projeto__div--2 {
   display: flex;
   align-items: start;
-  gap: 7.5rem;
+  gap: 5%;
+}
+
+.projeto__parceiros {
+  width: 617px;
 }
 
 .projeto__parceiros__item {
@@ -49,6 +53,8 @@
 
 .projeto__ods__lista {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -59,6 +65,70 @@
 
 .line__div {
   height: 150px;
+  width: 0;
   border: 1px solid #000;
   align-self: center;
+}
+
+/* telas até 1000px */
+@media screen
+and (max-width: 1000px) {
+  .projeto__div--1,
+  .projeto__div--2 {
+    flex-direction: column;
+  }
+
+  .projeto__div--1 {
+    align-items: center;
+  }
+
+  .projeto__div__texto {
+    width: 100%;
+  }
+
+  .projeto__titulo,
+  .projeto__cidade {
+    align-self: center;
+  }
+
+  .projeto__titulo {
+    margin: 2rem 0 0;
+  }
+
+  .projeto__atributo {
+    font-size: 1.3rem;
+  }
+
+  .projeto__resumo {
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .projeto__img {
+    width: 100vw;
+    box-sizing: border-box;
+    align-self: center;
+  }
+
+  .projeto__div--2 {
+    gap: 0.45rem;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .projeto__ods__img {
+    width: calc(75vw / 2);
+    height: auto;
+    max-width: 120px;
+  }
+
+  .projeto__parceiros {
+    width: 100%;
+  }
+
+  .line__div {
+    display: none;
+  }
 }

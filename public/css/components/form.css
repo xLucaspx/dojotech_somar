@@ -35,8 +35,8 @@
 
 .form__fieldset--checkbox {
   display: grid;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto auto auto auto auto;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(6, auto);
   gap: 0.75rem;
 }
 
@@ -49,6 +49,10 @@
   font-weight: 500;
   font-size: 1.2rem;
   margin-bottom: 0.45rem;
+}
+
+.form__fieldset--select {
+  display: flex;
 }
 
 .form__select {

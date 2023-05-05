@@ -123,6 +123,10 @@ body {
     margin-bottom: 1.75rem;
   }
 
+  .subtitulo {
+    font-size: 25px;
+  }
+
   .scrollTop {
     display: none;
   }
@@ -134,6 +138,10 @@ and (min-width: 701px)
 and (max-width: 1000px) {
   .titulo {
     font-size: 35px;
+  }
+
+  .subtitulo {
+    font-size: 30px;
   }
 
   .scrollTop {

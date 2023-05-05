@@ -1,9 +1,24 @@
 const Services = require("./Services");
 const db = require("../models");
+const { NotFoundError } = require("../errors");
 
 class ProjetoServices extends Services {
   constructor() {
     super("Projeto");
+  }
+
+  async buscaProjetoPorId(id) {
+    try {
+      return await db[this.nomeDoModelo].findOne({
+        where: { id },
+        include: "Ods",
+      });
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw new NotFoundError("Projeto não encontrado!");
+      }
+      throw error;
+    }
   }
 
   async buscaProjetosComOds(where = {}) {
@@ -21,17 +36,17 @@ class ProjetoServices extends Services {
     const exp = new RegExp(ods, "gi");
     try {
       const projetos = await this.buscaProjetosComOds();
-      const projetosFiltrados = [];
+      const projetosFiltrados = new Set();
 
       projetos.forEach((projeto) => {
         projeto.dataValues.Ods.forEach((ods) => {
           const name = `${ods.id} - ${ods.nome}`;
           if (name.match(exp)) {
-            projetosFiltrados.push(projeto.dataValues);
+            projetosFiltrados.add(projeto.dataValues);
           }
         });
       });
-      return projetosFiltrados;
+      return Array.from(projetosFiltrados);
     } catch (error) {
       throw error;
     }

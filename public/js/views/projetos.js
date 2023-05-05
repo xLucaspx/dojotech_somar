@@ -33,6 +33,7 @@ btnOds.forEach((btn) =>
 );
 
 const inputBusca = document.getElementById("busca__input");
+inputBusca.value = "";
 const selectFiltro = document.getElementById("busca__filtro");
 
 inputBusca.addEventListener("search", async (event) => {
@@ -41,7 +42,11 @@ inputBusca.addEventListener("search", async (event) => {
     const projetos = await projetoServices.filtraProjetos({
       [selectFiltro.value]: inputBusca.value,
     });
-    renderizaDados(listaProjetos, projetos, criaCardProjeto);
+    if (projetos.length > 0) {
+      renderizaDados(listaProjetos, projetos, criaCardProjeto);
+    } else {
+      listaProjetos.innerHTML = `<p class="busca__msg">Nenhum projeto encontrado</p>`;
+    }
   } catch (error) {
     alert(`Erro ao buscar projetos:\n${error.message}`);
   }

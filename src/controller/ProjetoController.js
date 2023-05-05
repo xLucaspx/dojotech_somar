@@ -1,5 +1,6 @@
 const { Op, ValidationError } = require("sequelize");
 const { ProjetoServices } = require("../services");
+const { NotFoundError } = require("../errors");
 
 const projetoServices = new ProjetoServices();
 
@@ -10,6 +11,19 @@ class ProjetoController {
       return res.status(200).json(projetos);
     } catch (error) {
       return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async buscaProjetoPorId(req, res) {
+    const { id } = req.params;
+
+    try {
+      const projeto = await projetoServices.buscaProjetoPorId(id);
+      return res.status(200).json(projeto);
+    } catch (error) {
+      return res
+        .status(error instanceof NotFoundError ? 404 : 500)
+        .json({ message: error.message });
     }
   }
 

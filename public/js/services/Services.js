@@ -10,7 +10,15 @@ export class Services {
       const dados = await axios.get(this.url);
       return dados.data;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async buscaPorId(id) {
+    try {
+      const dados = await axios.get(this.url + id);
+      return dados.data;
+    } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
     }
   }
