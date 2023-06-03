@@ -31,13 +31,20 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: { notEmpty: true, len: [3, 20], is: /^[\w-]*$/g },
       },
-      senha: {
+      hash_senha: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: true,
-          len: [8, 50],
-          is: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*()_+\-={[}\]:;>.<,?/|\\])[A-Za-z\d!@#$%&*()_+\-={[}\]:;>.<,?/|\\]{8,}$/g,
+          len: [128, 128],
+        },
+      },
+      sal_senha: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [32, 32],
         },
       },
       telefone: {

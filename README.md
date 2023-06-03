@@ -51,9 +51,11 @@ Por fim, é altamente recomendado que a IDE utilizada para rodar o projeto seja 
 
 ### Configurando o ambiente
 
+Após clonar o projeto, siga as instruções abaixo para configurar o ambiente e rodar o projeto corretamente.
+
 #### Variáveis de ambiente
 
-Visando tornar tornar o projeto mais seguro e sua configuração mais simples, são utilizadas **variáveis de ambiente** para guardar informações sensíveis. Para configurar as variáveis de ambiente com [_Dotenv_](https://www.npmjs.com/package/dotenv), é preciso criar um arquivo chamado `.env` na pasta [**src**](src/) com as chaves e valores que se deseja guardar; no arquivo [**exemplo.env**](src/exemplo.env), as chaves já estão disponíveis, você pode apenas renomear o arquivo para `.env` e preencher com osdevidos valores.
+Visando tornar o projeto mais seguro e sua configuração mais simples, são utilizadas **variáveis de ambiente** para guardar informações sensíveis. Para configurar as variáveis de ambiente com [_Dotenv_](https://www.npmjs.com/package/dotenv), é preciso criar um arquivo chamado `.env` na pasta [**src**](src/) com as chaves e valores que se deseja guardar; no arquivo [**exemplo.env**](src/exemplo.env), as chaves já estão disponíveis, você pode apenas renomear o arquivo para `.env` e preencher com os devidos valores.
 
 Seu arquivo `.env` deverá se parecer com:
 

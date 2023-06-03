@@ -1,9 +1,11 @@
-const { ValidationError } = require("sequelize");
 const { UsuarioServices } = require("../services");
 const { NotFoundError, UnauthorizedError } = require("../errors");
+const { ValidationError } = require("sequelize");
+const { JsonWebTokenError } = require("jsonwebtoken");
 const geraJwt = require("../utils/token/geraJwt");
 const verificaJwt = require("../utils/token/verificaJwt");
-const { JsonWebTokenError } = require("jsonwebtoken");
+const autenticaSenha = require("../utils/hash/autenticaSenha");
+const criaHashComSal = require("../utils/hash/criaHashComSal");
 
 const usuarioServices = new UsuarioServices();
 
@@ -21,6 +23,11 @@ class UsuarioController {
     const usuario = req.body;
 
     try {
+      const [sal, hash] = criaHashComSal(usuario.senha).split(":");
+      usuario.hash_senha = hash;
+      usuario.sal_senha = sal;
+      delete usuario.senha;
+
       const cadastro = await usuarioServices.criaRegistro(usuario);
       return res.status(201).json(cadastro);
     } catch (error) {
@@ -49,13 +56,13 @@ class UsuarioController {
     const { usuarioDigitado, senhaDigitada } = req.body;
 
     try {
-      const { id, usuario, senha } = usuarioDigitado.match(
+      const { id, usuario, hash_senha, sal_senha } = usuarioDigitado.match(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
       )
         ? await usuarioServices.buscaUsuario({ email: usuarioDigitado })
         : await usuarioServices.buscaUsuario({ usuario: usuarioDigitado });
 
-      if (senhaDigitada === senha) {
+      if (autenticaSenha(senhaDigitada, sal_senha, hash_senha)) {
         const tokenJwt = geraJwt({ id, usuario });
         return res.status(200).json(tokenJwt);
       }
