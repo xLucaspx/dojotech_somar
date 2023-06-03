@@ -8,6 +8,58 @@
   justify-content: center;
 }
 
-.form__fieldset--texto:nth-last-of-type(2){
-  max-width: 850px;
+.form__lista_ods {
+  display: inherit;
+  grid-template-columns: inherit;
+  grid-template-rows: inherit;
+  gap: inherit;
+}
+
+.form__fieldset--resumo,
+.form__fieldset--file {
+  width: 100%;
+  max-width: 875px;
+}
+
+.cadastro_projeto__midia__div {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro_projeto__midia-info {
+  overflow: hidden;
+  height: 2rem;
+  text-overflow: ellipsis;
+  margin: 0.5rem auto 0.25rem;
+  font-weight: 500;
+}
+
+.cadastro_projeto__midia-info--valido {
+  color: var(--verde);
+}
+
+.cadastro_projeto__midia-info--invalido {
+  color: var(--vermelho);
+}
+
+.btnRemoverImagem {
+  color: var(--vermelho);
+  font-weight: 500;
+  padding: 0.35rem;
+  background: transparent;
+  cursor: pointer;
+  border: 1px solid var(--vermelho);
+  border-radius: 5px;
+  margin: 0.25rem auto;
+  transition: 0.5s ease-out;
+}
+
+.btnRemoverImagem:hover,
+.btnRemoverImagem:focus {
+  background-color: var(--vermelho);
+  color: #fff;
+}
+
+.btnRemoverImagem--hidden {
+  display: none;
 }

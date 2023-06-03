@@ -23,9 +23,10 @@ export class Services {
     }
   }
 
-  async cadastra(dados) {
+  async cadastra(dados, url = this.url) {
     try {
-      return await axios.post(this.url, dados);
+      const cadastro = await axios.post(url, dados);
+      return cadastro.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
     }

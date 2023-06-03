@@ -24,8 +24,9 @@
 
 .busca__msg {
   font-size: 1.3rem;
-  justify-self: center;
-  grid-column: 2;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1.75rem;
 }
 
 .projeto__link {
@@ -55,11 +56,11 @@
 }
 
 .projeto__img {
-  border-radius: 5px 5px 0 0;
+  float: left;
   width: 100%;
-  max-width: 600px;
-  max-height: 320px;
-  align-self: center;
+  height: 65%;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
 }
 
 .projeto__titulo,

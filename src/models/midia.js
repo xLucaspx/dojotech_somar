@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       nome: { type: DataTypes.STRING, allowNull: false },
       url: { type: DataTypes.STRING, allowNull: false },
-      alt: { type: DataTypes.STRING, allowNull: false },
+      alt: { type: DataTypes.STRING, allowNull: true },
     },
     {
       sequelize,

@@ -12,7 +12,7 @@ module.exports = {
       },
       nome: { allowNull: false, type: Sequelize.STRING },
       url: { allowNull: false, type: Sequelize.STRING },
-      alt: { allowNull: false, type: Sequelize.STRING },
+      alt: { allowNull: true, type: Sequelize.STRING },
       id_projeto: {
         allowNull: false,
         type: Sequelize.INTEGER,

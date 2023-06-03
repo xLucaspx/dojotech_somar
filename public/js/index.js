@@ -15,7 +15,7 @@ import { UsuarioServices } from "./services/UsuarioServices.js";
       btnLog.innerHTML = "Logout";
       btnLog.onclick = () => {
         removeCookie("tokenJwt");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
       };
     } catch (error) {
       alert(`Erro ao autenticar usuário:\n${error.message}`);

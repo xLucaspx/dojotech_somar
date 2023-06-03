@@ -38,6 +38,6 @@ form.onsubmit = async (event) => {
   } catch (error) {
     alert(`Erro ao fazer login:\n${error.message}`);
   } finally {
-    limpaInputs([inputSenha]);
+    limpaInputs(inputSenha);
   }
 };

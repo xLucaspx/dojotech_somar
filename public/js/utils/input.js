@@ -1,7 +1,7 @@
 import { buscaCep, preencheCamposCep } from "./cep.js";
 import { mensagensErro, tiposErro } from "./erros.js";
 
-function limpaInputs(inputs) {
+function limpaInputs(...inputs) {
   inputs.forEach((input) => (input.value = ""));
 }
 

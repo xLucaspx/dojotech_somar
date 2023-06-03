@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Página de cadastro de projeto no Programa Somar.">
+  <meta name="description" content="Página de cadastro de projeto no Programa Somar.">
 
   <title>Cadastre um projeto | Programa Somar</title>
 
@@ -28,7 +27,7 @@
 
 <body>
   <a href="#main" class="pularNavegacao">Pular para o conteúdo principal</a> <!-- Link acessível com TAB -->
-  
+
   <header id="dynamic_header" class="container header"></header>
   <!-- Fim cabeçalho -->
 
@@ -36,170 +35,147 @@
     <section id="main" class="cadastro_projeto container">
       <h1 class="titulo">Cadastro de projeto</h1>
 
-      <form action="http://localhost:3000/usuarios" method="post" class="cadastro_projeto__form form">
+      <form action="" enctype="multipart/form-data" class="cadastro_projeto__form form">
         <!-- Nome -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_projeto__nome" class="form__input form__texto" name="nome"
             placeholder="Digite o nome do projeto" data-tipo="nome" minlength="3" maxlength="75" required>
-      
+
           <label for="cadastro_projeto__nome" class="form__label">Nome do projeto</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-      
+
         <!-- Causa -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_projeto__causa" class="form__input form__texto" name="causa"
             placeholder="Digite a causa do projeto" data-tipo="causa" minlength="3" maxlength="75" required>
-      
+
           <label for="cadastro_projeto__causa" class="form__label">Causa de atuação</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-      
+
         <!-- Objetivo -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_projeto__objetivo" class="form__input form__texto" name="objetivo"
             placeholder="Digite o objetivo do projeto" data-tipo="objetivo" minlength="10" maxlength="125" required>
-      
+
           <label for="cadastro_projeto__objetivo" class="form__label">Objetivo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-        
+
         <!-- Público-alvo -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_projeto__publico" class="form__input form__texto" name="publico"
-          placeholder="Digite o público-alvo do projeto" data-tipo="publico" minlength="3" maxlength="75" required>
-          
+            placeholder="Digite o público-alvo do projeto" data-tipo="publico" minlength="3" maxlength="75" required>
+
           <label for="cadastro_projeto__publico" class="form__label">Público-alvo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 
-          <!-- Cidade -->
-          <fieldset class="form__fieldset--texto">
-            <input type="text" id="cadastro_projeto__cidade" class="form__input form__texto" name="cidade"
-              placeholder="Digite a cidade do projeto" data-tipo="cidade" minlength="3" maxlength="50" required>
-        
-            <label for="cadastro_projeto__cidade" class="form__label">Cidade - UF</label>
-            <span class="form__fieldset__msg"></span>
-          </fieldset>
+        <!-- Cidade -->
+        <fieldset class="form__fieldset--texto">
+          <input type="text" id="cadastro_projeto__cidade" class="form__input form__texto" name="cidade"
+            placeholder="Digite a cidade do projeto" data-tipo="cidade" minlength="3" maxlength="50" required>
+
+          <label for="cadastro_projeto__cidade" class="form__label">Cidade - UF</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
 
         <!-- Parceiros -->
         <fieldset class="form__fieldset--texto">
-            <input type="text" id="cadastro_projeto__parceiros" class="form__input form__texto" name="parceiros"
-              placeholder="Digite os parceiros do projeto" title="Para inserir vários parceiros, separe-os por vírgula" data-tipo="parceiros" maxlength="255">
-        
-            <label for="cadastro_projeto__parceiros" class="form__label">Parceiros</label>
-            <span class="form__fieldset__msg"></span>
-          </fieldset>
+          <input type="text" id="cadastro_projeto__parceiros" class="form__input form__texto" name="parceiros"
+            placeholder="Digite os parceiros do projeto" title="Para inserir vários parceiros, separe-os por vírgula"
+            data-tipo="parceiros" maxlength="255">
+
+          <label for="cadastro_projeto__parceiros" class="form__label">Parceiros</label>
+          <span class="form__fieldset__msg"></span>
+        </fieldset>
 
         <!-- ODS -->
         <fieldset class="form__fieldset--checkbox">
           <legend class="form__fieldset__legend">Objetivos de Desenvolvimento Sustentável</legend>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_1" value="1" class="form__input--checkbox">
-            <label for="ods_1" class="form__label--checkbox">1 - Erradicação da pobreza</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_2" value="2" class="form__input--checkbox">
-            <label for="ods_2" class="form__label--checkbox">2 - Fome zero e agricultura sustentável</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_3" value="3" class="form__input--checkbox">
-            <label for="ods_3" class="form__label--checkbox">3 - Saúde e bem-estar</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_4" value="4" class="form__input--checkbox">
-            <label for="ods_4" class="form__label--checkbox">4 - Educação de qualidade</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_5" value="5" class="form__input--checkbox">
-            <label for="ods_5" class="form__label--checkbox">5 - Igualdade de gênero</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_6" value="6" class="form__input--checkbox">
-            <label for="ods_6" class="form__label--checkbox">6 - Água potável e saneamento</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_7" value="7" class="form__input--checkbox">
-            <label for="ods_7" class="form__label--checkbox">7 - Energia limpa e acessível</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_8" value="8" class="form__input--checkbox">
-            <label for="ods_8" class="form__label--checkbox">8 - Trabalho decente e crescimento econômico</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_9" value="9" class="form__input--checkbox">
-            <label for="ods_9" class="form__label--checkbox">9 - Indústria, inovação e infraestrutura</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_10" value="10" class="form__input--checkbox">
-            <label for="ods_10" class="form__label--checkbox">10 - Redução das desigualdades</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_11" value="11" class="form__input--checkbox">
-            <label for="ods_11" class="form__label--checkbox">11 - Cidades e comunidades sustentáveis</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_12" value="12" class="form__input--checkbox">
-            <label for="ods_12" class="form__label--checkbox">12 - Consumo e produção responsáveis</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_13" value="13" class="form__input--checkbox">
-            <label for="ods_13" class="form__label--checkbox">13 - Ação contra a mudança global do clima</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_14" value="14" class="form__input--checkbox">
-            <label for="ods_14" class="form__label--checkbox">14 - Vida na água</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_15" value="15" class="form__input--checkbox">
-            <label for="ods_15" class="form__label--checkbox">15 - Vida terrestre</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_16" value="16" class="form__input--checkbox">
-            <label for="ods_16" class="form__label--checkbox">16 - Paz, justiça e instituições eficazes</label>
-          </div>
-        
-          <div>
-            <input type="checkbox" name="ods" id="ods_17" value="17" class="form__input--checkbox">
-            <label for="ods_17" class="form__label--checkbox">17 - Parcerias e meios de implementação</label>
-          </div>
+
+          <ul class="form__lista_ods"></ul> <!-- ODS inseridos dinamicamente via JS -->
         </fieldset>
-        
+
         <!-- Resumo -->
-        <fieldset class="form__fieldset--texto">
+        <fieldset class="form__fieldset--texto form__fieldset--resumo">
           <textarea name="resumo" id="cadastro_projeto__resumo" class="form__textarea form__texto" cols="30" rows="10"
             placeholder="Digite um resumo do projeto" data-tipo="resumo" minlength="10" maxlength="475" required></textarea>
 
           <label for="cadastro_projeto__resumo" class="form__label">Resumo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
-      
+
+        <!-- Mídias -->
+        <fieldset class="form__fieldset--file">
+          <legend class="form__fieldset__legend">Mídias</legend>
+
+          <div class="cadastro_projeto__midia__div">
+            <input type="file" name="imagem" id="cadastro_projeto__imagem--1" class="cadastro_projeto__imagem hidden"
+              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+
+            <label for="cadastro_projeto__imagem--1" class="form__label--file btn btnSecundario">Imagem 01</label>
+            <span class="cadastro_projeto__midia-info"></span>
+            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+          </div>
+
+          <div class="cadastro_projeto__midia__div">
+            <input type="file" name="imagem" id="cadastro_projeto__imagem--2" class="cadastro_projeto__imagem hidden"
+              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+
+            <label for="cadastro_projeto__imagem--2" class="form__label--file btn btnSecundario">Imagem 02</label>
+            <span class="cadastro_projeto__midia-info"></span>
+            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+          </div>
+
+          <div class="cadastro_projeto__midia__div">
+            <input type="file" name="imagem" id="cadastro_projeto__imagem--3" class="cadastro_projeto__imagem hidden"
+              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+
+            <label for="cadastro_projeto__imagem--3" class="form__label--file btn btnSecundario">Imagem 03</label>
+            <span class="cadastro_projeto__midia-info"></span>
+            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+          </div>
+
+          <div class="cadastro_projeto__midia__div">
+            <input type="file" name="imagem" id="cadastro_projeto__imagem--4" class="cadastro_projeto__imagem hidden"
+              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+
+            <label for="cadastro_projeto__imagem--4" class="form__label--file btn btnSecundario">Imagem 04</label>
+            <span class="cadastro_projeto__midia-info"></span>
+            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+          </div>
+
+          <div class="cadastro_projeto__midia__div">
+            <input type="file" name="imagem" id="cadastro_projeto__imagem--5" class="cadastro_projeto__imagem hidden"
+              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+
+            <label for="cadastro_projeto__imagem--5" class="form__label--file btn btnSecundario">Imagem 05</label>
+            <span class="cadastro_projeto__midia-info"></span>
+            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+          </div>
+
+          <div class="cadastro_projeto__midia__div">
+            <input type="file" name="imagem" id="cadastro_projeto__video--1" class="hidden" accept="video/*">
+
+            <label for="cadastro_projeto__video--1" class="form__label--file btn btnSecundario">Vídeo</label>
+            <span class="cadastro_projeto__midia-info"></span>
+            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+          </div>
+        </fieldset>
+
         <fieldset class="form__fieldset--btn">
           <button type="submit" id="cadastro_projeto__btnCadastro" class="btn btnPadrao">Cadastrar projeto</button>
         </fieldset>
       </form>
     </section>
-</main>
-<!-- Fim conteúdo principal -->
+    <!-- Fim cadastro de projeto -->
+  </main>
+  <!-- Fim conteúdo principal -->
 
-<footer id="dynamic_footer" class="container footer"></footer>
-<!-- Fim footer -->
+  <footer id="dynamic_footer" class="container footer"></footer>
+  <!-- Fim footer -->
 </body>
 
 <script src="../js/index.js" type="module"></script>

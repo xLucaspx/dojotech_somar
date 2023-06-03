@@ -36,6 +36,9 @@ body {
   overflow: hidden;
   width: 0;
   height: 0;
+  font-size: 0;
+  border: none;
+  border-color: transparent;
   color: transparent;
   position: absolute;
   transition: 0.5s;

@@ -8,7 +8,7 @@ const usuarioServices = new UsuarioServices();
 if (tokenJwt) {
   try {
     await usuarioServices.autenticaUsuario({ tokenJwt });
-    alert("Você já possui um cadastro!");
+    alert("Erro ao acessar página:\nVocê já possui um cadastro!");
     window.location.href = "index.html";
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
@@ -26,7 +26,7 @@ const inputCep = document.getElementById("cadastro_usuario__cep");
 const inputLogradouro = document.getElementById("cadastro_usuario__logradouro");
 const inputBairro = document.getElementById("cadastro_usuario__bairro");
 const inputNumero = document.getElementById("cadastro_usuario__numero");
-const inputComplemento = document.getElementById( "cadastro_usuario__complemento");
+const inputComplemento = document.getElementById("cadastro_usuario__complemento");
 const inputCidade = document.getElementById("cadastro_usuario__cidade");
 const inputUf = document.getElementById("cadastro_usuario__uf");
 
@@ -54,7 +54,7 @@ form.onsubmit = async (event) => {
     await usuarioServices.cadastra(usuario);
 
     alert("Usuário cadastrado com sucesso!");
-    limpaInputs([
+    limpaInputs(
       inputNome,
       inputEmail,
       inputUsuario,
@@ -66,9 +66,9 @@ form.onsubmit = async (event) => {
       inputNumero,
       inputComplemento,
       inputCidade,
-      inputUf,
-    ]);
-    window.location.href = "login.html";
+      inputUf
+    );
+    window.location.replace("login.html");
   } catch (error) {
     alert("Erro ao cadastrar usuário\n" + error.message);
   }
