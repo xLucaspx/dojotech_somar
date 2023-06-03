@@ -51,29 +51,49 @@ Por fim, é altamente recomendado que a IDE utilizada para rodar o projeto seja 
 
 ### Configurando o ambiente
 
+#### Variáveis de ambiente
+
+Visando tornar tornar o projeto mais seguro e sua configuração mais simples, são utilizadas **variáveis de ambiente** para guardar informações sensíveis. Para configurar as variáveis de ambiente com [_Dotenv_](https://www.npmjs.com/package/dotenv), é preciso criar um arquivo chamado `.env` na pasta [**src**](src/) com as chaves e valores que se deseja guardar; no arquivo [**exemplo.env**](src/exemplo.env), as chaves já estão disponíveis, você pode apenas renomear o arquivo para `.env` e preencher com osdevidos valores.
+
+Seu arquivo `.env` deverá se parecer com:
+
+```
+# Credenciais de acesso ao banco de dados:
+DB_USERNAME = "seu_usuario"
+DB_PASSWORD = "sua_senha"
+DB_DATABASE = "nome_do_banco"
+
+# Segredo Token JWT
+TOKEN_SECRET = "uma senha para validar seus tokens"
+```
+
 #### MySQL
 
-Este projeto utiliza o [_Sequelize_](https://sequelize.org/) como _ORM_ para realizar ações no banco de dados. Para que isso funcione corretamente, você precisa criar um banco de dados (o nome utilizado durante o desenvolvimento do projeto foi "dojotech_somar") e, no arquivo [config.json](src/config/config.json), na área _development_, você deve substituir os valores de _username_ pelo nome do seu usuário que vai acessar o banco de dados no _MySQL_ (lembrando que o usuário deve ter as permissões necessárias para realizar as operações), _password_ pela senha deste usuário ou `null` caso não tenha senha e _database_ pelo nome do banco de dados que você criou. Exemplo:
+Este projeto utiliza o [_Sequelize_](https://sequelize.org/) como _ORM_ para realizar ações no banco de dados. Para que isso funcione corretamente, você precisa criar um banco de dados (o nome utilizado durante o desenvolvimento do projeto foi "dojotech_somar") e, no arquivo `.env`, você deve substituir os valores de **DB_USERNAME** pelo nome do seu usuário que vai acessar o banco de dados no _MySQL_ (lembrando que o usuário deve ter as permissões necessárias para realizar as operações), **DB_PASSWORD** pela senha deste usuário ou `null` caso não tenha senha e **DB_DATABASE** pelo nome do banco de dados que você criou.
 
-```json
-  "development": {
-    "username": "seu_usuario",
-    "password": "sua_senha" ou null,
-    "database": "seu_banco",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
+Utilizando as variáveis de ambiente, essas informações serão importadas no arquivo [_config.js_](src/config/config.js), desta forma:
+
+```js
+// ...
+development: {
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  host: "127.0.0.1",
+  dialect: "mysql",
+},
+// ...
 ```
 
 #### VS Code
 
 Você vai precisar da extensão [_Live Server_](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) para rodar o _frontend_ do projeto. Isso é importante, pois caso você tente executar apenas os arquivos _HTML_ do projeto, ocorrerão erros do [_CORS_](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/CORS) e não será possível utilizar nenhuma funcionalidade.
 
-Após instalar a extensão, deve aparecer um botão no canto inferior direito do _VS CODE_ escrito "Go Live".
+Após instalar a extensão, deve aparecer um botão no canto inferior direito do _VS Code_ escrito "_Go Live_".
 
 #### Node
 
-Clone o projeto e navegue até a pasta [**src**](src/) pelo terminal. Execute comando `npm i` para instalar as dependências do projeto. Quando a instalação for concluída, execute os comandos a seguir para criar as tabelas do banco e inserir alguns dados nelas, respectivamente:
+Navegue até a pasta [**src**](src/) pelo terminal. Execute comando `npm i` para instalar as dependências do projeto. Quando a instalação for concluída, execute os comandos a seguir para criar as tabelas do banco e inserir alguns dados nelas, respectivamente:
 
 ```
 npx sequelize-cli db:migrate
@@ -99,10 +119,10 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
   - [x] por cidade;
   - [x] por causa de atuação;
   - [x] por público-alvo.
-- [ ] Deve ser possível adicionar até 5 imagens por projeto;
+- [x] Deve ser possível adicionar até 5 imagens por projeto;
 - [ ] Deve ser possível adicionar um vídeo de até 2min de duração por projeto;
-- [ ] Deve ser possível visualizar a quantidade total de projetos;
-- [ ] Deve ser possível visualizar a quantidade de projetos por ODS.
+- [x] Deve ser possível visualizar a quantidade total de projetos;
+- [x] Deve ser possível visualizar a quantidade de projetos por ODS.
 
 ### Não funcionais
 
@@ -150,7 +170,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] 14/04 - Página inicial e página de login;
 - [x] 21/04 - Página “conheça nossos projetos”;
 - [x] 28/04 - Página de projeto;
-- [ ] 05/05 - Apresentação da **Fase 1** para a equipe do comitê de sustentabilidade.
+- [x] 05/05 - Apresentação da **Fase 1** para a equipe do comitê de sustentabilidade.
 
 ### Fase 2 - Funcionalidades Recomendáveis
 
@@ -170,13 +190,16 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 
 - HTML;
 - CSS;
-- JavaScript;
-- Figma.
+- JavaScript.
 
 ### Back-end
 
 - Node.js;
 - MySQL;
+
+### Design e diagramação
+
+- Figma;
 - brModelo;
 - Astah UML.
 
