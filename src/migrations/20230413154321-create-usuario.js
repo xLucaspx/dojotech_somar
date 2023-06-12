@@ -14,7 +14,7 @@ module.exports = {
       email: { allowNull: false, unique: true, type: Sequelize.STRING },
       usuario: { allowNull: false, unique: true, type: Sequelize.STRING },
       hash_senha: { allowNull: false, type: Sequelize.STRING },
-      sal_senha: { allowNull: false, type: Sequelize.STRING },
+      salt: { allowNull: false, type: Sequelize.STRING },
       telefone: { allowNull: false, type: Sequelize.STRING },
       cep: { allowNull: false, type: Sequelize.STRING },
       logradouro: { allowNull: false, type: Sequelize.STRING },

@@ -1,6 +1,5 @@
 const Services = require("./Services");
-const fs = require("fs");
-const path = require("path");
+const path = require("node:path");
 
 class MidiaServices extends Services {
   constructor() {
@@ -9,7 +8,7 @@ class MidiaServices extends Services {
 
   async cadastraMidia(idProjeto, midia) {
     try {
-      const filePath = `../../img/projetos/${idProjeto}/${midia.name}`;
+      const filePath = `../../public/img/projetos/${idProjeto}/${midia.name}`;
       midia.mv(path.join(__dirname, filePath));
 
       return await this.criaRegistro({

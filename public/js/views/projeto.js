@@ -1,45 +1,65 @@
 import { ProjetoServices } from "../services/ProjetoServices.js";
+import {
+  criaItemOds,
+  criaItemParceiro,
+  criaMiniaturaImagem,
+  renderizaDados,
+} from "../utils/renderizaDados.js";
 
-const projetoServices = new ProjetoServices();
+let projeto;
 
-const idProjeto = new URL(window.location).searchParams.get("id");
-const projeto = await projetoServices.buscaPorId(idProjeto);
+try {
+  const idProjeto = new URL(window.location).searchParams.get("id");
+  const projetoServices = new ProjetoServices();
+  projeto = await projetoServices.buscaPorId(idProjeto);
+
+  if (!projeto) throw new Error("Projeto não encntrado!");
+} catch (error) {
+  alert(`Houve um erro ao tenta abrir a página do projeto:\n${error.message}`);
+  window.location.href = "projetos.html";
+}
+
+const imgLink = document.querySelector(".display__img__link");
+const img = document.querySelector(".projeto__img");
+const galeria = document.querySelector(".projeto__display__galeria");
+
+const temMidia = projeto.Midia.length > 0;
+if (temMidia) {
+  const url = projeto.Midia[0].url;
+  imgLink.href = url;
+  img.src = url;
+  renderizaDados(galeria, projeto.Midia, criaMiniaturaImagem);
+}
+
+const miniaturas = document.querySelectorAll(".galeria__item");
+miniaturas.forEach((miniatura) => {
+  miniatura.onclick = () => {
+    const urlImagemMiniatura = miniatura.querySelector(".galeria__img").src;
+    img.src = urlImagemMiniatura;
+    imgLink.href = urlImagemMiniatura;
+  };
+});
 
 const titulo = document.getElementById("projeto__titulo");
 const cidade = document.getElementById("projeto__cidade");
 const causa = document.getElementById("projeto__causa");
 const objetivo = document.getElementById("projeto__objetivo");
 const resumo = document.getElementById("projeto__resumo");
-const listaParceiros = document.getElementById("projeto__parceiros");
 const listaOds = document.getElementById("projeto__ods");
+const listaParceiros = document.getElementById("projeto__parceiros");
 
 titulo.innerHTML = projeto.nome;
 cidade.innerHTML = projeto.cidade;
 causa.innerHTML = projeto.causa;
 objetivo.innerHTML = projeto.objetivo;
 resumo.innerHTML = projeto.resumo;
-
-listaParceiros.innerHTML = "";
-listaOds.innerHTML = "";
+renderizaDados(listaOds, projeto.Ods, criaItemOds);
 
 if (projeto.parceiros) {
   const parceiros = projeto.parceiros.split(",");
-
-  parceiros.forEach((parceiro) => {
-    const li = document.createElement("li");
-    li.innerHTML = parceiro;
-    li.classList.add("projeto__parceiros__item");
-    listaParceiros.appendChild(li);
-  });
+  renderizaDados(listaParceiros, parceiros, criaItemParceiro);
 } else {
   listaParceiros.innerHTML = `
   <li class="projeto__parceiros__item">Ainda não há parceiros para este projeto</li>
   `;
 }
-
-projeto.Ods.forEach((ods) => {
-  const li = document.createElement("li");
-  li.innerHTML = `<img src="${ods.url_imagem}" alt="${ods.id} - ${ods.nome}" class="projeto__ods__img img">`;
-  li.classList.add("projeto__ods__item");
-  listaOds.appendChild(li);
-});

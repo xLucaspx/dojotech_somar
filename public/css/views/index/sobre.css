@@ -37,7 +37,7 @@
 }
 
 .sobre__img {
-  content: url("../../../img/home/sobre_img.jpg");
+  content: url("../../../img/home/sobre_img.webp");
   width: 45%;
   max-width: 400px;
   height: auto;

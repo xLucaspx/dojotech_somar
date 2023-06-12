@@ -5,7 +5,7 @@ const { JsonWebTokenError } = require("jsonwebtoken");
 const geraJwt = require("../utils/token/geraJwt");
 const verificaJwt = require("../utils/token/verificaJwt");
 const autenticaSenha = require("../utils/hash/autenticaSenha");
-const criaHashComSal = require("../utils/hash/criaHashComSal");
+const criaHashComSalt = require("../utils/hash/criaHashComSalt");
 
 const usuarioServices = new UsuarioServices();
 
@@ -23,9 +23,9 @@ class UsuarioController {
     const usuario = req.body;
 
     try {
-      const [sal, hash] = criaHashComSal(usuario.senha).split(":");
+      const [salt, hash] = criaHashComSalt(usuario.senha).split(":");
       usuario.hash_senha = hash;
-      usuario.sal_senha = sal;
+      usuario.salt = salt;
       delete usuario.senha;
 
       const cadastro = await usuarioServices.criaRegistro(usuario);
@@ -56,13 +56,13 @@ class UsuarioController {
     const { usuarioDigitado, senhaDigitada } = req.body;
 
     try {
-      const { id, usuario, hash_senha, sal_senha } = usuarioDigitado.match(
+      const { id, usuario, hash_senha, salt } = usuarioDigitado.match(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
       )
         ? await usuarioServices.buscaUsuario({ email: usuarioDigitado })
         : await usuarioServices.buscaUsuario({ usuario: usuarioDigitado });
 
-      if (autenticaSenha(senhaDigitada, sal_senha, hash_senha)) {
+      if (autenticaSenha(senhaDigitada, salt, hash_senha)) {
         const tokenJwt = geraJwt({ id, usuario });
         return res.status(200).json(tokenJwt);
       }

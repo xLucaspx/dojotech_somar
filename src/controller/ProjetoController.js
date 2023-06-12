@@ -51,23 +51,10 @@ class ProjetoController {
 
   static async cadastraProjeto(req, res) {
     const { projeto, ods } = req.body;
-    // const projeto = JSON.parse(req.body.projeto);
-    // const ods = req.body.ods.split(",");
 
     try {
       const projetoCadastrado = await projetoServices.criaRegistro(projeto);
       ods.forEach(async (ods) => await projetoCadastrado.addOds(ods));
-
-      // if (req.files) {
-      //   Object.keys(req.files).forEach(async (key) => {
-      //     console.log(
-      //       await midiaServices.cadastraMidia(
-      //         projetoCadastrado.dataValues.id,
-      //         req.files[key]
-      //       )
-      //     );
-      //   });
-      // }
 
       return res.status(201).json(projetoCadastrado);
     } catch (error) {
@@ -82,16 +69,12 @@ class ProjetoController {
   }
 
   static async cadastraMidias(req, res) {
-    console.log(req.body);
-    console.log(req.files);
     const { idProjeto } = req.body;
-    const objMidias = req.files;
     const midiasCadastradas = [];
-
     try {
-      Object.keys(objMidias).forEach(async (key) => {
+      Object.keys(req.files).forEach(async (key) => {
         midiasCadastradas.push(
-          await midiaServices.cadastraMidia(idProjeto, objMidias[key])
+          await midiaServices.cadastraMidia(idProjeto, req.files[key])
         );
       });
       return res.status(201).json(midiasCadastradas);

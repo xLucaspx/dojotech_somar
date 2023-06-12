@@ -1,5 +1,5 @@
 .ods__img {
-  content: url("../../../img/home/grid_ods_invertido.png");
+  content: url("../../../img/home/grid_ods_invertido.webp");
   max-width: calc(100vw - 10%);
   max-height: 650px;
   margin: 1rem auto;
@@ -14,7 +14,7 @@
 }
 
 .ods__conteudo__img {
-  content: url("../../../img/home/mandala_5p.png");
+  content: url("../../../img/home/mandala_5p.webp");
   max-height: 475px;
 }
 
@@ -30,7 +30,7 @@
 /* telas até 700px */
 @media screen and (max-width: 700px) {
   .ods__img {
-    content: url("../../../img/home/grid_ods_invertido_mobile.png");
+    content: url("../../../img/home/grid_ods_invertido_mobile.webp");
     margin: 0 auto;
   }
 
@@ -60,7 +60,7 @@
 and (min-width: 701px)
 and (max-width: 1000px) {
   .ods__img {
-    content: url("../../../img/home/grid_ods_invertido_mobile.png");
+    content: url("../../../img/home/grid_ods_invertido_mobile.webp");
     margin: 0 auto;
   }
 

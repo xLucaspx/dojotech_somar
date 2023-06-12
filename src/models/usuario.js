@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [128, 128],
         },
       },
-      sal_senha: {
+      salt: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {

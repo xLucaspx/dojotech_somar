@@ -4,7 +4,7 @@
 
 **Nome**: Devs da 222
 
-**Integrantes**: Enzo Andrade, Felipe Verdade, Glauber Martini, Gustavo Kruger, Lucas da Paz
+**Integrantes**: Lucas da Paz Oliveira
 
 **Turma**: DEV1N222
 
@@ -16,17 +16,17 @@
   - [Instalações necessárias](#o-que-é-preciso-instalar)
   - [Configurando o ambiente](#configurando-o-ambiente)
   - [Executando](#executando)
-- [Requisitos](#requisitos)
-  - [Funcionais](#funcionais)
-  - [Não funcionais](#não-funcionais)
-- [Tarefas](#o-que-é-preciso-fazer)
+- [Requisitos, regras de negócio e tarefas](#requisitos-regras-de-negócio-de-tarefas)
+  - [Requisitos funcionais](#requisitos-funcionais)
+  - [Requisitos não funcionais](#requisitos-não-funcionais)
+  - [Regras de negócio](#regras-de-negócio)
+  - [Tarefas](#o-que-é-preciso-fazer)
 - [Diagramas](#diagramas)
 - [Cronograma](#cronograma)
   - [Fase 1 - até 05/05](#fase-1---projeto-base-mvp)
   - [Fase 2 - até 16/06](#fase-2---funcionalidades-recomendáveis)
   - [Fase 3 - até 25/08](#fase-3---funcionalidades-diferenciadas)
 - [Linguagens, frameworks e ferramentas](#linguagens-frameworks-e-ferramentas)
-- [Questões](#questões)
 - [Design e layouts](#design-e-layouts)
 
 ## Produto
@@ -104,18 +104,39 @@ npx sequelize-cli db:seed:all
 
 Agora você já deve ter todas as tabelas do projeto criadas no seu banco, com os dados dos arquivos [_seeders_](src/seeders/) inseridos.
 
+#### Dependências
+
+Pacotes do Node.js necessários para executar o projeto; estão disponíveis também no arquivo [_package.json_](src/package.json):
+
+- [Nodemon](https://nodemon.io/);
+- [Dotenv](https://www.npmjs.com/package/dotenv);
+- [Sequelize](https://sequelize.org/);
+  - [Sequelize-CLI](https://www.npmjs.com/package/sequelize-cli);
+  - [MySQL2](https://www.npmjs.com/package/mysql2);
+- [Express](https://expressjs.com/);
+  - [Express-FileUpload](https://www.npmjs.com/package/express-fileupload);
+  - [Body-parser](https://expressjs.com/en/resources/middleware/body-parser.html);
+  - [CORS](https://expressjs.com/en/resources/middleware/cors.html);
+- [JSON Web Token](https://jwt.io/libraries?language=Node.js).
+
 ### Executando
 
 Para rodar o servidor no _backend_ do projeto, ainda no terminal e na pasta [**src**](src/), execute o comando `npm run server`.
 
 Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) abra o arquivo [index.html](public/views/index.html) e clique no botão "Go Live" do _Live Server_.
 
-## Requisitos
+## Requisitos, regras de negócio e tarefas
 
-### Funcionais
+### Requisitos funcionais
 
-- [ ] CRUD projetos;
-- [ ] CRUD usuários;
+- [x] Deve ser possível se cadastrar;
+- [x] Deve ser possível se autenticar;
+- [ ] Deve ser possível visualizar e editar o perfil de um usuário logado;
+- [ ] Deve ser possível que o usuário exclua seu cadastro;
+- [x] Deve ser possível cadastrar projetos;
+- [x] Deve ser possível visualizar projetos;
+- [ ] Deve ser possível ao usuário que cadastrou o projeto editá-lo;
+- [ ] Deve ser possível ao usuário que cadastrou o projeto excluí-lo;
 - [x] Deve ser possível realizar a filtragem de projetos:
   - [x] por ODS;
   - [x] por cidade;
@@ -126,12 +147,33 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] Deve ser possível visualizar a quantidade total de projetos;
 - [x] Deve ser possível visualizar a quantidade de projetos por ODS.
 
-### Não funcionais
+### Requisitos não funcionais
 
 - [x] O site deve ser acessível a todos os tipos de usuários (acessibilidade);
-- [x] O site deve ser responsivo e funcionar em desktop e dispositivos móveis.
+- [x] O site deve ser responsivo e funcionar em desktop e dispositivos móveis;
+- [x] A senha do usuário deve ser criptografada;
+- [x] O usuário deve ser identificado com JWT;
+- [x] Utilizar expressões regulares para escapar possíveis entradas maliciosas do usuário;
+- [ ] Validar e limitar tamanho máximo de upload de arquivos;
+- [X] Criar componentes que possam ser reutilizados, evitando repetição e facilitando a manutenibilidade do projeto;
+- [x] Estruturar o projeto separando os arquivos por funcionalidade e coerência;
+- [x] Procurar escrever o código de forma semântica e organizada, facilitando o entendimento do sistema;
+- [x] Validar dados inseridos pelo usuário conforme regras de negócio;
 
-## O que é preciso fazer?
+### Regras de negócio
+
+- [x] O usuário não pode se cadastrar com um e-mail duplicado;
+- [x] O usuário não pode se cadastrar com um nome de usuário duplicado;
+- [x] O nome de usuário deve conter apenas letras, números, hífen e underline e deve ter entre 3 e 20 caracteres;
+- [x] A senha do usuário deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caractere especial e deve ter entre 8 e 50 caracteres;
+- [x] O campo e-mail deve ser validado;
+- [x] O campo telefone deve ser validado;
+- [x] O campo CEP deve ser validado e buscar os dados de endereço do usuário;
+- [ ] Os campos obrigatórios deve ser marcados com "*";
+- [x] O usuário deve estar autenticado para cadastrar um projeto;
+- [x] O projeto deve possuir pelo menos 1 ODS.
+
+### O que é preciso fazer?
 
 - [x] Elaborar documentação técnica;
 - [x] Decidir linguagens, frameworks e ferramentas que serão utilizados;
@@ -144,7 +186,17 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] Desenvolver página de cadastro de projeto;
 - [x] Desenvolver página de projeto;
 - [x] Realizar integração com banco de dados;
-- [ ] Desenvolver funcionalidades.
+- [ ] Desenvolver funcionalidades:
+  - [x] Login e autenticação;
+  - [x] Upload de imagens;
+  - [ ] Upload de vídeo;
+  - [x] Filtragem de projetos;
+  - [x] Contabilização de projetos;
+  - [ ] Botão "voltar" para facilitar navegação;
+  - [ ] Página de administração de dados do usuário;
+  - [ ] Possibilidade de editar e excluir projeto;
+  - [ ] Opção de gerar relatório contendo total de projetos e total de projetos por ODS.
+
 
 ## Diagramas
 
@@ -176,7 +228,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 
 ### Fase 2 - Funcionalidades Recomendáveis
 
-- [ ] 12/05 a 09/06 - Visualização de contabilização de quantos projetos ao total, quantos para cada ODS e possibilidade de _upload_ de até 5 fotos por projeto;
+- [x] 12/05 a 09/06 - Visualização de contabilização de quantos projetos ao total, quantos para cada ODS e possibilidade de _upload_ de até 5 fotos por projeto;
 - [ ] 16/06 - Apresentação das **Fases 1 e 2** para a equipe do comitê de sustentabilidade.
 
 ### Fase 3 - Funcionalidades Diferenciadas
@@ -205,18 +257,6 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - brModelo;
 - Astah UML.
 
-## Questões
-
-Principais dúvidas da equipe sobre o projeto:
-
-- Como/por quem será feito o cadastro de usuário?
-- Como diferenciar os usuários?
-- Quem são os multiplicadores de excelência?
-- Como funciona o mapeamento dos projetos?
-- Como é definido o público-alvo?
-- Existe algum sistema externo envolvido?
-- Será possível adicionar novas linguagens/frameworks ao decorrer do projeto?
-
 ## Design e layouts
 
 ### Guia de Cores ODS
@@ -225,16 +265,16 @@ Principais dúvidas da equipe sobre o projeto:
 
 ### Página inicial (Home)
 
-![home.png](img/layouts/home.png)
+![Layout base da página inicial](img/layouts/home.png)
 
 ### Página de login
 
-![login.png](img/layouts/login.png)
+![Layout base da página de login](img/layouts/login.png)
 
 ### Página “Conheça Nossos Projetos”
 
-![projetos_2.png](img/layouts/projetos.png)
+![Layout base da página “Conheça Nossos Projetos”](img/layouts/projetos.png)
 
 ### Página de projeto
 
-![pag_projeto.png](img/layouts/pag_projeto.png)
+![Layout base da página de projeto](img/layouts/pag_projeto.png)

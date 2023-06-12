@@ -22,14 +22,18 @@
 }
 
 .cadastro_projeto__midia__div {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 3.2rem 2.1rem 2.25rem;
+  grid-template-columns: auto;
+  gap: 0.25rem;
+  text-align: center;
 }
 
 .cadastro_projeto__midia-info {
+  white-space: nowrap;
   overflow: hidden;
-  height: 2rem;
   text-overflow: ellipsis;
+  width: 100%;
   margin: 0.5rem auto 0.25rem;
   font-weight: 500;
 }
@@ -62,4 +66,21 @@
 
 .btnRemoverImagem--hidden {
   display: none;
+}
+
+/* telas até 700px */
+@media screen
+and (max-width: 700px) {
+  .form__fieldset--file {
+    grid-template-columns: auto;
+  }
+}
+
+/* telas até 1000px */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .form__fieldset--file {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
