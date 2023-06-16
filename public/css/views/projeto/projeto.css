@@ -1,29 +1,127 @@
+/* 
+  grid container: { .projeto }
+
+  grid itens: {
+    .projeto__midias,
+    .projeto__info, 
+    .projeto__resumo,
+    .projeto__ods
+  }
+*/
+
+/* Definindo container e áreas: */
 .projeto {
   background-color: var(--fundo_prata);
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    "midias info"
+    "resumo ods"
+  ;
+  gap: 2rem;
 }
 
-.projeto,
-.projeto__div__texto {
+.projeto__midias {
+  grid-area: midias;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.projeto__div__texto,
-.projeto__img {
-  width: calc(50vw - 7.5%);
-  max-width: 750px;
+.projeto__info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.projeto__div--1 {
+.projeto__resumo {
+  grid-area: resumo;
+}
+
+.projeto__ods {
+  grid-area: ods;
+}
+
+/* Estilização: */
+
+.display__img__link,
+.galeria__item {
+  position: relative;
+}
+
+.projeto__img,
+.galeria__img {
+  float: left;
+  object-fit: cover;
+}
+
+.projeto__img {
+  width: 100%;
+  height: 25rem;
+}
+
+.projeto__display__galeria {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 5px;
+}
+
+.galeria__item {
+  height: 4.5rem;
+  width: calc(100% / 6);
+  cursor: pointer;
+}
+
+.galeria__img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--cinza_escuro);
+  border-radius: 5px;
+}
+
+.display__img__icon,
+.galeria__img__icon {
+  position: absolute;
+  opacity: 0%;
+}
+
+.display__img__icon {
+  width: 85px;
+  height: 85px;
+  top: 40%;
+  left: 45%;
+}
+
+.galeria__img__icon {
+  width: 50px;
+  height: 50px;
+  top: 17%;
+  left: 29%;
+}
+
+.display__img__link:hover .projeto__img,
+.galeria__item:hover .galeria__img {
+  transition: 0.3s ease-out;
+  opacity: 65%;
+}
+
+.display__img__link:hover .display__img__icon,
+.galeria__item:hover .galeria__img__icon {
+  transition: 0.25s;
+  opacity: 100%;
 }
 
 .projeto__titulo {
-  align-self: flex-start;
-  margin-bottom: 1.5rem;
+  align-self: start;
+  text-align: start;
+  margin-bottom: 1.3rem;
 }
 
 .projeto__cidade {
@@ -37,20 +135,6 @@
   margin-bottom: 0.45rem;
 }
 
-.projeto__div--2 {
-  display: flex;
-  align-items: start;
-  gap: 5%;
-}
-
-.projeto__parceiros {
-  width: 617px;
-}
-
-.projeto__parceiros__item {
-  margin-bottom: 0.35rem;
-}
-
 .projeto__ods__lista {
   display: flex;
   flex-wrap: wrap;
@@ -59,76 +143,73 @@
 }
 
 .projeto__ods__img {
-  width: 125px;
-  height: 125px;
+  width: 135px;
+  height: 135px;
 }
 
-.line__div {
-  height: 150px;
-  width: 0;
-  border: 1px solid #000;
-  align-self: center;
+/* ajustando imagem do  projeto em telas até 700px */
+@media screen and (max-width: 700px) {
+  .projeto__img {
+    height: 15rem;
+  }
 }
 
-/* telas até 1000px */
+/* ajustando imagem do  projeto em telas até 1000px */
+@media screen
+and (min-width: 700px)
+and (max-width: 1000px) {
+  .projeto__img {
+    height: 20rem;
+  }
+
+  .display__img__icon {
+    top: 42%;
+    left: 47%;
+  }
+
+  .galeria__img__icon {
+    top: 30%;
+    left: 40%;
+  }
+}
+
+/* Telas até 1000px */
 @media screen
 and (max-width: 1000px) {
-  .projeto__div--1,
-  .projeto__div--2 {
-    flex-direction: column;
+  .projeto {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas: 
+      "midias"
+      "info"
+      "resumo"
+      "ods"
+    ;
   }
 
-  .projeto__div--1 {
-    align-items: center;
+  .galeria__item {
+    height: 3.5rem;
   }
 
-  .projeto__div__texto {
-    width: 100%;
+  .display__img__icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .galeria__img__icon {
+    width: 25px;
+    height: 25px;
   }
 
   .projeto__titulo,
   .projeto__cidade {
     align-self: center;
-  }
-
-  .projeto__titulo {
-    margin: 2rem 0 0;
-  }
-
-  .projeto__atributo {
-    font-size: 1.3rem;
-  }
-
-  .projeto__resumo {
-    width: 100%;
-    max-width: 750px;
-    margin: 0 auto;
-  }
-
-  .projeto__img {
-    width: 100vw;
-    box-sizing: border-box;
-    align-self: center;
-  }
-
-  .projeto__div--2 {
-    gap: 0.45rem;
-    width: 100%;
-    max-width: 750px;
-    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 0.25rem;
   }
 
   .projeto__ods__img {
-    width: calc(75vw / 2);
-    height: auto;
-    max-width: 120px;
-  }
-
-  .projeto__parceiros {
-    width: 100%;
-  }
-
-  .line__div {
-    display: none;
+    width: 110px;
+    height: 110px;
   }
 }

@@ -10,7 +10,7 @@ export class ProjetoServices extends Services {
 
     try {
       const midiasCadastradas = await this.cadastra(data, url);
-      return midiasCadastradas;
+      return midiasCadastradas.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
     }

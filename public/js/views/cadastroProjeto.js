@@ -109,23 +109,19 @@ form.onsubmit = async (event) => {
       ods,
     });
 
-    let temMidia = false;
+    let formData;
+
     for (const input of inputImagem) {
-      if (temMidia) continue;
-      if (input.value) temMidia = true;
-    }
+      if (input.files.length === 0) continue;
 
-    if (temMidia) {
-      const formData = new FormData();
-      formData.append("idProjeto", id);
+      if (!formData) {
+        formData = new FormData();
+        formData.append("idProjeto", id);
+      }
 
-      inputImagem.forEach((input) => {
-        for (const img of input.files) {
-          formData.append(img.name, img);
-        }
-      });
-      await projetoServices.cadastraMidias(id, formData);
+      formData.append(input.files[0].name, input.files[0]);
     }
+    if (formData) await projetoServices.cadastraMidias(id, formData);
 
     limpaInputs(
       inputNome,
@@ -137,9 +133,13 @@ form.onsubmit = async (event) => {
       inputResumo,
       inputImagem
     );
-
     inputOds.forEach((input) => (input.checked = false));
-    window.location.replace("projetos.html");
+    
+    alert("Projeto cadastrado com sucesso!");
+
+    setTimeout(() => {
+      window.location.replace("projetos.html");
+    }, 0);
   } catch (error) {
     alert(`Erro ao cadastrar projeto:\n${error.message}`);
   }

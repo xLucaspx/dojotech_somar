@@ -20,16 +20,30 @@ function criaBtnOds(dados) {
 function criaCardProjeto(dados) {
   const li = document.createElement("li");
 
+  let arrOds = dados.Ods.map((ods) => ods.id);
+
   const conteudo = `
     <a href="projeto.html?id=${dados.id}" class="projeto__link">
-    <img src="${
-      dados.Midia.length > 0
-        ? dados.Midia[0].url
-        : "../../outros/un_headquarters.jpg"
-    }" alt="" class="projeto__img">
-    <h3 class="projeto__titulo subtitulo">${dados.nome}</h3>
-    <p class="projeto__cidade">${dados.cidade}</p>
-    <p class="projeto__causa">${dados.causa}</p>
+      <img src="${
+        dados.Midia.length > 0
+          ? dados.Midia[0].url
+          : "../img/projetos/no-media.webp"
+      }" alt="" class="projeto__img">
+
+      <h2 class="projeto__nome subtitulo">${dados.nome}</h2>
+      <p class="projeto__atributo projeto__cidade">${dados.cidade}</p>
+
+      <div class="projeto__div">
+        <h3 class="projeto__atributo">Causa</h3>
+        <p class="projeto__texto">${dados.causa}</p>
+      </div>
+
+      <div class="projeto__div">
+        <h3 class="projeto__atributo">Público-alvo</h3>
+        <p class="projeto__texto">${dados.publico_alvo}</p>
+      </div>
+      
+      <p class="projeto__atributo">ODS ${arrOds.join(", ")}</p>
     </a>
   `;
 
@@ -51,4 +65,38 @@ function criaCheckboxOds(dados) {
   return li;
 }
 
-export { renderizaDados, criaBtnOds, criaCardProjeto, criaCheckboxOds };
+function criaMiniaturaImagem(dados) {
+  const li = document.createElement("li");
+  const conteudo = `
+    <img class="galeria__img" src="${dados.url}" alt="">
+    <img src="../img/icons/expand.webp" alt="Expandir imagem" class="galeria__img__icon">
+  `;
+
+  li.classList.add("galeria__item");
+  li.innerHTML = conteudo;
+  return li;
+}
+
+function criaItemParceiro(parceiro) {
+  const li = document.createElement("li");
+  li.innerHTML = parceiro;
+  li.classList.add("projeto__parceiros__item");
+  return li;
+}
+
+function criaItemOds(ods) {
+  const li = document.createElement("li");
+  li.innerHTML = `<img src="${ods.url_imagem}" alt="${ods.id} - ${ods.nome}" class="projeto__ods__img img">`;
+  li.classList.add("projeto__ods__item");
+  return li;
+}
+
+export {
+  renderizaDados,
+  criaBtnOds,
+  criaCardProjeto,
+  criaCheckboxOds,
+  criaMiniaturaImagem,
+  criaItemParceiro,
+  criaItemOds,
+};

@@ -1,5 +1,5 @@
 .apresentacao {
-  background: url("../../../img/home/apresentacao_bg.jpg") no-repeat center / cover;
+  background: url("../../../img/home/apresentacao_bg.webp") no-repeat center / cover;
   min-height: 600px;
   height: calc(100vh - 15rem);
   color: #fff;

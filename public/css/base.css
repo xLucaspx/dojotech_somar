@@ -106,7 +106,7 @@ body {
   position: fixed;
   bottom: 1.25rem;
   right: 1rem;
-  content: url('../img/scroll_up.svg');
+  content: url('../img/icons/scroll_up.svg');
   transition: 0.5s ease-out;
 }
 
