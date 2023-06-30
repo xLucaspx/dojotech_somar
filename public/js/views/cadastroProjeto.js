@@ -28,46 +28,11 @@ if (tokenJwt) {
 const listaOds = document.querySelector(".form__lista_ods");
 renderizaDados(listaOds, await odsServices.buscaDados(), criaCheckboxOds);
 
-const fileTypes = [
-  "image/avif",
-  "image/jpeg",
-  "image/png",
-  "image/svg+xml",
-  "image/webp",
-];
-const inputImagem = document.querySelectorAll(".cadastro_projeto__imagem");
+const btnRemoverMidia = document.querySelectorAll(".btnRemoverMidia");
 
-inputImagem.forEach((input) => {
-  input.onchange = () => {
-    const file = input.files[0];
-    const span = input.parentElement.querySelector(
-      ".cadastro_projeto__midia-info"
-    );
-    const btnRemoverImagem =
-      input.parentElement.querySelector(".btnRemoverImagem");
-
-    if (file && fileTypes.includes(file.type)) {
-      span.classList.remove("cadastro_projeto__midia-info--invalido");
-      span.classList.add("cadastro_projeto__midia-info--valido");
-      btnRemoverImagem.classList.remove("btnRemoverImagem--hidden");
-      span.innerHTML = `${file.name}`;
-    } else {
-      span.classList.remove("cadastro_projeto__midia-info--valido");
-      span.classList.add("cadastro_projeto__midia-info--invalido");
-      btnRemoverImagem.classList.add("btnRemoverImagem--hidden");
-      input.value = "";
-
-      if (!file) span.innerHTML = "Nenhuma imagem selecionada!";
-      else span.innerHTML = "O formato do arquivo selecionado não é válido!";
-    }
-  };
-});
-
-const btnRemoverImagem = document.querySelectorAll(".btnRemoverImagem");
-
-btnRemoverImagem.forEach((btn) =>
+btnRemoverMidia.forEach((btn) =>
   btn.addEventListener("click", () => {
-    const input = btn.parentElement.querySelector(".cadastro_projeto__imagem");
+    const input = btn.parentElement.querySelector(".cadastro_projeto__midia");
     input.value = "";
     input.dispatchEvent(new Event("change"));
   })
@@ -80,6 +45,7 @@ const inputPublico = document.getElementById("cadastro_projeto__publico");
 const inputCidade = document.getElementById("cadastro_projeto__cidade");
 const inputParceiros = document.getElementById("cadastro_projeto__parceiros");
 const inputResumo = document.getElementById("cadastro_projeto__resumo");
+const listaInputMidia = document.querySelectorAll(".cadastro_projeto__midia");
 
 const form = document.querySelector(".cadastro_projeto__form");
 
@@ -111,7 +77,7 @@ form.onsubmit = async (event) => {
 
     let formData;
 
-    for (const input of inputImagem) {
+    for (const input of listaInputMidia) {
       if (input.files.length === 0) continue;
 
       if (!formData) {
@@ -121,6 +87,7 @@ form.onsubmit = async (event) => {
 
       formData.append(input.files[0].name, input.files[0]);
     }
+
     if (formData) await projetoServices.cadastraMidias(id, formData);
 
     limpaInputs(
@@ -131,10 +98,10 @@ form.onsubmit = async (event) => {
       inputCidade,
       inputParceiros,
       inputResumo,
-      inputImagem
+      listaInputMidia
     );
     inputOds.forEach((input) => (input.checked = false));
-    
+
     alert("Projeto cadastrado com sucesso!");
 
     setTimeout(() => {

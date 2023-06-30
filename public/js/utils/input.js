@@ -27,6 +27,34 @@ async function validaInput(input) {
   }
 }
 
+function validaInputMidias(listaInputs, fileTypes) {
+  listaInputs.forEach((input) => {
+    input.onchange = () => {
+      const file = input.files[0];
+      const span = input.parentElement.querySelector(
+        ".cadastro_projeto__midia-info"
+      );
+      const btnRemoverMidia =
+        input.parentElement.querySelector(".btnRemoverMidia");
+
+      if (file && fileTypes.includes(file.type)) {
+        span.classList.remove("cadastro_projeto__midia-info--invalido");
+        span.classList.add("cadastro_projeto__midia-info--valido");
+        btnRemoverMidia.classList.remove("btnRemoverMidia--hidden");
+        span.innerHTML = `${file.name}`;
+      } else {
+        span.classList.remove("cadastro_projeto__midia-info--valido");
+        span.classList.add("cadastro_projeto__midia-info--invalido");
+        btnRemoverMidia.classList.add("btnRemoverMidia--hidden");
+        input.value = "";
+
+        if (!file) span.innerHTML = "Nenhuma mídia selecionada!";
+        else span.innerHTML = "O formato do arquivo selecionado não é válido!";
+      }
+    };
+  });
+}
+
 async function validaInputCep(input) {
   try {
     const dados = await buscaCep(input.value);
@@ -49,4 +77,24 @@ function mostraErro(input, tipoInput) {
   return mensagem;
 }
 
-export { validaInput, limpaInputs };
+const fileTypes = {
+  image: [
+    "image/avif",
+    "image/jpeg",
+    "image/png",
+    "image/svg+xml",
+    "image/webp",
+  ],
+  video: [
+    "video/x-msvideo",
+    "video/mp4",
+    "video/mpeg",
+    "video/ogg",
+    "video/mp2t",
+    "video/webm",
+    "video/3gpp",
+    "video/3gpp2",
+  ],
+};
+
+export { validaInput, limpaInputs, validaInputMidias, fileTypes };

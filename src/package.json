@@ -5,7 +5,10 @@
   "main": "./server/index.js",
   "scripts": {
     "server": "nodemon ./server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:migrate-and-seed": "npm run db:migrate && npm run db:seed",
+    "sh-delete-midias": "rm -rf ../public/img/projetos/*/"
   },
   "repository": {
     "type": "git",

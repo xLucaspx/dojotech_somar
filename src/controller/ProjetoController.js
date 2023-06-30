@@ -70,14 +70,16 @@ class ProjetoController {
 
   static async cadastraMidias(req, res) {
     const { idProjeto } = req.body;
-    const midiasCadastradas = [];
+
     try {
-      Object.keys(req.files).forEach(async (key) => {
-        midiasCadastradas.push(
+      Object.keys(req.files).forEach(
+        async (key) =>
           await midiaServices.cadastraMidia(idProjeto, req.files[key])
-        );
-      });
-      return res.status(201).json(midiasCadastradas);
+      );
+
+      return res
+        .status(201)
+        .json({ message: "Mídias cadastradas com sucesso!" });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

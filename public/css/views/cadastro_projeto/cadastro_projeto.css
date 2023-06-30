@@ -46,7 +46,7 @@
   color: var(--vermelho);
 }
 
-.btnRemoverImagem {
+.btnRemoverMidia {
   color: var(--vermelho);
   font-weight: 500;
   padding: 0.35rem;
@@ -58,13 +58,13 @@
   transition: 0.5s ease-out;
 }
 
-.btnRemoverImagem:hover,
-.btnRemoverImagem:focus {
+.btnRemoverMidia:hover,
+.btnRemoverMidia:focus {
   background-color: var(--vermelho);
   color: #fff;
 }
 
-.btnRemoverImagem--hidden {
+.btnRemoverMidia--hidden {
   display: none;
 }
 

@@ -11,13 +11,13 @@ class MidiaServices extends Services {
       const filePath = `../../public/img/projetos/${idProjeto}/${midia.name}`;
       midia.mv(path.join(__dirname, filePath));
 
-      return await this.criaRegistro({
+      await this.criaRegistro({
         id_projeto: idProjeto,
         nome: midia.name,
         url: filePath,
         alt: "",
       });
-    } catch (error) { 
+    } catch (error) {
       throw error;
     }
   }
