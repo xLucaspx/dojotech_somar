@@ -1,5 +1,7 @@
-const Services = require("./Services");
 const path = require("node:path");
+const fs = require("node:fs");
+const Services = require("./Services");
+const { ConflictError } = require("../errors");
 
 class MidiaServices extends Services {
   constructor() {
@@ -8,10 +10,16 @@ class MidiaServices extends Services {
 
   async cadastraMidia(idProjeto, midia) {
     try {
-      const filePath = `../../public/img/projetos/${idProjeto}/${midia.name}`;
+      let filePath = `../../public/img/projetos/${idProjeto}/${midia.name}`;
+
+      if (fs.existsSync(filePath)) {
+        throw new ConflictError(
+          `Erro ao cadastrar arquivo ${midia.name}:\nEste arquivo já existe no diretório do projeto!`
+        );
+      }
       midia.mv(path.join(__dirname, filePath));
 
-      await this.criaRegistro({
+      return await this.criaRegistro({
         id_projeto: idProjeto,
         nome: midia.name,
         url: filePath,

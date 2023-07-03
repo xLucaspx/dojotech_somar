@@ -3,6 +3,7 @@ import { ProjetoServices } from "../services/ProjetoServices.js";
 import { UsuarioServices } from "../services/UsuarioServices.js";
 import { buscaCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
+import { renameFile } from "../utils/renameFile.js";
 import { criaCheckboxOds, renderizaDados } from "../utils/renderizaDados.js";
 
 const tokenJwt = buscaCookie("tokenJwt");
@@ -85,7 +86,18 @@ form.onsubmit = async (event) => {
         formData.append("idProjeto", id);
       }
 
-      formData.append(input.files[0].name, input.files[0]);
+      let file = input.files[0];
+      // remove todos os pontos no nome do arquivo, exceto o último, e separa o nome da extensão:
+      const [name, ext] = file.name.replace(/[.](?=.*[.])/g, "").split(".");
+      let i = 1;
+
+      while (formData.has(file.name)) {
+        const newName = `${name}_${i}.${ext}`;
+        file = renameFile(file, newName);
+        i++;
+      }
+
+      formData.append(file.name, file);
     }
 
     if (formData) await projetoServices.cadastraMidias(id, formData);

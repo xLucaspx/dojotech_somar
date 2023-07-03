@@ -1,6 +1,6 @@
 const { Op, ValidationError } = require("sequelize");
 const { ProjetoServices, MidiaServices } = require("../services");
-const { NotFoundError } = require("../errors");
+const { NotFoundError, ConflictError } = require("../errors");
 
 const projetoServices = new ProjetoServices();
 const midiaServices = new MidiaServices();
@@ -77,11 +77,11 @@ class ProjetoController {
           await midiaServices.cadastraMidia(idProjeto, req.files[key])
       );
 
-      return res
-        .status(201)
-        .json({ message: "Mídias cadastradas com sucesso!" });
+      return res.status(201).json({ data: "Mídias cadastradas com sucesso!" });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res
+        .status(error instanceof ConflictError ? 409 : 500)
+        .json({ message: error.message });
     }
   }
 }
