@@ -78,7 +78,9 @@ form.onsubmit = async (event) => {
 
     let formData;
 
-    for (const input of listaInputMidia) {
+    for (let i = 0; i < listaInputMidia.length; i++) {
+      const input = listaInputMidia[i];
+
       if (input.files.length === 0) continue;
 
       if (!formData) {
@@ -87,15 +89,10 @@ form.onsubmit = async (event) => {
       }
 
       let file = input.files[0];
-      // remove todos os pontos no nome do arquivo, exceto o último, e separa o nome da extensão:
-      const [name, ext] = file.name.replace(/[.](?=.*[.])/g, "").split(".");
-      let i = 1;
-
-      while (formData.has(file.name)) {
-        const newName = `${name}_${i}.${ext}`;
-        file = renameFile(file, newName);
-        i++;
-      }
+      // pega a extensão do arquivo:
+      const ext = file.name.split(".").pop();
+      // renomeia o arquivo:
+      file = renameFile(file, `midia_${i}.${ext}`);
 
       formData.append(file.name, file);
     }

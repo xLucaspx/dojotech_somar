@@ -8,7 +8,8 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate-and-seed": "npm run db:migrate && npm run db:seed",
-    "sh-delete-midias": "rm -rf ../public/img/projetos/*/"
+    "sh-delete-midias": "rm -rf ../public/img/projetos/*/",
+    "ps-delete-midias": "powershell -Command \"Get-ChildItem -Path '../public/img/projetos' -Directory | Remove-Item -Recurse -Force\""
   },
   "repository": {
     "type": "git",
