@@ -14,6 +14,10 @@ app.use(
     createParentPath: true,
     safeFileNames: /[/\\^$*+?.()|[\]{}]/g,
     preserveExtension: 4,
+    limits: {
+      files: 6,
+      fileSize: 140000000, // 140 MB
+    },
   })
 );
 

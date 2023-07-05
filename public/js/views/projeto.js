@@ -13,6 +13,8 @@ try {
   const projetoServices = new ProjetoServices();
   projeto = await projetoServices.buscaPorId(idProjeto);
 
+  document.title = `${projeto.nome} | Programa Somar`
+
   if (!projeto) throw new Error("Projeto não encntrado!");
 } catch (error) {
   alert(`Houve um erro ao tenta abrir a página do projeto:\n${error.message}`);
