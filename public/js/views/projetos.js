@@ -19,12 +19,21 @@ try {
 
   renderizaDados(listaOds, ods, criaBtnOds);
   renderizaDados(listaProjetos, projetos, criaCardProjeto);
-  buscaMsg.innerHTML = `Exibindo todos os ${projetos.length} projetos`;
+  buscaMsg.innerHTML = handleMsgBusca(projetos.length);
 } catch (error) {
   alert(`Erro ao carregar página:\n${error.message}`);
 }
 
 const btnOds = document.querySelectorAll(".lista_ods__btn");
+btnOds.forEach((btn) =>
+  btn.addEventListener("click", async () => {
+    window.location.href = "#busca";
+    selectFiltro.value = "ods";
+    inputBusca.value = btn.dataset.info;
+    inputBusca.dispatchEvent(new Event("search"));
+  })
+);
+
 const inputBusca = document.getElementById("busca__input");
 const selectFiltro = document.getElementById("busca__filtro");
 const filtros = {
@@ -35,38 +44,22 @@ const filtros = {
   publico_alvo: "Público-alvo",
 };
 
-btnOds.forEach((btn) =>
-  btn.addEventListener("click", async () => {
-    window.location.href = "#busca";
-    selectFiltro.value = "ods";
-    inputBusca.value = btn.dataset.info;
-    inputBusca.dispatchEvent(new Event("search"));
-  })
-);
-
 inputBusca.addEventListener("search", async (event) => {
   event.preventDefault();
-  const queryMsg = `para a busca "${inputBusca.value}" com o filtro ${
-    filtros[selectFiltro.value]
-  }.`;
 
   try {
     const projetos = await projetoServices.filtraProjetos({
       [selectFiltro.value]: inputBusca.value,
     });
 
-    if (projetos.length > 0) {
+    if (projetos.length > 0)
       renderizaDados(listaProjetos, projetos, criaCardProjeto);
+    else listaProjetos.innerHTML = "";
 
-      if (!inputBusca.value) {
-        buscaMsg.innerHTML = `Exibindo todos os ${projetos.length} projetos`;
-      } else {
-        buscaMsg.innerHTML = `${projetos.length} projetos encontrados ${queryMsg}`;
-      }
-    } else {
-      listaProjetos.innerHTML = "";
-      buscaMsg.innerHTML = `Nenhum projeto encontrado ${queryMsg}`;
-    }
+    buscaMsg.innerHTML = handleMsgBusca(projetos.length, {
+      input: inputBusca.value,
+      filtro: filtros[selectFiltro.value],
+    });
   } catch (error) {
     alert(`Erro ao buscar projetos:\n${error.message}`);
   }
@@ -88,3 +81,17 @@ selectFiltro.onchange = (event) => {
   event.preventDefault();
   inputBusca.dispatchEvent(new Event("search"));
 };
+
+function handleMsgBusca(qtdProjetos, query = {}) {
+  const hasProjects = qtdProjetos > 0;
+  const hasQuery = query.input !== undefined && query.input.trim() !== "";
+
+  const msg = {
+    "false, false": `Ainda não há projetos cadastrados!`,
+    "true, false": `Exibindo todos os ${qtdProjetos} projetos!`,
+    "false, true": `Nenhum projeto encontrado para a busca "${query.input}" com o filtro ${query.filtro}.`,
+    "true, true": `${qtdProjetos} projetos encontrados para a busca "${query.input}" com o filtro ${query.filtro}.`,
+  };
+
+  return msg[`${hasProjects}, ${hasQuery}`];
+}

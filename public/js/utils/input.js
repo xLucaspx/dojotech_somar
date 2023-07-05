@@ -1,5 +1,5 @@
 import { buscaCep, preencheCamposCep } from "./cep.js";
-import { mensagensErro, tiposErro } from "./erros.js";
+import { mensagensErro, tiposErro } from "./errosInput.js";
 
 function limpaInputs(...inputs) {
   inputs.forEach((input) => (input.value = ""));
@@ -15,16 +15,16 @@ async function validaInput(input) {
     await validaInputCep(input);
   }
 
-  if (input.validity.valid) {
-    input.classList.remove("form__texto--invalido");
-    input.classList.add("form__texto--valido");
-    mensagemErro.innerHTML = "";
-  } else {
+  if (!input.validity.valid) {
     input.classList.remove("form__texto--valido");
     input.classList.add("form__texto--invalido");
     mensagemErro.innerHTML = mostraErro(input, tipoInput);
     return false;
   }
+
+  input.classList.remove("form__texto--invalido");
+  input.classList.add("form__texto--valido");
+  mensagemErro.innerHTML = "";
 }
 
 function validaInputMidias(listaInputs, fileTypes) {
