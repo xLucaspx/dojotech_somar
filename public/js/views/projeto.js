@@ -1,4 +1,5 @@
 import { ProjetoServices } from "../services/ProjetoServices.js";
+import { fileTypes } from "../utils/fileTypes.js";
 import {
   criaItemOds,
   criaItemParceiro,
@@ -13,9 +14,8 @@ try {
   const projetoServices = new ProjetoServices();
   projeto = await projetoServices.buscaPorId(idProjeto);
 
+  if (!projeto) throw new Error("Projeto não encontrado!");
   document.title = `${projeto.nome} | Programa Somar`
-
-  if (!projeto) throw new Error("Projeto não encntrado!");
 } catch (error) {
   alert(`Houve um erro ao tenta abrir a página do projeto:\n${error.message}`);
   window.location.href = "projetos.html";
@@ -24,14 +24,9 @@ try {
 const midiaLink = document.querySelector(".display__midia__link");
 const galeria = document.querySelector(".projeto__display__galeria");
 
-const temMidia = projeto.Midia.length > 0;
-if (temMidia) {
-  const url = projeto.Midia[0].url;
-  midiaLink.href = url;
-  midiaLink.innerHTML = `
-    <img src="${url}" alt class="projeto__img img">
-    <img src="../img/icons/lupa.webp" alt class="display__img__icon">
-  `;
+if (projeto.Midia.length > 0) {
+  const midiaDestaque = projeto.Midia[0];
+  handleMidiaDestaque(fileTypes.image.includes(midiaDestaque.tipo) ? "IMG" : "VIDEO", midiaDestaque.url);
   renderizaDados(galeria, projeto.Midia, criaMiniaturaMidia);
 }
 
@@ -39,24 +34,7 @@ const miniaturas = document.querySelectorAll(".galeria__item");
 miniaturas.forEach((miniatura) => {
   miniatura.onclick = () => {
     const midia = miniatura.querySelector(".galeria__view");
-    const url = midia.src;
-    midiaLink.href = url;
-
-    let conteudo;
-
-    if (midia.nodeName === "VIDEO") {
-      conteudo = `
-        <video src="${url}" alt class="projeto__img" controls></video>
-        <img src="../img/icons/lupa.webp" alt class="display__img__icon">
-      `;
-    } else {
-      conteudo = `
-        <img src="${url}" alt class="projeto__img img">
-        <img src="../img/icons/lupa.webp" alt class="display__img__icon">
-      `;
-    }
-
-    midiaLink.innerHTML = conteudo;
+    handleMidiaDestaque(midia.nodeName, midia.src);
   };
 });
 
@@ -83,3 +61,12 @@ if (projeto.parceiros) {
   <li class="projeto__parceiros__item">Ainda não há parceiros para este projeto</li>
   `;
 }
+
+function handleMidiaDestaque(type, url) {
+  let tag = `<img src="${url}" alt class="projeto__midia img">`;
+
+  if (type === "VIDEO") tag = `<video src="${url}" alt class="projeto__midia" controls></video>`;
+
+  midiaLink.href = url;
+  midiaLink.innerHTML = `${tag}<img src="../img/icons/lupa.webp" alt class="display__img__icon">`;
+};

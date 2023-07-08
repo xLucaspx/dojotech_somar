@@ -16,7 +16,7 @@ app.use(
     preserveExtension: 4,
     limits: {
       files: 6,
-      fileSize: 140000000, // 140 MB
+      fileSize: 100000000, // 100 MB
     },
   })
 );

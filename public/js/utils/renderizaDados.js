@@ -21,16 +21,16 @@ function criaBtnOds(dados) {
 
 function criaCardProjeto(dados) {
   const li = document.createElement("li");
-
   let arrOds = dados.Ods.map((ods) => ods.id);
+  let miniatura = `
+    <img src="${dados.Midia.length === 0 ? "../img/projetos/no-media.webp" : dados.Midia[0].url}" alt class="projeto__miniatura">
+  `;
+
+  if (fileTypes.video.includes(dados.Midia[0]?.tipo)) miniatura = `<video src="${dados.Midia[0].url}" alt class="projeto__miniatura"></video>`
 
   const conteudo = `
     <a href="projeto.html?id=${dados.id}" class="projeto__link">
-      <img src="${
-        dados.Midia.length > 0
-          ? dados.Midia[0].url
-          : "../img/projetos/no-media.webp"
-      }" alt="" class="projeto__img">
+      ${miniatura}
 
       <h2 class="projeto__nome subtitulo">${dados.nome}</h2>
       <p class="projeto__atributo projeto__cidade">${dados.cidade}</p>
@@ -73,8 +73,8 @@ function criaMiniaturaMidia(dados) {
 
   if (fileTypes.video.includes(dados.tipo)) {
     conteudo = `
-      <video class="galeria__view" src="${dados.url}" alt=""></video>
-      <img src="../img/icons/expand.webp" alt="Expandir vídeo" class="galeria__view__icon">
+      <video class="galeria__view galeria__view--video" src="${dados.url}" alt=""></video>
+      <img src="../img/icons/play.webp" alt="Expandir vídeo" class="galeria__view__icon--video">
     `;
   } else {
     conteudo = `

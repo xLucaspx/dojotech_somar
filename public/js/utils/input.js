@@ -49,8 +49,8 @@ function validaInputMidias(listaInputs, fileTypes) {
         input.value = "";
 
         if (!file) span.innerHTML = "Nenhuma mídia selecionada!";
-        else if (file.size > 140000000)
-          span.innerHTML = "Arquivo excede o limite de 140 MB!";
+        else if (file.size > 100000000)
+          span.innerHTML = "Arquivo excede o limite de 100 MB!";
         else span.innerHTML = "O formato do arquivo selecionado não é válido!";
       }
     };

@@ -51,13 +51,13 @@
   position: relative;
 }
 
-.projeto__img,
+.projeto__midia,
 .galeria__view {
   float: left;
   object-fit: cover;
 }
 
-.projeto__img {
+.projeto__midia {
   width: 100%;
   height: 25rem;
 }
@@ -86,10 +86,19 @@
   border-radius: 5px;
 }
 
+.galeria__view--video {
+  opacity: 65%;
+}
+
 .display__img__icon,
 .galeria__view__icon {
-  position: absolute;
   opacity: 0%;
+}
+
+.display__img__icon,
+.galeria__view__icon,
+.galeria__view__icon--video {
+  position: absolute;
 }
 
 .display__img__icon {
@@ -99,14 +108,15 @@
   left: 45%;
 }
 
-.galeria__view__icon {
+.galeria__view__icon,
+.galeria__view__icon--video {
   width: 50px;
   height: 50px;
   top: 17%;
-  left: 29%;
+  left: 32%;
 }
 
-.display__midia__link:hover .projeto__img,
+.display__midia__link:hover .projeto__midia,
 .galeria__item:hover .galeria__view {
   transition: 0.3s ease-out;
   opacity: 65%;
@@ -149,16 +159,14 @@
 
 /* ajustando imagem do  projeto em telas até 700px */
 @media screen and (max-width: 700px) {
-  .projeto__img {
+  .projeto__midia {
     height: 15rem;
   }
 }
 
 /* ajustando imagem do  projeto em telas até 1000px */
-@media screen
-and (min-width: 700px)
-and (max-width: 1000px) {
-  .projeto__img {
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .projeto__midia {
     height: 20rem;
   }
 
@@ -167,19 +175,19 @@ and (max-width: 1000px) {
     left: 47%;
   }
 
-  .galeria__view__icon {
+  .galeria__view__icon
+  .galeria__view__icon--video {
     top: 30%;
     left: 40%;
   }
 }
 
 /* Telas até 1000px */
-@media screen
-and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
   .projeto {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, auto);
-    grid-template-areas: 
+    grid-template-areas:
       "midias"
       "info"
       "resumo"
@@ -196,9 +204,12 @@ and (max-width: 1000px) {
     height: 50px;
   }
 
-  .galeria__view__icon {
-    width: 25px;
-    height: 25px;
+  .galeria__view__icon,
+  .galeria__view__icon--video {
+    width: 30px;
+    height: 30px;
+    top: 20%;
+    left: 27%;
   }
 
   .projeto__titulo,
