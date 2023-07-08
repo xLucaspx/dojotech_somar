@@ -46,13 +46,13 @@
 
 /* Estilização: */
 
-.display__img__link,
+.display__midia__link,
 .galeria__item {
   position: relative;
 }
 
 .projeto__img,
-.galeria__img {
+.galeria__view {
   float: left;
   object-fit: cover;
 }
@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 
-.galeria__img {
+.galeria__view {
   width: 100%;
   height: 100%;
   border: 1px solid var(--cinza_escuro);
@@ -87,7 +87,7 @@
 }
 
 .display__img__icon,
-.galeria__img__icon {
+.galeria__view__icon {
   position: absolute;
   opacity: 0%;
 }
@@ -99,21 +99,21 @@
   left: 45%;
 }
 
-.galeria__img__icon {
+.galeria__view__icon {
   width: 50px;
   height: 50px;
   top: 17%;
   left: 29%;
 }
 
-.display__img__link:hover .projeto__img,
-.galeria__item:hover .galeria__img {
+.display__midia__link:hover .projeto__img,
+.galeria__item:hover .galeria__view {
   transition: 0.3s ease-out;
   opacity: 65%;
 }
 
-.display__img__link:hover .display__img__icon,
-.galeria__item:hover .galeria__img__icon {
+.display__midia__link:hover .display__img__icon,
+.galeria__item:hover .galeria__view__icon {
   transition: 0.25s;
   opacity: 100%;
 }
@@ -167,7 +167,7 @@ and (max-width: 1000px) {
     left: 47%;
   }
 
-  .galeria__img__icon {
+  .galeria__view__icon {
     top: 30%;
     left: 40%;
   }
@@ -196,7 +196,7 @@ and (max-width: 1000px) {
     height: 50px;
   }
 
-  .galeria__img__icon {
+  .galeria__view__icon {
     width: 25px;
     height: 25px;
   }

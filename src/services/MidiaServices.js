@@ -22,6 +22,7 @@ class MidiaServices extends Services {
       return await this.criaRegistro({
         id_projeto: idProjeto,
         nome: midia.name,
+        tipo: midia.mimetype,
         url: filePath,
         alt: "",
       });

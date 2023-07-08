@@ -2,7 +2,7 @@ import { ProjetoServices } from "../services/ProjetoServices.js";
 import {
   criaItemOds,
   criaItemParceiro,
-  criaMiniaturaImagem,
+  criaMiniaturaMidia,
   renderizaDados,
 } from "../utils/renderizaDados.js";
 
@@ -21,24 +21,42 @@ try {
   window.location.href = "projetos.html";
 }
 
-const imgLink = document.querySelector(".display__img__link");
-const img = document.querySelector(".projeto__img");
+const midiaLink = document.querySelector(".display__midia__link");
 const galeria = document.querySelector(".projeto__display__galeria");
 
 const temMidia = projeto.Midia.length > 0;
 if (temMidia) {
   const url = projeto.Midia[0].url;
-  imgLink.href = url;
-  img.src = url;
-  renderizaDados(galeria, projeto.Midia, criaMiniaturaImagem);
+  midiaLink.href = url;
+  midiaLink.innerHTML = `
+    <img src="${url}" alt class="projeto__img img">
+    <img src="../img/icons/lupa.webp" alt class="display__img__icon">
+  `;
+  renderizaDados(galeria, projeto.Midia, criaMiniaturaMidia);
 }
 
 const miniaturas = document.querySelectorAll(".galeria__item");
 miniaturas.forEach((miniatura) => {
   miniatura.onclick = () => {
-    const urlImagemMiniatura = miniatura.querySelector(".galeria__img").src;
-    img.src = urlImagemMiniatura;
-    imgLink.href = urlImagemMiniatura;
+    const midia = miniatura.querySelector(".galeria__view");
+    const url = midia.src;
+    midiaLink.href = url;
+
+    let conteudo;
+
+    if (midia.nodeName === "VIDEO") {
+      conteudo = `
+        <video src="${url}" alt class="projeto__img" controls></video>
+        <img src="../img/icons/lupa.webp" alt class="display__img__icon">
+      `;
+    } else {
+      conteudo = `
+        <img src="${url}" alt class="projeto__img img">
+        <img src="../img/icons/lupa.webp" alt class="display__img__icon">
+      `;
+    }
+
+    midiaLink.innerHTML = conteudo;
   };
 });
 

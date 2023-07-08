@@ -1,3 +1,5 @@
+import { fileTypes } from "./fileTypes.js";
+
 function renderizaDados(elemento, dados, funcao) {
   elemento.innerHTML = "";
   dados.forEach((dado) => elemento.appendChild(funcao(dado)));
@@ -65,12 +67,21 @@ function criaCheckboxOds(dados) {
   return li;
 }
 
-function criaMiniaturaImagem(dados) {
+function criaMiniaturaMidia(dados) {
   const li = document.createElement("li");
-  const conteudo = `
-    <img class="galeria__img" src="${dados.url}" alt="">
-    <img src="../img/icons/expand.webp" alt="Expandir imagem" class="galeria__img__icon">
-  `;
+  let conteudo;
+
+  if (fileTypes.video.includes(dados.tipo)) {
+    conteudo = `
+      <video class="galeria__view" src="${dados.url}" alt=""></video>
+      <img src="../img/icons/expand.webp" alt="Expandir vídeo" class="galeria__view__icon">
+    `;
+  } else {
+    conteudo = `
+      <img class="galeria__view" src="${dados.url}" alt="">
+      <img src="../img/icons/expand.webp" alt="Expandir imagem" class="galeria__view__icon">
+    `;
+  }
 
   li.classList.add("galeria__item");
   li.innerHTML = conteudo;
@@ -96,7 +107,7 @@ export {
   criaBtnOds,
   criaCardProjeto,
   criaCheckboxOds,
-  criaMiniaturaImagem,
+  criaMiniaturaMidia,
   criaItemParceiro,
   criaItemOds,
 };

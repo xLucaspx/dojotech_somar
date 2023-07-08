@@ -1,4 +1,5 @@
-import { fileTypes, validaInput, validaInputMidias } from "./utils/input.js";
+import { fileTypes } from "./utils/fileTypes.js";
+import { validaInput, validaInputMidias } from "./utils/input.js";
 
 (() => {
   const listaInputs = document.querySelectorAll(".form__texto");
