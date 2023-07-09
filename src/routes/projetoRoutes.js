@@ -8,6 +8,7 @@ router
   .get("/projetos/filtro?", ProjetoController.buscaProjetosComFiltro)
   .get("/projetos/:id", ProjetoController.buscaProjetoPorId)
   .post("/projetos", ProjetoController.cadastraProjeto)
-  .post("/projetos/:id/midias", ProjetoController.cadastraMidias);
+  .post("/projetos/:id/midias", ProjetoController.cadastraMidias)
+  .delete("/projetos/:idProjeto", ProjetoController.deletaProjeto)
 
 module.exports = router;

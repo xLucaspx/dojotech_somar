@@ -10,14 +10,15 @@ class ProjetoServices extends Services {
 
   async buscaProjetoPorId(id) {
     try {
-      return await db[this.nomeDoModelo].findOne({
+      const projeto = await db[this.nomeDoModelo].findOne({
         where: { id },
         include: ["Ods", "Midia"],
       });
+
+      if (projeto) return projeto;
+
+      throw new NotFoundError("Projeto não encontrado!");
     } catch (error) {
-      if (error instanceof NotFoundError) {
-        throw new NotFoundError("Projeto não encontrado!");
-      }
       throw error;
     }
   }
@@ -49,6 +50,16 @@ class ProjetoServices extends Services {
         });
       });
       return Array.from(projetosFiltrados);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletaProjeto(id) {
+    try {
+      const projeto = await this.buscaProjetoPorId(id);
+      await db["Projeto_ods"].destroy({ where: { id_projeto: id } });
+      return await projeto.destroy();
     } catch (error) {
       throw error;
     }

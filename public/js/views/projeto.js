@@ -1,4 +1,6 @@
 import { ProjetoServices } from "../services/ProjetoServices.js";
+import { UsuarioServices } from "../services/UsuarioServices.js";
+import { buscaCookie } from "../utils/cookie.js";
 import { fileTypes } from "../utils/fileTypes.js";
 import {
   criaItemOds,
@@ -7,18 +9,55 @@ import {
   renderizaDados,
 } from "../utils/renderizaDados.js";
 
+const tokenJwt = buscaCookie("tokenJwt");
+const usuarioServices = new UsuarioServices();
+const projetoServices = new ProjetoServices();
 let projeto;
+let idUsuario;
+
+if (tokenJwt) {
+  try {
+    const usuario = await usuarioServices.autenticaUsuario({ tokenJwt });
+    idUsuario = usuario.id;
+  } catch (error) {
+    alert(`Erro ao autenticar usuário:\n${error.message}`);
+    removeCookie("tokenJwt");
+  }
+}
 
 try {
   const idProjeto = new URL(window.location).searchParams.get("id");
-  const projetoServices = new ProjetoServices();
   projeto = await projetoServices.buscaPorId(idProjeto);
 
   if (!projeto) throw new Error("Projeto não encontrado!");
-  document.title = `${projeto.nome} | Programa Somar`
+  document.title = `${projeto.nome} | Programa Somar`;
 } catch (error) {
   alert(`Houve um erro ao tenta abrir a página do projeto:\n${error.message}`);
   window.location.href = "projetos.html";
+}
+
+if (idUsuario === projeto.id_usuario) {
+  const botoesProjeto = document.querySelector(".projeto__botoes__controle");
+
+  botoesProjeto.innerHTML = `
+  <button type="button" class="btnEditar btn btnPadrao" title="Editar projeto ${projeto.nome}">Editar</button>
+  <button type="button" class="btnExcluir btn" title="Excluir projeto ${projeto.nome}">Excluir</button>
+  `;
+
+  const btnEditar = document.querySelector(".btnEditar");
+  const btnExcluir = document.querySelector(".btnExcluir");
+
+  btnExcluir.addEventListener("click", async () => {
+    try {
+      const excluir = confirm(`Tem certeza que deseja excluir o projeto "${projeto.nome}"?`);
+      if (excluir) {
+        await projetoServices.deleta(projeto.id);
+        window.location.href = "projetos.html";
+      }
+    } catch (error) {
+      alert(`Não foi possível excluir o projeto:\n${error.message}`);
+    }
+  });
 }
 
 const midiaLink = document.querySelector(".display__midia__link");
@@ -26,7 +65,10 @@ const galeria = document.querySelector(".projeto__display__galeria");
 
 if (projeto.Midia.length > 0) {
   const midiaDestaque = projeto.Midia[0];
-  handleMidiaDestaque(fileTypes.image.includes(midiaDestaque.tipo) ? "IMG" : "VIDEO", midiaDestaque.url);
+  handleMidiaDestaque(
+    fileTypes.image.includes(midiaDestaque.tipo) ? "IMG" : "VIDEO",
+    midiaDestaque.url
+  );
   renderizaDados(galeria, projeto.Midia, criaMiniaturaMidia);
 }
 
@@ -63,10 +105,11 @@ if (projeto.parceiros) {
 }
 
 function handleMidiaDestaque(type, url) {
-  let tag = `<img src="${url}" alt class="projeto__midia img">`;
+  let tag = `<img src="${url}" alt class="projeto__midia midia">`;
 
-  if (type === "VIDEO") tag = `<video src="${url}" alt class="projeto__midia" controls></video>`;
+  if (type === "VIDEO")
+    tag = `<video src="${url}" alt class="projeto__midia midia" controls></video>`;
 
   midiaLink.href = url;
   midiaLink.innerHTML = `${tag}<img src="../img/icons/lupa.webp" alt class="display__img__icon">`;
-};
+}

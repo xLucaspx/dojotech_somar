@@ -11,7 +11,7 @@ function criaBtnOds(dados) {
 
   const conteudo = `
     <button type="button" class="lista_ods__btn" data-info="${info}">
-    <img src="${dados.url_imagem}" alt="${info}" class="lista_ods__img img">
+    <img src="${dados.url_imagem}" alt="${info}" class="lista_ods__img midia">
     </button>
   `;
 
@@ -29,7 +29,7 @@ function criaCardProjeto(dados) {
   if (fileTypes.video.includes(dados.Midia[0]?.tipo)) miniatura = `<video src="${dados.Midia[0].url}" alt class="projeto__miniatura"></video>`
 
   const conteudo = `
-    <a href="projeto.html?id=${dados.id}" class="projeto__link">
+    <a href="projeto.html?id=${dados.id}" title="Abrir página do projeto ${dados.nome}" class="projeto__link">
       ${miniatura}
 
       <h2 class="projeto__nome subtitulo">${dados.nome}</h2>
@@ -74,13 +74,15 @@ function criaMiniaturaMidia(dados) {
   if (fileTypes.video.includes(dados.tipo)) {
     conteudo = `
       <video class="galeria__view galeria__view--video" src="${dados.url}" alt=""></video>
-      <img src="../img/icons/play.webp" alt="Expandir vídeo" class="galeria__view__icon--video">
+      <img src="../img/icons/play.webp" alt class="galeria__view__icon--video">
     `;
+    li.title = "Expandir vídeo";
   } else {
     conteudo = `
       <img class="galeria__view" src="${dados.url}" alt="">
-      <img src="../img/icons/expand.webp" alt="Expandir imagem" class="galeria__view__icon">
+      <img src="../img/icons/expand.webp" alt class="galeria__view__icon">
     `;
+    li.title = "Expandir imagem";
   }
 
   li.classList.add("galeria__item");
@@ -97,7 +99,7 @@ function criaItemParceiro(parceiro) {
 
 function criaItemOds(ods) {
   const li = document.createElement("li");
-  li.innerHTML = `<img src="${ods.url_imagem}" alt="${ods.id} - ${ods.nome}" class="projeto__ods__img img">`;
+  li.innerHTML = `<img src="${ods.url_imagem}" alt="${ods.id} - ${ods.nome}" class="projeto__ods__img midia">`;
   li.classList.add("projeto__ods__item");
   return li;
 }

@@ -31,4 +31,13 @@ export class Services {
       throw new Error(error.response?.data?.message || error.message);
     }
   }
+
+  async deleta(id) {
+    try {
+      const registroDeletado = await axios.delete(this.url + id);
+      console.log(registroDeletado);
+    } catch (error) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
 }

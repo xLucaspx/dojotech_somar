@@ -84,6 +84,19 @@ class ProjetoController {
         .json({ message: error.message });
     }
   }
+
+  static async deletaProjeto(req, res) {
+    const { idProjeto } = req.params;
+
+    try {
+      await midiaServices.deletaMidias(idProjeto);
+      await projetoServices.deletaProjeto(idProjeto);
+
+      return res.status(204).json({});
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = ProjetoController;

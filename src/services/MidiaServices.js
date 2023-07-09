@@ -10,14 +10,14 @@ class MidiaServices extends Services {
 
   async cadastraMidia(idProjeto, midia) {
     try {
-      let filePath = `../../public/img/projetos/${idProjeto}/${midia.name}`;
+      const filePath = path.join(__dirname, `../../public/img/projetos/${idProjeto}/${midia.name}`);
 
       if (fs.existsSync(filePath)) {
         throw new ConflictError(
           `Erro ao cadastrar arquivo ${midia.name}:\nEste arquivo já existe no diretório do projeto!`
         );
       }
-      midia.mv(path.join(__dirname, filePath));
+      midia.mv(path.join(filePath));
 
       return await this.criaRegistro({
         id_projeto: idProjeto,
@@ -26,6 +26,18 @@ class MidiaServices extends Services {
         url: filePath,
         alt: "",
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletaMidias(idProjeto) {
+    try {
+      const filePath = path.join(__dirname, `../../public/img/projetos/${idProjeto}`);
+
+      if (fs.existsSync(filePath)) fs.rmSync(filePath, { recursive: true, force: true });
+
+      await this.deletaRegistro({ id_projeto: idProjeto });
     } catch (error) {
       throw error;
     }
