@@ -32,7 +32,7 @@ const listaOds = document.querySelector(".form__lista_ods");
 renderizaDados(listaOds, await odsServices.buscaDados(), criaCheckboxOds);
 
 const btnVoltar = document.querySelector(".btnVoltar");
-btnVoltar.onclick = () => window.location.replace("projetos.html");
+btnVoltar.onclick = cancelarAlterações;
 
 const tituloForm = document.querySelector(".titulo");
 const btnForm = document.getElementById("cadastro_projeto__btnCadastro");
@@ -59,8 +59,6 @@ if (idProjeto) {
     document.title = `Editar projeto ${projeto.nome} | Programa Somar`;
 
     btnVoltar.title = `Voltar à página do projeto ${projeto.nome}`;
-    btnVoltar.onclick = () =>
-      window.location.replace(`projeto.html?id=${idProjeto}`);
 
     tituloForm.innerHTML = "Editar projeto";
     btnForm.textContent = "Atualizar projeto";
@@ -187,9 +185,27 @@ form.onsubmit = async (event) => {
     );
 
     setTimeout(() => {
-      window.location.replace("projetos.html");
+      window.location.replace(
+        !idProjeto ? "projetos.html" : `projeto.html?id=${idProjeto}`
+      );
     }, 0);
   } catch (error) {
     alert(`Erro ao cadastrar projeto:\n${error.message}`);
   }
 };
+
+const btnCancelar = document.getElementById("cadastro_projeto__btnCancelar");
+btnCancelar.onclick = cancelarAlterações;
+
+function cancelarAlterações() {
+  let url = "projetos.html";
+  let msg = "Tem certeza que deseja retornar à página de projetos?";
+
+  if (idProjeto) {
+    url = `projeto.html?id=${idProjeto}`;
+    msg = `Tem certeza que deseja retornar à página do projeto ${projeto.nome}?`;
+  }
+
+  if (confirm(msg + "\nTodas as alterações serão perdidas!"))
+    window.location.replace(url);
+}

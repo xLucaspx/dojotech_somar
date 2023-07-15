@@ -92,6 +92,8 @@ class ProjetoController {
     try {
       await projetoServices.atualizaProjeto(projeto, id);
       await projetoServices.atualizaOds(id, ods);
+      // mídias são excluídas para serem re-cadastradas:
+      await midiaServices.deletaMidias(id);
 
       return res.status(200).json({ id });
     } catch (error) {

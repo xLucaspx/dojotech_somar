@@ -13,10 +13,10 @@
 .form__fieldset--texto,
 .form__fieldset--btn {
   display: flex;
-  flex-direction: column;
 }
 
 .form__fieldset--texto {
+  flex-direction: column;
   padding: 0.75rem 0rem 0;
   gap: 3px;
   width: 100%;
@@ -29,6 +29,7 @@
 
 .form__fieldset--btn {
   align-items: center;
+  justify-content: center;
   gap: 1.75rem;
   width: 100%;
 }
@@ -151,6 +152,18 @@
   text-align: left;
   color: var(--vermelho);
   box-sizing: border-box;
+}
+
+.btnCancelar {
+  border: 1px solid var(--vermelho);
+  color: var(--vermelho);
+  background-color: transparent;
+}
+
+.btnCancelar:hover,
+.btnCancelar:active {
+  background-color: var(--vermelho);
+  color: #fff;
 }
 
 /* telas até 700px */
