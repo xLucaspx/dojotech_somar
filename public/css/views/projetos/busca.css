@@ -110,10 +110,6 @@ and (max-width: 1000px) {
   .projeto__link {
     width: calc(85vw / 2);
   }
-
-  .projeto__miniatura {
-    height: 60%;
-  }
 }
 
 /* telas maiores que 2300px */

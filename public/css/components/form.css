@@ -187,4 +187,8 @@
     min-height: 15px;
     height: fit-content;
   }
+
+  .form__fieldset--btn {
+    flex-direction: column;
+  }
 }

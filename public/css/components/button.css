@@ -42,18 +42,16 @@
   color: #fff;
 }
 
-.botoes_controle {
-  display: flex;
-  justify-content: space-between;
-}
-
-.btnVoltar {
+.btnNav {
   width: 180px;
   height: 35px;
   padding: 2px 0 0 18px;
   background-repeat: no-repeat;
   background-size: 1.45rem;
   background-position: 40px;
+}
+
+.btnVoltar {
   background-image: url("../../img/icons/back-black.svg");
 }
 
@@ -62,10 +60,24 @@
   background-image: url("../../img/icons/back-white.svg");
 }
 
+.botoes_controle {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* telas até 1000px */
 @media screen and (max-width: 1000px) {
   .btn {
     width: 100%;
     max-width: 350px;
+  }
+
+  .btnNav {
+    font-size: 15px;
+    width: 100px;
+    height: 32px;
+    padding: 3px 0 2px 20px;
+    background-size: 16px;
+    background-position: 18px;
   }
 }
