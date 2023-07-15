@@ -9,6 +9,7 @@ router
   .get("/projetos/:id", ProjetoController.buscaProjetoPorId)
   .post("/projetos", ProjetoController.cadastraProjeto)
   .post("/projetos/:id/midias", ProjetoController.cadastraMidias)
+  .put("/projetos/:id", ProjetoController.atualizaProjeto)
   .delete("/projetos/:idProjeto", ProjetoController.deletaProjeto)
 
 module.exports = router;

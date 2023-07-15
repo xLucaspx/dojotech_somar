@@ -24,10 +24,8 @@
   gap: 2rem;
 }
 
-.projeto__botoes {
+.botoes_controle {
   grid-area: btn;
-  display: flex;
-  justify-content: space-between;
 }
 
 .projeto__midias {
@@ -54,12 +52,11 @@
 
 /* Estilização: */
 
-.projeto__botoes__controle {
+.projeto__botoes_controle {
   display: flex;
   gap: 1rem;
 }
 
-.btnVoltar,
 .btnEditar,
 .btnExcluir {
   width: 180px;
@@ -68,10 +65,6 @@
   background-repeat: no-repeat;
   background-size: 1.45rem;
   background-position: 40px;
-}
-
-.btnVoltar {
-  background-image: url("../../../img/icons/back-black.svg");
 }
 
 .btnEditar {
@@ -83,11 +76,6 @@
   background-color: var(--vermelho);
   border: 1px solid var(--vermelho);
   background-image: url("../../../img/icons/trash-white.svg");
-}
-
-.btnVoltar:hover,
-.btnVoltar:active {
-  background-image: url("../../../img/icons/back-white.svg");
 }
 
 .btnExcluir:hover,

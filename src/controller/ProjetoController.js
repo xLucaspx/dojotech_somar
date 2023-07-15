@@ -85,6 +85,20 @@ class ProjetoController {
     }
   }
 
+  static async atualizaProjeto(req, res) {
+    const { id } = req.params;
+    const { projeto, ods } = req.body;
+
+    try {
+      await projetoServices.atualizaProjeto(projeto, id);
+      await projetoServices.atualizaOds(id, ods);
+
+      return res.status(200).json({ id });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
   static async deletaProjeto(req, res) {
     const { idProjeto } = req.params;
 

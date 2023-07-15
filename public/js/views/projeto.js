@@ -32,24 +32,24 @@ try {
   if (!projeto) throw new Error("Projeto não encontrado!");
   document.title = `${projeto.nome} | Programa Somar`;
 } catch (error) {
-  alert(`Houve um erro ao tenta abrir a página do projeto:\n${error.message}`);
+  alert(`Houve um erro ao abrir a página do projeto:\n${error.message}`);
   window.location.href = "projetos.html";
 }
 
 if (idUsuario === projeto.id_usuario) {
-  const botoesProjeto = document.querySelector(".projeto__botoes__controle");
+  const botoesProjeto = document.querySelector(".projeto__botoes_controle");
 
   botoesProjeto.innerHTML = `
-  <button type="button" class="btnEditar btn btnPadrao" title="Editar projeto ${projeto.nome}">Editar</button>
+  <a href="form_projeto.html?idProjeto=${projeto.id}" class="btnEditar btn btnPadrao" title="Editar projeto ${projeto.nome}">Editar</a>
   <button type="button" class="btnExcluir btn" title="Excluir projeto ${projeto.nome}">Excluir</button>
   `;
 
-  const btnEditar = document.querySelector(".btnEditar");
   const btnExcluir = document.querySelector(".btnExcluir");
-
   btnExcluir.addEventListener("click", async () => {
     try {
-      const excluir = confirm(`Tem certeza que deseja excluir o projeto "${projeto.nome}"?`);
+      const excluir = confirm(
+        `Tem certeza que deseja excluir o projeto "${projeto.nome}"?`
+      );
       if (excluir) {
         await projetoServices.deleta(projeto.id);
         window.location.href = "projetos.html";

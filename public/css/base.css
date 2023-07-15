@@ -137,9 +137,7 @@ body {
 }
 
 /* telas até 1000px */
-@media screen
-and (min-width: 701px)
-and (max-width: 1000px) {
+@media screen and (min-width: 701px) and (max-width: 1000px) {
   .titulo {
     font-size: 35px;
   }

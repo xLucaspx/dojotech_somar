@@ -42,6 +42,26 @@
   color: #fff;
 }
 
+.botoes_controle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnVoltar {
+  width: 180px;
+  height: 35px;
+  padding: 2px 0 0 18px;
+  background-repeat: no-repeat;
+  background-size: 1.45rem;
+  background-position: 40px;
+  background-image: url("../../img/icons/back-black.svg");
+}
+
+.btnVoltar:hover,
+.btnVoltar:active {
+  background-image: url("../../img/icons/back-white.svg");
+}
+
 /* telas até 1000px */
 @media screen and (max-width: 1000px) {
   .btn {

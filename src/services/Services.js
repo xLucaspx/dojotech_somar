@@ -36,6 +36,14 @@ class Services {
     }
   }
 
+  async atualizaRegistro(dados, where = {}) {
+    try {
+      return await db[this.nomeDoModelo].update(dados, { where: { ...where } });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async deletaRegistro(where = {}) {
     try {
       return await db[this.nomeDoModelo].destroy({ where: { ...where } });

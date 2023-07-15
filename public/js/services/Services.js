@@ -32,10 +32,18 @@ export class Services {
     }
   }
 
+  async atualiza(dados, id) {
+    try {
+      const update = await axios.put(this.url + id, dados);
+      return update.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
   async deleta(id) {
     try {
-      const registroDeletado = await axios.delete(this.url + id);
-      console.log(registroDeletado);
+      await axios.delete(this.url + id);
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
     }
