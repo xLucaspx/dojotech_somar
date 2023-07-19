@@ -9,8 +9,10 @@ export class ProjetoServices extends Services {
     const url = this.url + `${idProjeto}/midias`;
 
     try {
-      const midiasCadastradas = await this.cadastra(data, url);
-      return midiasCadastradas.data;
+      // await this.cadastra(data, url);
+      return await axios.post(url, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
     }

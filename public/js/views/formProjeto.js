@@ -82,25 +82,21 @@ if (idProjeto) {
         ? document.getElementById("cadastro_projeto__video--1")
         : document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
 
-      fetch(midia.url)
-        .then((res) => res.blob())
-        .then((blob) => {
-          const dt = new DataTransfer();
-          dt.items.add(
-            new File([blob], midia.nome, {
-              type: blob.type,
-              lastModified: new Date(),
-            })
-          );
-          input.files = dt.files;
-          input.dispatchEvent(new Event("change"));
+      const itemMidia = await fetch(midia.url);
+      const blobMidia = await itemMidia.blob();
+      const dt = new DataTransfer();
+      dt.items.add(
+        new File([blobMidia], midia.nome, {
+          type: blobMidia.type,
+          lastModified: new Date(),
         })
-        .catch((e) => console.log(e));
+      );
+      input.files = dt.files;
+      input.dispatchEvent(new Event("change"));
     }
   } catch (error) {
     alert(`Houve um erro ao acessar a página:\n${error.message}`);
-    const url = projeto ? `projeto.html?id=${projeto.id}` : "projetos.html";
-    window.location.href = url;
+    window.location.href = "projetos.html";
   }
 }
 
@@ -166,6 +162,12 @@ form.onsubmit = async (event) => {
 
     if (formData) await projetoServices.cadastraMidias(id, formData);
 
+    alert(
+      !idProjeto
+        ? "Projeto cadastrado com sucesso!"
+        : "Projeto alterado com sucesso!"
+    );
+
     limpaInputs(
       inputNome,
       inputCausa,
@@ -177,12 +179,6 @@ form.onsubmit = async (event) => {
       listaInputMidia
     );
     inputOds.forEach((input) => (input.checked = false));
-
-    alert(
-      !idProjeto
-        ? "Projeto cadastrado com sucesso!"
-        : "Projeto alterado com sucesso!"
-    );
 
     setTimeout(() => {
       window.location.replace(

@@ -72,12 +72,11 @@ class ProjetoController {
     const { idProjeto } = req.body;
 
     try {
-      Object.keys(req.files).forEach(
-        async (key) =>
-          await midiaServices.cadastraMidia(idProjeto, req.files[key])
-      );
+      for await (const key of Object.keys(req.files)) {
+        await midiaServices.cadastraMidia(idProjeto, req.files[key]);
+      }
 
-      return res.status(201).json({ data: "Mídias cadastradas com sucesso!" });
+      return res.status(204).json({});
     } catch (error) {
       return res
         .status(error instanceof ConflictError ? 409 : 500)
@@ -90,10 +89,10 @@ class ProjetoController {
     const { projeto, ods } = req.body;
 
     try {
-      await projetoServices.atualizaProjeto(projeto, id);
-      await projetoServices.atualizaOds(id, ods);
       // mídias são excluídas para serem re-cadastradas:
       await midiaServices.deletaMidias(id);
+      await projetoServices.atualizaProjeto(projeto, id);
+      await projetoServices.atualizaOds(id, ods);
 
       return res.status(200).json({ id });
     } catch (error) {

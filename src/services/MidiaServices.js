@@ -37,8 +37,9 @@ class MidiaServices extends Services {
         `../../public/img/projetos/${idProjeto}/${nome}`
       );
 
-      if (fs.existsSync(midiaPath)) fs.rmSync(midiaPath);
+      if (!fs.existsSync(midiaPath)) return;
 
+      fs.rmSync(midiaPath);
       await this.deletaRegistro({ id_projeto: idProjeto, nome });
     } catch (error) {
       throw error;
@@ -52,9 +53,9 @@ class MidiaServices extends Services {
         `../../public/img/projetos/${idProjeto}`
       );
 
-      if (fs.existsSync(dirPath))
-        fs.rmSync(dirPath, { recursive: true, force: true });
+      if (!fs.existsSync(dirPath)) return;
 
+      fs.rmSync(dirPath, { recursive: true, force: true });
       await this.deletaRegistro({ id_projeto: idProjeto });
     } catch (error) {
       throw error;
