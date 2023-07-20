@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../css/components/footer.css">
   <link rel="stylesheet" href="../css/components/form.css">
   <!-- Sections CSS -->
-  <link rel="stylesheet" href="../css/views/cadastro_usuario/cadastro_usuario.css">
+  <link rel="stylesheet" href="../css/views/form_usuario/form_usuario.css">
 </head>
 
 <body>
@@ -34,6 +34,10 @@
 
   <main>
     <section id="main" class="cadastro_usuario container">
+      <div class="botoes_controle">
+        <button type="button" title="Voltar à página de login" class="btnVoltar btn btnSecundario btnNav">Voltar</a>
+      </div>
+
       <h1 class="titulo">Cadastro de usuário</h1>
 
       <form action="" class="cadastro_usuario__form form">
@@ -155,6 +159,7 @@
       
         <fieldset class="form__fieldset--btn">
           <button type="submit" id="cadastro_usuario__btnCadastro" class="btn btnPadrao">Fazer cadastro</button>
+          <button type="button" id="cadastro_usuario__btnCancelar" class="btn btnCancelar">Cancelar</button>
         </fieldset>
       </form>
     </section>
@@ -167,6 +172,6 @@
 
 <script src="../js/index.js" type="module"></script>
 <script src="../js/validaInputs.js" type="module"></script>
-<script src="../js/views/cadastroUsuario.js" type="module"></script>
+<script src="../js/views/formUsuario.js" type="module"></script>
 
 </html>

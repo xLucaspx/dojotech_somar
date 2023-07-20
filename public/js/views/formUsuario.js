@@ -1,21 +1,15 @@
 import { UsuarioServices } from "../services/UsuarioServices.js";
-import { buscaCookie } from "../utils/cookie.js";
+import { buscaCookie, removeCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
 
 const tokenJwt = buscaCookie("tokenJwt");
 const usuarioServices = new UsuarioServices();
 
-if (tokenJwt) {
-  try {
-    await usuarioServices.autenticaUsuario({ tokenJwt });
-    alert("Erro ao acessar página:\nVocê já possui um cadastro!");
-    window.location.href = "index.html";
-  } catch (error) {
-    alert(`Erro ao autenticar usuário:\n${error.message}`);
-    removeCookie("tokenJwt");
-    window.location.href = "login.html";
-  }
-}
+const btnVoltar = document.querySelector(".btnVoltar");
+btnVoltar.onclick = cancelarAlteracoes;
+
+const tituloForm = document.querySelector(".titulo");
+const btnForm = document.getElementById("cadastro_usuario__btnCadastro");
 
 const inputNome = document.getElementById("cadastro_usuario__nome");
 const inputEmail = document.getElementById("cadastro_usuario__email");
@@ -31,6 +25,34 @@ const inputCidade = document.getElementById("cadastro_usuario__cidade");
 const inputUf = document.getElementById("cadastro_usuario__uf");
 
 const form = document.querySelector(".cadastro_usuario__form");
+
+if (tokenJwt) {
+  try {
+    const { id } = await usuarioServices.autenticaUsuario({ tokenJwt });
+    console.log(id);
+    const usuario = await usuarioServices.buscaPorId(id);
+
+    document.title = "Editar informações de usuário | Programa Somar";
+    tituloForm.innerHTML = "Editar suas informações";
+    btnForm.textContent = "Atualizar informações";
+
+    inputNome.value = usuario.nome;
+    inputEmail.value = usuario.email;
+    inputUsuario.value = usuario.usuario;
+    inputTelefone.value = usuario.telefone;
+    inputCep.value = usuario.cep;
+    inputLogradouro.value = usuario.logradouro;
+    inputBairro.value = usuario.bairro;
+    inputNumero.value = usuario.numero;
+    inputComplemento.value = usuario.complemento;
+    inputCidade.value = usuario.cidade;
+    inputUf.value = usuario.uf;
+  } catch (error) {
+    alert(`Erro ao autenticar usuário:\n${error.message}`);
+    removeCookie("tokenJwt");
+    window.location.href = "login.html";
+  }
+}
 
 form.onsubmit = async (event) => {
   event.preventDefault();
@@ -73,3 +95,12 @@ form.onsubmit = async (event) => {
     alert("Erro ao cadastrar usuário\n" + error.message);
   }
 };
+
+const btnCancelar = document.getElementById("cadastro_usuario__btnCancelar");
+btnCancelar.onclick = cancelarAlteracoes;
+
+function cancelarAlteracoes() {
+  const msg = "Tem certeza que deseja retornar à página de login?";
+  if (confirm(msg + "\nTodas as alterações serão perdidas!"))
+    window.location.replace("login.html");
+}

@@ -19,6 +19,18 @@ class UsuarioController {
     }
   }
 
+  static async buscaUsuarioPorId(req, res) {
+    const { id } = req.params;
+    try {
+      const usuario = await usuarioServices.buscaUmRegistro({ id });
+      return res.status(200).json(usuario);
+    } catch (error) {
+      return res
+        .status(error instanceof NotFoundError ? 404 : 500)
+        .json({ message: error.message });
+    }
+  }
+
   static async cadastraUsuario(req, res) {
     const usuario = req.body;
 

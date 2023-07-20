@@ -24,8 +24,6 @@ import { UsuarioServices } from "./services/UsuarioServices.js";
     }
   } else {
     btnLog.innerHTML = "Login";
-    btnLog.onclick = () => {
-      window.location.href = "login.html";
-    };
+    btnLog.onclick = () => (window.location.href = "login.html");
   }
 })();
