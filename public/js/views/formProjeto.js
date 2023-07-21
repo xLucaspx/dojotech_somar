@@ -155,7 +155,7 @@ form.onsubmit = async (event) => {
       // pega a extensão do arquivo:
       const ext = file.name.split(".").pop();
       // renomeia o arquivo:
-      file = renameFile(file, `midia_${i}.${ext}`);
+      file = renameFile(file, `midia_${(i+1)}.${ext}`);
 
       formData.append(file.name, file);
     }

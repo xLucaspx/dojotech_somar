@@ -16,8 +16,9 @@ app.use(
     preserveExtension: 4,
     limits: {
       files: 6,
-      fileSize: 100000000, // 100 MB
+      fileSize: 16500000, // 16.5 MB
     },
+    // uploadTimeout: 10000, // 10 seg. (não testado)
   })
 );
 

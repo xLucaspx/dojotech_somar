@@ -36,8 +36,9 @@ function validaInputMidias(listaInputs, fileTypes) {
       );
       const btnRemoverMidia =
         input.parentElement.querySelector(".btnRemoverMidia");
+      const maxSize = 16500000;
 
-      if (file && fileTypes.includes(file.type) && file.size <= 140000000) {
+      if (file && fileTypes.includes(file.type) && file.size <= maxSize) {
         span.classList.remove("cadastro_projeto__midia-info--invalido");
         span.classList.add("cadastro_projeto__midia-info--valido");
         btnRemoverMidia.classList.remove("btnRemoverMidia--hidden");
@@ -49,8 +50,8 @@ function validaInputMidias(listaInputs, fileTypes) {
         input.value = "";
 
         if (!file) span.innerHTML = "Nenhuma mídia selecionada!";
-        else if (file.size > 100000000)
-          span.innerHTML = "Arquivo excede o limite de 100 MB!";
+        else if (file.size > maxSize)
+          span.innerHTML = `Arquivo excede o limite de ${(maxSize / 1e+6).toFixed(2)} MB!`;
         else span.innerHTML = "O formato do arquivo selecionado não é válido!";
       }
     };

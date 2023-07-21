@@ -52,7 +52,7 @@ if (idUsuario === projeto.id_usuario) {
       );
       if (excluir) {
         await projetoServices.deleta(projeto.id);
-        window.location.href = "projetos.html";
+        window.location.replace("projetos.html");
       }
     } catch (error) {
       alert(`Não foi possível excluir o projeto:\n${error.message}`);
