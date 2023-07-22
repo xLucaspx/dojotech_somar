@@ -68,14 +68,15 @@ class UsuarioController {
     const { usuarioDigitado, senhaDigitada } = req.body;
 
     try {
-      const { id, usuario, hash_senha, salt } = usuarioDigitado.match(
+      // define se foi digitado nome de usuário ou email e depois busca o usuário
+      const { id, nome, hash_senha, salt } = usuarioDigitado.match(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
       )
         ? await usuarioServices.buscaUsuario({ email: usuarioDigitado })
         : await usuarioServices.buscaUsuario({ usuario: usuarioDigitado });
 
       if (autenticaSenha(senhaDigitada, salt, hash_senha)) {
-        const tokenJwt = geraJwt({ id, usuario });
+        const tokenJwt = geraJwt({ id, nome });
         return res.status(200).json(tokenJwt);
       }
       throw new UnauthorizedError("Senha incorreta!");

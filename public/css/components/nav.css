@@ -1,7 +1,7 @@
 .nav__list {
-  width: 300px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 1.25rem;
   font-size: 1.2rem;
 }
 
@@ -9,6 +9,14 @@
   border-bottom: 2px solid transparent;
   outline: none;
   transition: 0.5s ease-out;
+}
+
+.nav__link--profile {
+  padding-left: 25px;
+  background-image: url("../../img/icons/profile-black.svg");
+  background-repeat: no-repeat;
+  background-size: 1.35rem;
+  background-position-y: -1px;
 }
 
 .nav__link:hover,
@@ -20,6 +28,7 @@
 /* telas até 700px */
 @media screen and (max-width: 700px) {
   .nav__list {
-    width: 250px;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
   }
 }
