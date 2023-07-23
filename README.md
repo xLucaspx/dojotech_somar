@@ -131,19 +131,19 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 
 - [x] Deve ser possível se cadastrar;
 - [x] Deve ser possível se autenticar;
-- [ ] Deve ser possível visualizar e editar o perfil de um usuário logado;
+- [x] Deve ser possível visualizar e editar o perfil de um usuário logado;
 - [ ] Deve ser possível que o usuário exclua seu cadastro;
 - [x] Deve ser possível cadastrar projetos;
 - [x] Deve ser possível visualizar projetos;
-- [ ] Deve ser possível ao usuário que cadastrou o projeto editá-lo;
-- [ ] Deve ser possível ao usuário que cadastrou o projeto excluí-lo;
+- [x] Deve ser possível ao usuário que cadastrou o projeto editá-lo;
+- [x] Deve ser possível ao usuário que cadastrou o projeto excluí-lo;
 - [x] Deve ser possível realizar a filtragem de projetos:
   - [x] por ODS;
   - [x] por cidade;
   - [x] por causa de atuação;
   - [x] por público-alvo.
 - [x] Deve ser possível adicionar até 5 imagens por projeto;
-- [ ] Deve ser possível adicionar um vídeo de até 2min de duração por projeto;
+- [x] Deve ser possível adicionar um vídeo de até 2min de duração por projeto;
 - [x] Deve ser possível visualizar a quantidade total de projetos;
 - [x] Deve ser possível visualizar a quantidade de projetos por ODS.
 
@@ -154,7 +154,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] A senha do usuário deve ser criptografada;
 - [x] O usuário deve ser identificado com JWT;
 - [x] Utilizar expressões regulares para escapar possíveis entradas maliciosas do usuário;
-- [ ] Validar e limitar tamanho máximo de upload de arquivos;
+- [x] Validar e limitar tamanho máximo de upload de arquivos;
 - [X] Criar componentes que possam ser reutilizados, evitando repetição e facilitando a manutenibilidade do projeto;
 - [x] Estruturar o projeto separando os arquivos por funcionalidade e coerência;
 - [x] Procurar escrever o código de forma semântica e organizada, facilitando o entendimento do sistema;
@@ -189,12 +189,12 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [ ] Desenvolver funcionalidades:
   - [x] Login e autenticação;
   - [x] Upload de imagens;
-  - [ ] Upload de vídeo;
+  - [x] Upload de vídeo;
   - [x] Filtragem de projetos;
   - [x] Contabilização de projetos;
-  - [ ] Botão "voltar" para facilitar navegação;
-  - [ ] Página de administração de dados do usuário;
-  - [ ] Possibilidade de editar e excluir projeto;
+  - [x] Botão "voltar" para facilitar navegação;
+  - [x] Página de administração de dados do usuário;
+  - [x] Possibilidade de editar e excluir projeto;
   - [ ] Opção de gerar relatório contendo total de projetos e total de projetos por ODS.
 
 
@@ -233,8 +233,8 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 
 ### Fase 3 - Funcionalidades Diferenciadas
 
-- [ ] 23/06 a 14/07 - Possibilidade de _upload_ de um vídeo de até dois minutos por projeto e filtros para visualização de projetos por cidade, ODS, causa de atuação e público-alvo;
-- [ ] 21/07 - Banca avaliadora irá avaliar o desenvolvimento do projeto como um todo;
+- [x] 23/06 a 14/07 - Possibilidade de _upload_ de um vídeo de até dois minutos por projeto e filtros para visualização de projetos por cidade, ODS, causa de atuação e público-alvo;
+- [x] 21/07 - Banca avaliadora irá avaliar o desenvolvimento do projeto como um todo;
 - [ ] 27/07 - Apresentação do projeto final para a banca avaliadora e comitê do projeto Somar (a banca avaliadora vai definir o projeto vencedor);
 - [ ] 25/08 - Entrega do projeto para o comitê de sustentabilidade.
 
