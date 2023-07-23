@@ -33,12 +33,43 @@
   <!-- Fim cabeçalho -->
 
   <main>
-    <section id="main" class="projeto container">
+    <section class="projeto container">
       <div class="botoes_controle">
         <a href="projetos.html" title="Voltar à página de projetos" class="btnVoltar btn btnSecundario btnNav">Voltar</a>
 
         <div class="projeto__botoes_controle"></div>
       </div>
+
+      <div class="projeto__info" id="main">
+        <h1 class="projeto__titulo titulo" id="projeto__titulo"></h2>
+        <h2 class="projeto__cidade subtitulo" id="projeto__cidade"></h3>
+
+        <div class="projeto__info__causa">
+          <h3 class="projeto__atributo">Causa de Atuação</h3>
+          <p class="projeto__texto" id="projeto__causa"></p>
+        </div>
+
+        <div class="projeto__info__objetivo">
+          <h3 class="projeto__atributo">Objetivo</h3>
+          <p class="projeto__texto" id="projeto__objetivo"></p>
+        </div>
+
+        <div class="projeto__info__parceiros">
+          <h3 class="projeto__atributo">Parceiros</h3>
+          <ul class="projeto__parceiros__lista" id="projeto__parceiros"></ul>
+        </div>
+      </div>
+
+      <div class="projeto__resumo">
+        <h3 class="projeto__atributo">Resumo</h3>
+        <p class="projeto__texto" id="projeto__resumo"></p>
+      </div>
+
+      <div class="projeto__ods">
+        <h3 class="projeto__atributo">ODS Relacionados</h3>
+        <ul class="projeto__ods__lista" id="projeto__ods"></ul>
+      </div>
+      <!-- Fim informações projeto -->
 
       <div class="projeto__midias">
         <a href="../img/projetos/no-media.webp" target="_blank" class="display__midia__link"
@@ -49,36 +80,7 @@
 
         <ul class="projeto__display__galeria"></ul>
       </div>
-
-      <div class="projeto__info">
-        <h2 class="projeto__titulo titulo" id="projeto__titulo"></h2>
-        <h3 class="projeto__cidade subtitulo" id="projeto__cidade"></h3>
-
-        <div class="projeto__info__causa">
-          <h4 class="projeto__atributo">Causa de Atuação</h4>
-          <p class="projeto__texto" id="projeto__causa"></p>
-        </div>
-
-        <div class="projeto__info__objetivo">
-          <h4 class="projeto__atributo">Objetivo</h4>
-          <p class="projeto__texto" id="projeto__objetivo"></p>
-        </div>
-
-        <div class="projeto__info__parceiros">
-          <h4 class="projeto__atributo">Parceiros</h4>
-          <ul class="projeto__parceiros__lista" id="projeto__parceiros"></ul>
-        </div>
-      </div>
-
-      <div class="projeto__resumo">
-        <h4 class="projeto__atributo">Resumo</h4>
-        <p class="projeto__texto" id="projeto__resumo"></p>
-      </div>
-
-      <div class="projeto__ods">
-        <h4 class="projeto__atributo">ODS Relacionados</h4>
-        <ul class="projeto__ods__lista" id="projeto__ods"></ul>
-      </div>
+      <!-- Fim mídias projeto -->
     </section>
     <!-- Fim projeto -->
   </main>

@@ -9,7 +9,7 @@ if (tokenJwt) {
   try {
     await usuarioServices.autenticaUsuario({ tokenJwt });
     alert("Você já está logado!");
-    window.location.href = "index.html";
+    window.location.href = "perfil.html";
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
     removeCookie("tokenJwt");

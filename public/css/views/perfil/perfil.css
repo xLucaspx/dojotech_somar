@@ -1,0 +1,128 @@
+/* 
+  grid container: { .usuario }
+
+  grid itens: {
+    .usuario__nome, .usuario__username, 
+    .usuario__email, .usuario__telefone, 
+    .usuario__cep, .usuario__endereco, 
+    .usuario__bairro, .usuario__cidade, 
+  }
+*/
+
+/* Definindo container e áreas: */
+.usuario__grid_container {
+  display: grid;
+  gap: 2rem 5rem;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(2, 40%);
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    "nome username"
+    "email telefone"
+    "cep endereco"
+    "bairro cidade"
+  ;
+}
+
+.usuario__nome {
+  grid-area: nome;
+  align-items: flex-end;
+}
+
+.usuario__username {
+  grid-area: username;
+}
+
+.usuario__email {
+  grid-area: email;
+  align-items: flex-end;
+}
+
+.usuario__telefone {
+  grid-area: telefone;
+}
+
+.usuario__cep {
+  grid-area: cep;
+  align-items: flex-end;
+}
+
+.usuario__endereco {
+  grid-area: endereco;
+}
+
+.usuario__bairro {
+  grid-area: bairro;
+  align-items: flex-end;
+}
+
+.usuario__cidade {
+  grid-area: cidade;
+}
+
+/* Estilização: */
+
+.usuario {
+  background-color: var(--fundo_cinza_claro);
+}
+
+.usuario__botoes_controle {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.usuario__info {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+}
+
+.usuario__subtitulo {
+  font-family: var(--fonte_titulo);
+  font-weight: 500;
+  font-size: 1.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.projeto__ods__lista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.projeto__ods__img {
+  width: 135px;
+  height: 135px;
+}
+
+.usuario__projetos {
+  background-color: var(--fundo_cinza_medio);
+}
+
+/* Telas até 1000px */
+@media screen and (max-width: 1000px) {
+  /* .usuario {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+      "btn"
+      "midias"
+      "info"
+      "resumo"
+      "ods"
+    ;
+  } */
+
+  .usuario__botoes_controle {
+    gap: 0.45rem;
+  }
+
+  .projeto__titulo,
+  .projeto__cidade {
+    align-self: center;
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+}

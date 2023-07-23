@@ -4,6 +4,7 @@ import { limpaInputs } from "../utils/input.js";
 
 const tokenJwt = buscaCookie("tokenJwt");
 const usuarioServices = new UsuarioServices();
+let idUsuario;
 
 const btnVoltar = document.querySelector(".btnVoltar");
 btnVoltar.onclick = cancelarAlteracoes;
@@ -20,7 +21,9 @@ const inputCep = document.getElementById("cadastro_usuario__cep");
 const inputLogradouro = document.getElementById("cadastro_usuario__logradouro");
 const inputBairro = document.getElementById("cadastro_usuario__bairro");
 const inputNumero = document.getElementById("cadastro_usuario__numero");
-const inputComplemento = document.getElementById("cadastro_usuario__complemento");
+const inputComplemento = document.getElementById(
+  "cadastro_usuario__complemento"
+);
 const inputCidade = document.getElementById("cadastro_usuario__cidade");
 const inputUf = document.getElementById("cadastro_usuario__uf");
 
@@ -29,7 +32,7 @@ const form = document.querySelector(".cadastro_usuario__form");
 if (tokenJwt) {
   try {
     const { id } = await usuarioServices.autenticaUsuario({ tokenJwt });
-    console.log(id);
+    idUsuario = id;
     const usuario = await usuarioServices.buscaPorId(id);
 
     document.title = "Editar informações de usuário | Programa Somar";
@@ -47,6 +50,8 @@ if (tokenJwt) {
     inputComplemento.value = usuario.complemento;
     inputCidade.value = usuario.cidade;
     inputUf.value = usuario.uf;
+
+    inputSenha.required = false;
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
     removeCookie("tokenJwt");
@@ -73,9 +78,16 @@ form.onsubmit = async (event) => {
   };
 
   try {
-    await usuarioServices.cadastra(usuario);
+    !idUsuario
+      ? await usuarioServices.cadastra(usuario)
+      : await usuarioServices.atualiza(usuario, idUsuario);
 
-    alert("Usuário cadastrado com sucesso!");
+    alert(
+      !idUsuario
+        ? "Usuário cadastrado com sucesso!"
+        : "Informações atualizadas com sucesso!"
+    );
+
     limpaInputs(
       inputNome,
       inputEmail,
@@ -90,9 +102,12 @@ form.onsubmit = async (event) => {
       inputCidade,
       inputUf
     );
-    window.location.replace("login.html");
+    window.location.replace(!idUsuario ? "login.html" : "perfil.html");
   } catch (error) {
-    alert("Erro ao cadastrar usuário\n" + error.message);
+    let msg = !idUsuario
+      ? "Erro ao cadastrar usuário"
+      : "Erro ao atualizar informações";
+    alert(`${msg}:\n` + error.message);
   }
 };
 
@@ -100,7 +115,14 @@ const btnCancelar = document.getElementById("cadastro_usuario__btnCancelar");
 btnCancelar.onclick = cancelarAlteracoes;
 
 function cancelarAlteracoes() {
-  const msg = "Tem certeza que deseja retornar à página de login?";
+  let url = "login.html";
+  let msg = "Tem certeza que deseja retornar à página de login?";
+
+  if (idUsuario) {
+    url = "perfil.html";
+    msg = "Tem certeza que deseja retornar ao perfil?";
+  }
+
   if (confirm(msg + "\nTodas as alterações serão perdidas!"))
-    window.location.replace("login.html");
+    window.location.replace(url);
 }

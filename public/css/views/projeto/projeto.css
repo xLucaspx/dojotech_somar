@@ -57,23 +57,6 @@
   gap: 1rem;
 }
 
-.btnEditar {
-  background-image: url("../../../img/icons/pencil-white.svg");
-}
-
-.btnExcluir {
-  color: #fff;
-  background-color: var(--vermelho);
-  border: 1px solid var(--vermelho);
-  background-image: url("../../../img/icons/trash-white.svg");
-}
-
-.btnExcluir:hover,
-.btnExcluir:active {
-  background-color: var(--vermelho_escuro);
-  border-color: var(--vermelho_escuro);
-}
-
 .display__midia__link,
 .galeria__item {
   position: relative;

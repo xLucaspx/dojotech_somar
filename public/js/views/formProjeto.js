@@ -155,7 +155,7 @@ form.onsubmit = async (event) => {
       // pega a extensão do arquivo:
       const ext = file.name.split(".").pop();
       // renomeia o arquivo:
-      file = renameFile(file, `midia_${(i+1)}.${ext}`);
+      file = renameFile(file, `midia_${i + 1}.${ext}`);
 
       formData.append(file.name, file);
     }
@@ -186,7 +186,8 @@ form.onsubmit = async (event) => {
       );
     }, 0);
   } catch (error) {
-    alert(`Erro ao cadastrar projeto:\n${error.message}`);
+    let operacao = !idProjeto ? "cadastrar" : "atualizar";
+    alert(`Erro ao ${operacao} projeto:\n${error.message}`);
   }
 };
 

@@ -51,6 +51,11 @@
   background-position: 40px;
 }
 
+.botoes_controle {
+  display: flex;
+  justify-content: space-between;
+}
+
 .btnVoltar {
   background-image: url("../../img/icons/back-black.svg");
 }
@@ -60,9 +65,21 @@
   background-image: url("../../img/icons/back-white.svg");
 }
 
-.botoes_controle {
-  display: flex;
-  justify-content: space-between;
+.btnEditar {
+  background-image: url("../../img/icons/pencil-white.svg");
+}
+
+.btnExcluir {
+  color: #fff;
+  background-color: var(--vermelho);
+  border: 1px solid var(--vermelho);
+  background-image: url("../../img/icons/trash-white.svg");
+}
+
+.btnExcluir:hover,
+.btnExcluir:active {
+  background-color: var(--vermelho_escuro);
+  border-color: var(--vermelho_escuro);
 }
 
 /* telas até 1000px */

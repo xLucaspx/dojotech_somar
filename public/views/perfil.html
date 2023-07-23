@@ -23,7 +23,9 @@
   <link rel="stylesheet" href="../css/components/footer.css">
   <link rel="stylesheet" href="../css/components/form.css">
   <!-- Sections CSS -->
-  
+  <link rel="stylesheet" href="../css/views/perfil/perfil.css">
+  <link rel="stylesheet" href="../css/views/projetos/busca.css">
+
 </head>
 
 <body>
@@ -33,52 +35,76 @@
   <!-- Fim cabeçalho -->
 
   <main>
-    <section id="main" class="usuario container">
+    <section class="usuario container">
       <div class="botoes_controle">
-        <a href="projetos.html" title="Voltar à página de projetos" class="btnVoltar btn btnSecundario btnNav">Voltar</a>
+        <a href="index.html" title="Voltar à página de inicial" class="btnVoltar btn btnSecundario btnNav">Voltar</a>
 
         <div class="usuario__botoes_controle"></div>
       </div>
 
-      <div class="projeto__info">
-        <h2 class="projeto__titulo titulo" id="projeto__titulo"></h2>
-        <h3 class="projeto__cidade subtitulo" id="projeto__cidade"></h3>
+      <h1 class="titulo" id="main">Suas informações</h1>
 
-        <div class="projeto__info__causa">
-          <h4 class="projeto__atributo">Causa de Atuação</h4>
-          <p class="projeto__texto" id="projeto__causa"></p>
+      <div class="usuario__grid_container">
+        <div class="usuario__nome usuario__info">
+          <h3 class="usuario__subtitulo">Nome completo</h3>
+          <p class="usuario__texto" id="usuario__nome"></p>
         </div>
 
-        <div class="projeto__info__objetivo">
-          <h4 class="projeto__atributo">Objetivo</h4>
-          <p class="projeto__texto" id="projeto__objetivo"></p>
+        <div class="usuario__username usuario__info">
+          <h3 class="usuario__subtitulo">Nome de usuário</h3>
+          <p class="usuario__texto" id="usuario__username"></p>
         </div>
 
-        <div class="projeto__info__parceiros">
-          <h4 class="projeto__atributo">Parceiros</h4>
-          <ul class="projeto__parceiros__lista" id="projeto__parceiros"></ul>
+        <div class="usuario__email usuario__info">
+          <h3 class="usuario__subtitulo">E-mail</h3>
+          <p class="usuario__texto" id="usuario__email"></p>
         </div>
-      </div>
 
-      <div class="projeto__resumo">
-        <h4 class="projeto__atributo">Resumo</h4>
-        <p class="projeto__texto" id="projeto__resumo"></p>
-      </div>
+        <div class="usuario__telefone usuario__info">
+          <h3 class="usuario__subtitulo">Telefone</h3>
+          <p class="usuario__texto" id="usuario__telefone"></p>
+        </div>
 
-      <div class="projeto__ods">
-        <h4 class="projeto__atributo">ODS Relacionados</h4>
-        <ul class="projeto__ods__lista" id="projeto__ods"></ul>
+        <div class="usuario__cep usuario__info">
+          <h3 class="usuario__subtitulo">CEP</h3>
+          <p class="usuario__texto" id="usuario__cep"></p>
+        </div>
+
+        <div class="usuario__endereco usuario__info">
+          <h3 class="usuario__subtitulo">Endereço</h3>
+          <p class="usuario__texto" id="usuario__endereco"></p>
+        </div>
+
+        <div class="usuario__bairro usuario__info">
+          <h3 class="usuario__subtitulo">Bairro</h3>
+          <p class="usuario__texto" id="usuario__bairro"></p>
+        </div>
+
+        <div class="usuario__cidade usuario__info">
+          <h3 class="usuario__subtitulo">Cidade</h3>
+          <p class="usuario__texto" id="usuario__cidade"></p>
+        </div>
       </div>
     </section>
-    <!-- Fim projeto -->
+    <!-- Fim Usuário -->
+
+    <section id="projetos" class="usuario__projetos container">
+      <h2 class="titulo">Seus projetos</h2>
+
+      <p class="busca__msg"></p>
+      <ul class="busca__lista"></ul>
+    </section>
   </main>
   <!-- Fim conteúdo principal -->
 
   <footer id="dynamic_footer" class="container footer"></footer>
   <!-- Fim footer -->
+
+  <a href="#" class="scrollTop hidden" title="Voltar ao topo"></a> <!-- Link voltar ao topo -->
 </body>
 
 <script src="../js/index.js" type="module"></script>
-<script src="../js/views/projeto.js" type="module"></script>
+<script src="../js/scrollTop.js"></script>
+<script src="../js/views/perfil.js" type="module"></script>
 
 </html>

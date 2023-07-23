@@ -47,12 +47,12 @@ class UsuarioController {
         const { fields } = error;
         if (fields && fields.usuario) {
           return res.status(409).json({
-            message: `O nome de usuário ${fields.usuario} não está disponível!`,
+            message: `O nome de usuário "${fields.usuario}" não está disponível!`,
           });
         } else if (fields && fields.email) {
-          return res
-            .status(409)
-            .json({ message: `O email ${fields.email} já foi cadastrado!` });
+          return res.status(409).json({
+            message: `Já existe uma conta registrada para o email "${fields.email}"!`,
+          });
         } else {
           return res.status(400).json({
             message:
@@ -100,6 +100,41 @@ class UsuarioController {
       return res
         .status(error instanceof JsonWebTokenError ? 401 : 500)
         .json({ message: `${error.message}` });
+    }
+  }
+
+  static async atualizaUsuario(req, res) {
+    const { id } = req.params;
+    const usuario = req.body;
+
+    try {
+      if (usuario.senha) {
+        const [salt, hash] = criaHashComSalt(usuario.senha).split(":");
+        usuario.hash_senha = hash;
+        usuario.salt = salt;
+        delete usuario.senha;
+      }
+      await usuarioServices.atualizaRegistro(usuario, { id });
+      return res.status(204).json({});
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const { fields } = error;
+        if (fields && fields.usuario) {
+          return res.status(409).json({
+            message: `O nome de usuário "${fields.usuario}" não está disponível!`,
+          });
+        } else if (fields && fields.email) {
+          return res.status(409).json({
+            message: `Já existe uma conta registrada para o email "${fields.email}"!`,
+          });
+        } else {
+          return res.status(400).json({
+            message:
+              "Por favor, verifique se os campos estão preenchidos corretamente!",
+          });
+        }
+      }
+      return res.status(500).json({ message: error.message });
     }
   }
 }

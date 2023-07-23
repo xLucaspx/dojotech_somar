@@ -29,4 +29,14 @@ export class ProjetoServices extends Services {
       throw new Error(error.response?.data?.message || error.message);
     }
   }
+
+  async buscaPorUsuario(idUsuario) {
+    const url = this.url + `usuario?idUsuario=${idUsuario}`;
+
+    try {
+      return await this.buscaDados(url);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

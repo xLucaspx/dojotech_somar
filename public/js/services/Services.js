@@ -2,12 +2,12 @@ import "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js";
 
 export class Services {
   constructor(url) {
-    this.url = `http://localhost:3000/${url}`;
+    this.url = `http://192.168.1.30:3000/${url}`;
   }
 
-  async buscaDados() {
+  async buscaDados(url = this.url) {
     try {
-      const dados = await axios.get(this.url);
+      const dados = await axios.get(url);
       return dados.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
