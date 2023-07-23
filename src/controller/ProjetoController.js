@@ -8,7 +8,7 @@ const midiaServices = new MidiaServices();
 class ProjetoController {
   static async buscaProjetos(req, res) {
     try {
-      const projetos = await projetoServices.buscaProjetos();
+      const projetos = await projetoServices.buscaRegistros();
       return res.status(200).json(projetos);
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -28,6 +28,19 @@ class ProjetoController {
     }
   }
 
+  static async buscaProjetosPorUsuario(req, res) {
+    const { idUsuario } = req.query;
+
+    try {
+      const projetos = await projetoServices.buscaRegistros({
+        id_usuario: idUsuario,
+      });
+      return res.status(200).json(projetos);
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
   static async buscaProjetosComFiltro(req, res) {
     const query = req.query;
     const filtro = Object.keys(query)[0];
@@ -39,7 +52,7 @@ class ProjetoController {
         projetos = await projetoServices.buscaProjetosPorOds(query[filtro]);
       } else {
         // select padrão SQL onde [filtro] é o nome da coluna onde se quer aplicar o where
-        projetos = await projetoServices.buscaProjetos({
+        projetos = await projetoServices.buscaRegistros({
           [filtro]: { [Op.like]: `%${query[filtro]}%` },
         });
       }

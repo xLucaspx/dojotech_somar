@@ -10,10 +10,7 @@ class ProjetoServices extends Services {
 
   async buscaProjetoPorId(id) {
     try {
-      const projeto = await db[this.nomeDoModelo].findOne({
-        where: { id },
-        include: ["Ods", "Midia"],
-      });
+      const projeto = await this.buscaUmRegistro({ id });
 
       if (projeto) return projeto;
 
@@ -23,22 +20,11 @@ class ProjetoServices extends Services {
     }
   }
 
-  async buscaProjetos(where = {}) {
-    try {
-      return await db[this.nomeDoModelo].findAll({
-        where: { ...where },
-        include: ["Ods", "Midia"],
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async buscaProjetosPorOds(ods) {
     const exp = new RegExp(escapeRegex(ods), "gi");
 
     try {
-      const projetos = await this.buscaProjetos();
+      const projetos = await this.buscaRegistros();
       const projetosFiltrados = new Set();
 
       projetos.forEach((projeto) => {

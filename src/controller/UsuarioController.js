@@ -72,8 +72,8 @@ class UsuarioController {
       const { id, nome, hash_senha, salt } = usuarioDigitado.match(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
       )
-        ? await usuarioServices.buscaUsuario({ email: usuarioDigitado })
-        : await usuarioServices.buscaUsuario({ usuario: usuarioDigitado });
+        ? await usuarioServices.buscaUsuarioLogin({ email: usuarioDigitado })
+        : await usuarioServices.buscaUsuarioLogin({ usuario: usuarioDigitado });
 
       if (autenticaSenha(senhaDigitada, salt, hash_senha)) {
         const tokenJwt = geraJwt({ id, nome });

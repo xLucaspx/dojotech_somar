@@ -1,7 +1,6 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const Services = require("./Services");
-const { ConflictError } = require("../errors");
 
 class MidiaServices extends Services {
   constructor() {

@@ -59,6 +59,20 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Projeto",
       freezeTableName: true,
+      defaultScope: {
+        attributes: [
+          "id",
+          "nome",
+          "causa",
+          "objetivo",
+          "cidade",
+          "parceiros",
+          "publico_alvo",
+          "resumo",
+          "id_usuario",
+        ],
+        include: ["Ods", "Midia"],
+      },
     }
   );
   return Projeto;

@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Midia",
       freezeTableName: true,
+      defaultScope: {
+        attributes: ["id", "nome", "tipo", "url", "id_projeto"],
+      },
     }
   );
   return Midia;

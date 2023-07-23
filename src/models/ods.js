@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Ods",
       freezeTableName: true,
+      defaultScope: {
+        attributes: ["id", "nome", "url_imagem"],
+      },
     }
   );
   return Ods;
