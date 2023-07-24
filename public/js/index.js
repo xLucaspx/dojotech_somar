@@ -6,11 +6,18 @@ import { UsuarioServices } from "./services/UsuarioServices.js";
   insertHeaderAndFooter();
   const tokenJwt = buscaCookie("tokenJwt");
   const btnLog = document.getElementById("btnLog");
+  const navList = document.querySelector(".nav__list");
 
   if (tokenJwt) {
     try {
       const usuarioServices = new UsuarioServices();
-      await usuarioServices.autenticaUsuario({ tokenJwt });
+      const { nome } = await usuarioServices.autenticaUsuario({ tokenJwt });
+
+      const profileLink = document.createElement("li");
+      profileLink.classList.add("nav__list__item");
+      profileLink.innerHTML = `<a href="perfil.html" class="nav__link nav__link--profile">${nome.split(" ")[0]}</a>`;
+
+      navList.appendChild(profileLink);
 
       btnLog.innerHTML = "Logout";
       btnLog.onclick = () => {
@@ -24,8 +31,6 @@ import { UsuarioServices } from "./services/UsuarioServices.js";
     }
   } else {
     btnLog.innerHTML = "Login";
-    btnLog.onclick = () => {
-      window.location.href = "login.html";
-    };
+    btnLog.onclick = () => (window.location.href = "login.html");
   }
 })();

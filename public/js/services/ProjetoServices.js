@@ -9,8 +9,10 @@ export class ProjetoServices extends Services {
     const url = this.url + `${idProjeto}/midias`;
 
     try {
-      const midiasCadastradas = await this.cadastra(data, url);
-      return midiasCadastradas.data;
+      // await this.cadastra(data, url);
+      return await axios.post(url, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
     }
@@ -25,6 +27,16 @@ export class ProjetoServices extends Services {
       return projetos.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async buscaPorUsuario(idUsuario) {
+    const url = this.url + `usuario?idUsuario=${idUsuario}`;
+
+    try {
+      return await this.buscaDados(url);
+    } catch (error) {
+      throw error;
     }
   }
 }

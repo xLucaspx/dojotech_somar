@@ -88,6 +88,27 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Usuario",
       freezeTableName: true,
+      defaultScope: {
+        attributes: [
+          "id",
+          "nome",
+          "usuario",
+          "email",
+          "telefone",
+          "cep",
+          "logradouro",
+          "complemento",
+          "numero",
+          "bairro",
+          "cidade",
+          "uf",
+        ],
+      },
+      scopes: {
+        login: {
+          attributes: ["id", "nome", "hash_senha", "salt"],
+        },
+      },
     }
   );
   return Usuario;

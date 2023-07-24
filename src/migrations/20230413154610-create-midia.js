@@ -11,6 +11,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       nome: { allowNull: false, type: Sequelize.STRING },
+      tipo: { allowNull: false, type: Sequelize.STRING },
       url: { allowNull: false, type: Sequelize.STRING },
       alt: { allowNull: true, type: Sequelize.STRING },
       id_projeto: {

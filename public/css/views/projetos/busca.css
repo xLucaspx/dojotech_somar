@@ -58,7 +58,7 @@
   filter: brightness(95%);
 }
 
-.projeto__img {
+.projeto__miniatura {
   float: left;
   width: 100%;
   height: 225px;
@@ -109,10 +109,6 @@ and (max-width: 1000px) {
 
   .projeto__link {
     width: calc(85vw / 2);
-  }
-
-  .projeto__img {
-    height: 60%;
   }
 }
 

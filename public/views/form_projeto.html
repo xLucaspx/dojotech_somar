@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700&family=Ubuntu:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700&family=Ubuntu:wght@300;400;500;700&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <!-- Components CSS -->
   <link rel="stylesheet" href="../css/components/nav.css">
@@ -22,7 +23,7 @@
   <link rel="stylesheet" href="../css/components/footer.css">
   <link rel="stylesheet" href="../css/components/form.css">
   <!-- Sections CSS -->
-  <link rel="stylesheet" href="../css/views/cadastro_projeto/cadastro_projeto.css">
+  <link rel="stylesheet" href="../css/views/form_projeto/form_projeto.css">
 </head>
 
 <body>
@@ -32,8 +33,12 @@
   <!-- Fim cabeçalho -->
 
   <main>
-    <section id="main" class="cadastro_projeto container">
-      <h1 class="titulo">Cadastro de projeto</h1>
+    <section class="cadastro_projeto container">
+      <div class="botoes_controle">
+        <button type="button" title="Voltar à página de projetos" class="btnVoltar btn btnSecundario btnNav">Voltar</a>
+      </div>
+
+      <h1 class="titulo" id="main">Cadastro de projeto</h1>
 
       <form action="" enctype="multipart/form-data" class="cadastro_projeto__form form">
         <!-- Nome -->
@@ -101,7 +106,8 @@
         <!-- Resumo -->
         <fieldset class="form__fieldset--texto form__fieldset--resumo">
           <textarea name="resumo" id="cadastro_projeto__resumo" class="form__textarea form__texto" cols="30" rows="10"
-            placeholder="Digite um resumo do projeto" data-tipo="resumo" minlength="10" maxlength="475" required></textarea>
+            placeholder="Digite um resumo do projeto" data-tipo="resumo" minlength="10" maxlength="475"
+            required></textarea>
 
           <label for="cadastro_projeto__resumo" class="form__label">Resumo</label>
           <span class="form__fieldset__msg"></span>
@@ -112,61 +118,69 @@
           <legend class="form__fieldset__legend">Mídias</legend>
 
           <div class="cadastro_projeto__midia__div">
-            <input type="file" name="imagem" id="cadastro_projeto__imagem--1" class="cadastro_projeto__imagem hidden"
-              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+            <input type="file" name="midia" id="cadastro_projeto__imagem--1"
+              class="input--imagem cadastro_projeto__midia hidden"
+              accept="image/avif,image/jpeg,image/png,image/svg+xml,image/webp">
 
             <label for="cadastro_projeto__imagem--1" class="form__label--file btn btnSecundario">Imagem 01</label>
             <span class="cadastro_projeto__midia-info"></span>
-            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+            <button class="btnRemoverMidia btnRemoverMidia--hidden" type="button">Remover imagem</button>
           </div>
 
           <div class="cadastro_projeto__midia__div">
-            <input type="file" name="imagem" id="cadastro_projeto__imagem--2" class="cadastro_projeto__imagem hidden"
-              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+            <input type="file" name="midia" id="cadastro_projeto__imagem--2"
+              class="input--imagem cadastro_projeto__midia hidden"
+              accept="image/avif,image/jpeg,image/png,image/svg+xml,image/webp">
 
             <label for="cadastro_projeto__imagem--2" class="form__label--file btn btnSecundario">Imagem 02</label>
             <span class="cadastro_projeto__midia-info"></span>
-            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+            <button class="btnRemoverMidia btnRemoverMidia--hidden" type="button">Remover imagem</button>
           </div>
 
           <div class="cadastro_projeto__midia__div">
-            <input type="file" name="imagem" id="cadastro_projeto__imagem--3" class="cadastro_projeto__imagem hidden"
-              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+            <input type="file" name="midia" id="cadastro_projeto__imagem--3"
+              class="input--imagem cadastro_projeto__midia hidden"
+              accept="image/avif,image/jpeg,image/png,image/svg+xml,image/webp">
 
             <label for="cadastro_projeto__imagem--3" class="form__label--file btn btnSecundario">Imagem 03</label>
             <span class="cadastro_projeto__midia-info"></span>
-            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+            <button class="btnRemoverMidia btnRemoverMidia--hidden" type="button">Remover imagem</button>
           </div>
 
           <div class="cadastro_projeto__midia__div">
-            <input type="file" name="imagem" id="cadastro_projeto__imagem--4" class="cadastro_projeto__imagem hidden"
-              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+            <input type="file" name="midia" id="cadastro_projeto__imagem--4"
+              class="input--imagem cadastro_projeto__midia hidden"
+              accept="image/avif,image/jpeg,image/png,image/svg+xml,image/webp">
 
             <label for="cadastro_projeto__imagem--4" class="form__label--file btn btnSecundario">Imagem 04</label>
             <span class="cadastro_projeto__midia-info"></span>
-            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+            <button class="btnRemoverMidia btnRemoverMidia--hidden" type="button">Remover imagem</button>
           </div>
 
           <div class="cadastro_projeto__midia__div">
-            <input type="file" name="imagem" id="cadastro_projeto__imagem--5" class="cadastro_projeto__imagem hidden"
-              accept=".avif,image/jpeg,.png,image/svg+xml,.webp">
+            <input type="file" name="midia" id="cadastro_projeto__imagem--5"
+              class="input--imagem cadastro_projeto__midia hidden"
+              accept="image/avif,image/jpeg,image/png,image/svg+xml,image/webp">
 
             <label for="cadastro_projeto__imagem--5" class="form__label--file btn btnSecundario">Imagem 05</label>
             <span class="cadastro_projeto__midia-info"></span>
-            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+            <button class="btnRemoverMidia btnRemoverMidia--hidden" type="button">Remover imagem</button>
           </div>
 
           <div class="cadastro_projeto__midia__div">
-            <input type="file" name="imagem" id="cadastro_projeto__video--1" class="hidden" accept="video/*">
+            <input type="file" name="midia" id="cadastro_projeto__video--1"
+              class="input--video cadastro_projeto__midia hidden"
+              accept="video/x-msvideo,video/mp4,video/mpeg,video/ogg,video/mp2t,video/webm,video/3gpp,video/3gpp2">
 
             <label for="cadastro_projeto__video--1" class="form__label--file btn btnSecundario">Vídeo</label>
             <span class="cadastro_projeto__midia-info"></span>
-            <button class="btnRemoverImagem btnRemoverImagem--hidden" type="button">Remover imagem</button>
+            <button class="btnRemoverMidia btnRemoverMidia--hidden" type="button">Remover vídeo</button>
           </div>
         </fieldset>
 
         <fieldset class="form__fieldset--btn">
           <button type="submit" id="cadastro_projeto__btnCadastro" class="btn btnPadrao">Cadastrar projeto</button>
+          <button type="button" id="cadastro_projeto__btnCancelar" class="btn btnCancelar">Cancelar</button>
         </fieldset>
       </form>
     </section>
@@ -180,6 +194,6 @@
 
 <script src="../js/index.js" type="module"></script>
 <script src="../js/validaInputs.js" type="module"></script>
-<script src="../js/views/cadastroProjeto.js" type="module"></script>
+<script src="../js/views/formProjeto.js" type="module"></script>
 
 </html>

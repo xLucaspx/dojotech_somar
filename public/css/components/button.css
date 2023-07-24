@@ -42,10 +42,59 @@
   color: #fff;
 }
 
+.btnNav {
+  width: 180px;
+  height: 35px;
+  padding: 2px 0 0 18px;
+  background-repeat: no-repeat;
+  background-size: 1.45rem;
+  background-position: 40px;
+}
+
+.botoes_controle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnVoltar {
+  background-image: url("../../img/icons/back-black.svg");
+}
+
+.btnVoltar:hover,
+.btnVoltar:active {
+  background-image: url("../../img/icons/back-white.svg");
+}
+
+.btnEditar {
+  background-image: url("../../img/icons/pencil-white.svg");
+}
+
+.btnExcluir {
+  color: #fff;
+  background-color: var(--vermelho);
+  border: 1px solid var(--vermelho);
+  background-image: url("../../img/icons/trash-white.svg");
+}
+
+.btnExcluir:hover,
+.btnExcluir:active {
+  background-color: var(--vermelho_escuro);
+  border-color: var(--vermelho_escuro);
+}
+
 /* telas até 1000px */
 @media screen and (max-width: 1000px) {
   .btn {
     width: 100%;
     max-width: 350px;
+  }
+
+  .btnNav {
+    font-size: 15px;
+    width: 100px;
+    height: 32px;
+    padding: 3px 0 2px 20px;
+    background-size: 16px;
+    background-position: 18px;
   }
 }
