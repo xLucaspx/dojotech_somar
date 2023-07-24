@@ -45,6 +45,26 @@ try {
     <button type="button" class="btnExcluir btn btnNav" title="Excluir sua conta">Excluir</button>
   `;
 
+  const btnExcluir = document.querySelector(".btnExcluir");
+  btnExcluir.addEventListener("click", async () => {
+    try {
+      const excluir = confirm(
+        "Tem certeza que deseja excluir sua conta?\nTodos os seus projetos também serão excluídos!"
+      );
+
+      if (excluir) {
+        for await (const projeto of projetos) {
+          await projetoServices.deleta(projeto.id);
+        }
+        await usuarioServices.deleta(idUsuario);
+        removeCookie("tokenJwt");
+        window.location.replace("index.html");
+      }
+    } catch (error) {
+      alert(`Ocorreu um erro ao tentar excluir a conta:\n${error.message}`);
+    }
+  });
+
   nome.innerHTML = usuario.nome;
   username.innerHTML = usuario.usuario;
   email.innerHTML = usuario.email;

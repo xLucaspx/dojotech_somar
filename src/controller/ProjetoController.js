@@ -114,11 +114,11 @@ class ProjetoController {
   }
 
   static async deletaProjeto(req, res) {
-    const { idProjeto } = req.params;
+    const { id } = req.params;
 
     try {
-      await midiaServices.deletaMidias(idProjeto);
-      await projetoServices.deletaProjeto(idProjeto);
+      await midiaServices.deletaMidias(id);
+      await projetoServices.deletaProjeto(id);
 
       return res.status(204).json({});
     } catch (error) {

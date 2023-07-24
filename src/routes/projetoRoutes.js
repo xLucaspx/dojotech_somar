@@ -11,6 +11,6 @@ router
   .post("/projetos", ProjetoController.cadastraProjeto)
   .post("/projetos/:id/midias", ProjetoController.cadastraMidias)
   .put("/projetos/:id", ProjetoController.atualizaProjeto)
-  .delete("/projetos/:idProjeto", ProjetoController.deletaProjeto)
+  .delete("/projetos/:id", ProjetoController.deletaProjeto)
 
 module.exports = router;

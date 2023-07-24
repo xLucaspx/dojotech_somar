@@ -9,6 +9,7 @@ router
   .post("/usuarios", UsuarioController.cadastraUsuario)
   .post("/usuarios/login", UsuarioController.logaUsuario)
   .post("/usuarios/autenticar", UsuarioController.autenticaUsuario)
-  .put("/usuarios/:id", UsuarioController.atualizaUsuario);
+  .put("/usuarios/:id", UsuarioController.atualizaUsuario)
+  .delete("/usuarios/:id", UsuarioController.deletaUsuario);
 
 module.exports = router;

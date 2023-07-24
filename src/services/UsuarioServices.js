@@ -11,9 +11,9 @@ class UsuarioServices extends Services {
     try {
       return await this.buscaUmRegistro(filtro);
     } catch (error) {
-      if (error instanceof NotFoundError) {
+      if (error instanceof NotFoundError)
         throw new NotFoundError("Usuário não encontrado!");
-      }
+
       throw error;
     }
   }

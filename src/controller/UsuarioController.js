@@ -137,6 +137,18 @@ class UsuarioController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async deletaUsuario(req, res) {
+    const { id } = req.params;
+
+    try {
+      await usuarioServices.deletaRegistro({ id });
+
+      return res.status(204).json({});
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = UsuarioController;

@@ -10,12 +10,11 @@ class ProjetoServices extends Services {
 
   async buscaProjetoPorId(id) {
     try {
-      const projeto = await this.buscaUmRegistro({ id });
-
-      if (projeto) return projeto;
-
-      throw new NotFoundError("Projeto não encontrado!");
+      return await this.buscaUmRegistro({ id });
     } catch (error) {
+      if (error instanceof NotFoundError)
+        throw new NotFoundError("Projeto não encontrado!");
+
       throw error;
     }
   }
