@@ -33,7 +33,7 @@
   .header,
   .header__div {
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 1rem;
   }
 
   .logo__link {

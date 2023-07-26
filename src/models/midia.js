@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Midia.init(
     {
       nome: { type: DataTypes.STRING, allowNull: false },
+      tipo: { type: DataTypes.STRING, allowNull: false },
       url: { type: DataTypes.STRING, allowNull: false },
       alt: { type: DataTypes.STRING, allowNull: true },
     },
@@ -23,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Midia",
       freezeTableName: true,
+      defaultScope: {
+        attributes: ["id", "nome", "tipo", "url", "id_projeto"],
+      },
     }
   );
   return Midia;

@@ -10,25 +10,11 @@ class ProjetoServices extends Services {
 
   async buscaProjetoPorId(id) {
     try {
-      return await db[this.nomeDoModelo].findOne({
-        where: { id },
-        include: ["Ods", "Midia"],
-      });
+      return await this.buscaUmRegistro({ id });
     } catch (error) {
-      if (error instanceof NotFoundError) {
+      if (error instanceof NotFoundError)
         throw new NotFoundError("Projeto não encontrado!");
-      }
-      throw error;
-    }
-  }
 
-  async buscaProjetos(where = {}) {
-    try {
-      return await db[this.nomeDoModelo].findAll({
-        where: { ...where },
-        include: ["Ods", "Midia"],
-      });
-    } catch (error) {
       throw error;
     }
   }
@@ -37,7 +23,7 @@ class ProjetoServices extends Services {
     const exp = new RegExp(escapeRegex(ods), "gi");
 
     try {
-      const projetos = await this.buscaProjetos();
+      const projetos = await this.buscaRegistros();
       const projetosFiltrados = new Set();
 
       projetos.forEach((projeto) => {
@@ -49,6 +35,42 @@ class ProjetoServices extends Services {
         });
       });
       return Array.from(projetosFiltrados);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async atualizaProjeto(dados, id) {
+    try {
+      await this.atualizaRegistro(dados, { id });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async atualizaOds(idProjeto, ods) {
+    try {
+      const projeto = await this.buscaProjetoPorId(idProjeto);
+      await this.deletaOds(idProjeto);
+      ods.forEach(async (item) => await projeto.addOds(item));
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletaProjeto(id) {
+    try {
+      const projeto = await this.buscaProjetoPorId(id);
+      await this.deletaOds(id);
+      return await projeto.destroy();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletaOds(idProjeto) {
+    try {
+      await db["Projeto_ods"].destroy({ where: { id_projeto: idProjeto } });
     } catch (error) {
       throw error;
     }

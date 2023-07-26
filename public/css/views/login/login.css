@@ -6,3 +6,7 @@
 .form__fieldset--texto {
   height: 70px;  
 }
+
+.form__fieldset--btn {
+  flex-direction: column;
+}

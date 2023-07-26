@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Projeto_ods",
       freezeTableName: true,
+      defaultScope: {
+        attributes: ["id_ods", "id_projeto"],
+      },
     }
   );
   return Projeto_ods;

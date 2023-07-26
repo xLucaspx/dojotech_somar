@@ -2,6 +2,7 @@
   grid container: { .projeto }
 
   grid itens: {
+    .projeto__botoes,
     .projeto__midias,
     .projeto__info, 
     .projeto__resumo,
@@ -16,10 +17,15 @@
   grid-template-columns: 1.25fr 1fr;
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
+    "btn btn"
     "midias info"
     "resumo ods"
   ;
   gap: 2rem;
+}
+
+.botoes_controle {
+  grid-area: btn;
 }
 
 .projeto__midias {
@@ -46,18 +52,23 @@
 
 /* Estilização: */
 
-.display__img__link,
+.projeto__botoes_controle {
+  display: flex;
+  gap: 1rem;
+}
+
+.display__midia__link,
 .galeria__item {
   position: relative;
 }
 
-.projeto__img,
-.galeria__img {
+.projeto__midia,
+.galeria__view {
   float: left;
   object-fit: cover;
 }
 
-.projeto__img {
+.projeto__midia {
   width: 100%;
   height: 25rem;
 }
@@ -79,17 +90,26 @@
   cursor: pointer;
 }
 
-.galeria__img {
+.galeria__view {
   width: 100%;
   height: 100%;
   border: 1px solid var(--cinza_escuro);
   border-radius: 5px;
 }
 
+.galeria__view--video {
+  opacity: 80%;
+}
+
 .display__img__icon,
-.galeria__img__icon {
-  position: absolute;
+.galeria__view__icon {
   opacity: 0%;
+}
+
+.display__img__icon,
+.galeria__view__icon,
+.galeria__view__icon--video {
+  position: absolute;
 }
 
 .display__img__icon {
@@ -99,21 +119,22 @@
   left: 45%;
 }
 
-.galeria__img__icon {
+.galeria__view__icon,
+.galeria__view__icon--video {
   width: 50px;
   height: 50px;
   top: 17%;
-  left: 29%;
+  left: 32%;
 }
 
-.display__img__link:hover .projeto__img,
-.galeria__item:hover .galeria__img {
+.display__midia__link:hover .projeto__midia,
+.galeria__item:hover .galeria__view {
   transition: 0.3s ease-out;
   opacity: 65%;
 }
 
-.display__img__link:hover .display__img__icon,
-.galeria__item:hover .galeria__img__icon {
+.display__midia__link:hover .display__img__icon,
+.galeria__item:hover .galeria__view__icon {
   transition: 0.25s;
   opacity: 100%;
 }
@@ -149,16 +170,14 @@
 
 /* ajustando imagem do  projeto em telas até 700px */
 @media screen and (max-width: 700px) {
-  .projeto__img {
+  .projeto__midia {
     height: 15rem;
   }
 }
 
 /* ajustando imagem do  projeto em telas até 1000px */
-@media screen
-and (min-width: 700px)
-and (max-width: 1000px) {
-  .projeto__img {
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  .projeto__midia {
     height: 20rem;
   }
 
@@ -166,25 +185,24 @@ and (max-width: 1000px) {
     top: 42%;
     left: 47%;
   }
-
-  .galeria__img__icon {
-    top: 30%;
-    left: 40%;
-  }
 }
 
 /* Telas até 1000px */
-@media screen
-and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
   .projeto {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, auto);
-    grid-template-areas: 
+    grid-template-areas:
+      "btn"
       "midias"
       "info"
       "resumo"
       "ods"
     ;
+  }
+
+  .projeto__botoes_controle {
+    gap: 0.45rem;
   }
 
   .galeria__item {
@@ -196,9 +214,10 @@ and (max-width: 1000px) {
     height: 50px;
   }
 
-  .galeria__img__icon {
-    width: 25px;
-    height: 25px;
+  .galeria__view__icon,
+  .galeria__view__icon--video {
+    width: 30px;
+    height: 30px;
   }
 
   .projeto__titulo,
@@ -211,5 +230,27 @@ and (max-width: 1000px) {
   .projeto__ods__img {
     width: 110px;
     height: 110px;
+  }
+}
+
+/* corrigindo posição dos botões da galeria: */
+
+/* telas até 700px: */
+@media screen and (max-width: 700px) {
+  .galeria__view__icon,
+  .galeria__view__icon--video {
+    top: 25%;
+    left: 27%;
+  }
+}
+
+/* telas até 1000px: */
+@media screen
+and (min-width: 701px)
+and (max-width: 1000px) {
+  .galeria__view__icon,
+  .galeria__view__icon--video {
+    top: 27%;
+    left: 37%;
   }
 }
