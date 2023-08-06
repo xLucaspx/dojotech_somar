@@ -4,7 +4,7 @@
 
 **Nome**: Devs da 222
 
-**Integrantes**: Lucas da Paz Oliveira
+**Integrantes**: Felipe Verdade, Glauber Martini, Lucas da Paz Oliveira
 
 **Turma**: DEV1N222
 
@@ -138,6 +138,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] Deve ser possível ao usuário que cadastrou o projeto editá-lo;
 - [x] Deve ser possível ao usuário que cadastrou o projeto excluí-lo;
 - [x] Deve ser possível realizar a filtragem de projetos:
+  - [x] por nome;
   - [x] por ODS;
   - [x] por cidade;
   - [x] por causa de atuação;
@@ -169,7 +170,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] O campo e-mail deve ser validado;
 - [x] O campo telefone deve ser validado;
 - [x] O campo CEP deve ser validado e buscar os dados de endereço do usuário;
-- [ ] Os campos obrigatórios deve ser marcados com "*";
+- [x] Os campos obrigatórios deve ser marcados com "*";
 - [x] O usuário deve estar autenticado para cadastrar um projeto;
 - [x] O projeto deve possuir pelo menos 1 ODS.
 
@@ -186,7 +187,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] Desenvolver página de cadastro de projeto;
 - [x] Desenvolver página de projeto;
 - [x] Realizar integração com banco de dados;
-- [ ] Desenvolver funcionalidades:
+- [x] Desenvolver funcionalidades:
   - [x] Login e autenticação;
   - [x] Upload de imagens;
   - [x] Upload de vídeo;
@@ -195,8 +196,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
   - [x] Botão "voltar" para facilitar navegação;
   - [x] Página de administração de dados do usuário;
   - [x] Possibilidade de editar e excluir projeto;
-  - [ ] Opção de gerar relatório contendo total de projetos e total de projetos por ODS.
-
+  - [x] Opção de gerar relatório contendo total de projetos e total de projetos por ODS.
 
 ## Diagramas
 

@@ -1,7 +1,11 @@
+const fs = require("node:fs");
+const path = require("node:path");
 const Services = require("./Services");
 const db = require("../models");
 const { NotFoundError } = require("../errors");
 const escapeRegex = require("../utils/escapeRegex");
+const { QueryTypes } = require("sequelize");
+const criaRelatorioProjetos = require("../utils/criaRelatorioProjetos");
 
 class ProjetoServices extends Services {
   constructor() {
@@ -71,6 +75,30 @@ class ProjetoServices extends Services {
   async deletaOds(idProjeto) {
     try {
       await db["Projeto_ods"].destroy({ where: { id_projeto: idProjeto } });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async criaRelatorioProjetos() {
+    try {
+      const projetos = await this.buscaRegistros();
+      const dadosOds = await db.sequelize.query(
+        `SELECT
+          id_ods AS 'id',
+          nome AS 'ods',
+          COUNT(id_projeto) AS 'projetos'
+        FROM projeto_ods
+          INNER JOIN ods ON projeto_ods.id_ods = ods.id
+        GROUP BY id_ods;`,
+        { type: QueryTypes.SELECT }
+      );
+
+      const relatorio = criaRelatorioProjetos(projetos.length, dadosOds);
+      const fileName = "../../public/report/relatorio-projetos.txt";
+      fs.writeFileSync(path.join(__dirname, fileName), relatorio, {
+        encoding: "utf-8",
+      });
     } catch (error) {
       throw error;
     }

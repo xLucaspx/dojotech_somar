@@ -52,6 +52,8 @@ if (tokenJwt) {
     inputUf.value = usuario.uf;
 
     inputSenha.required = false;
+    const labelSenha = document.getElementById("label-senha");
+    labelSenha.classList.remove("form__label--required");
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
     removeCookie("tokenJwt");

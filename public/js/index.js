@@ -15,7 +15,7 @@ import { UsuarioServices } from "./services/UsuarioServices.js";
 
       const profileLink = document.createElement("li");
       profileLink.classList.add("nav__list__item");
-      profileLink.innerHTML = `<a href="perfil.html" class="nav__link nav__link--profile">${nome.split(" ")[0]}</a>`;
+      profileLink.innerHTML = `<a href="perfil.html" title="Suas informações" class="nav__link nav__link--profile">${nome.split(" ")[0]}</a>`;
 
       navList.appendChild(profileLink);
 

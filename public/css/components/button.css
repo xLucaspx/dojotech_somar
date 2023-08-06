@@ -82,6 +82,13 @@
   border-color: var(--vermelho_escuro);
 }
 
+/* telas até 700px */
+@media screen and (max-width: 700px) {
+  .botoes_controle {
+    margin-bottom: 2rem;
+  }
+}
+
 /* telas até 1000px */
 @media screen and (max-width: 1000px) {
   .btn {

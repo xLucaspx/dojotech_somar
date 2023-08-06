@@ -41,12 +41,14 @@
       <h1 class="titulo" id="main">Cadastro de projeto</h1>
 
       <form action="" enctype="multipart/form-data" class="cadastro_projeto__form form">
+        <legend class="form__descricao">Os campos obrigatórios estão marcados com asterisco<strong class="legend-asterisco">*</strong></legend>
+
         <!-- Nome -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_projeto__nome" class="form__input form__texto" name="nome"
             placeholder="Digite o nome do projeto" data-tipo="nome" minlength="3" maxlength="75" required>
 
-          <label for="cadastro_projeto__nome" class="form__label">Nome do projeto</label>
+          <label for="cadastro_projeto__nome" class="form__label form__label--required">Nome do projeto</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 
@@ -55,7 +57,7 @@
           <input type="text" id="cadastro_projeto__causa" class="form__input form__texto" name="causa"
             placeholder="Digite a causa do projeto" data-tipo="causa" minlength="3" maxlength="75" required>
 
-          <label for="cadastro_projeto__causa" class="form__label">Causa de atuação</label>
+          <label for="cadastro_projeto__causa" class="form__label form__label--required">Causa de atuação</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 
@@ -64,7 +66,7 @@
           <input type="text" id="cadastro_projeto__objetivo" class="form__input form__texto" name="objetivo"
             placeholder="Digite o objetivo do projeto" data-tipo="objetivo" minlength="10" maxlength="125" required>
 
-          <label for="cadastro_projeto__objetivo" class="form__label">Objetivo</label>
+          <label for="cadastro_projeto__objetivo" class="form__label form__label--required">Objetivo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 
@@ -73,7 +75,7 @@
           <input type="text" id="cadastro_projeto__publico" class="form__input form__texto" name="publico"
             placeholder="Digite o público-alvo do projeto" data-tipo="publico" minlength="3" maxlength="75" required>
 
-          <label for="cadastro_projeto__publico" class="form__label">Público-alvo</label>
+          <label for="cadastro_projeto__publico" class="form__label form__label--required">Público-alvo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 
@@ -82,7 +84,7 @@
           <input type="text" id="cadastro_projeto__cidade" class="form__input form__texto" name="cidade"
             placeholder="Digite a cidade do projeto" data-tipo="cidade" minlength="3" maxlength="50" required>
 
-          <label for="cadastro_projeto__cidade" class="form__label">Cidade - UF</label>
+          <label for="cadastro_projeto__cidade" class="form__label form__label--required">Cidade - UF</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 
@@ -98,7 +100,7 @@
 
         <!-- ODS -->
         <fieldset class="form__fieldset--checkbox">
-          <legend class="form__fieldset__legend">Objetivos de Desenvolvimento Sustentável</legend>
+          <legend class="form__fieldset__legend form__label--required">Objetivos de Desenvolvimento Sustentável</legend>
 
           <ul class="form__lista_ods"></ul> <!-- ODS inseridos dinamicamente via JS -->
         </fieldset>
@@ -109,7 +111,7 @@
             placeholder="Digite um resumo do projeto" data-tipo="resumo" minlength="10" maxlength="475"
             required></textarea>
 
-          <label for="cadastro_projeto__resumo" class="form__label">Resumo</label>
+          <label for="cadastro_projeto__resumo" class="form__label form__label--required">Resumo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
 

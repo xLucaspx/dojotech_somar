@@ -41,13 +41,15 @@
       <h1 id="main" class="titulo">Cadastro de usuário</h1>
 
       <form action="" class="cadastro_usuario__form form">
+        <legend class="form__descricao">Os campos obrigatórios estão marcados com asterisco<strong class="legend-asterisco">*</strong></legend>
+
         <!-- Nome -->
         <fieldset class="form__fieldset--texto">
           <input type="text" id="cadastro_usuario__nome" class="form__input form__texto" name="nome"
             placeholder="Digite seu nome completo" data-tipo="nome" minlength="3" maxlength="75"
             required autocomplete="name">
       
-          <label for="cadastro_usuario__nome" class="form__label">Nome completo</label>
+          <label for="cadastro_usuario__nome" class="form__label form__label--required">Nome completo</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -57,7 +59,7 @@
             placeholder="Digite seu email" data-tipo="email" maxlength="50" required autocomplete="email"
             pattern="^\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*(\.\w{2,3})+$">
       
-          <label for="cadastro_usuario__email" class="form__label">Email</label>
+          <label for="cadastro_usuario__email" class="form__label form__label--required">Email</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -67,7 +69,7 @@
             placeholder="Digite um nome de usuário" title="Apenas letras, números, hífen e undeline" data-tipo="usuario"
             minlength="3" maxlength="20" required autocomplete="username" pattern="^[\w\-]*$">
       
-          <label for="cadastro_usuario__usuario" class="form__label">Nome de usuário</label>
+          <label for="cadastro_usuario__usuario" class="form__label form__label--required">Nome de usuário</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -78,7 +80,7 @@
             maxlength="25" required autocomplete="tel"
             pattern="^[\(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[\)]? ?(?:[2-8]|9 ?[1-9])[0-9]{3}[\-]? ?[0-9]{4}$">
       
-          <label for="cadastro_usuario__telefone" class="form__label">Telefone</label>
+          <label for="cadastro_usuario__telefone" class="form__label form__label--required">Telefone</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -90,7 +92,7 @@
             data-tipo="senha" minlength="8" maxlength="50" required autocomplete="new-password"
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%&*\(\)_+\-=\{\[\}\]:;>.<,?\/\|\\])[A-Za-z\d!@#$%&*\(\)_+\-=\{\[\}\]:;>.<,?\/\|\\]{8,}$">
       
-          <label for="cadastro_usuario__senha" class="form__label">Senha</label>
+          <label for="cadastro_usuario__senha" class="form__label form__label--required" id="label-senha">Senha</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -99,7 +101,7 @@
           <input type="text" id="cadastro_usuario__cep" class="form__input form__texto" name="cep" placeholder="Digite seu CEP"
           data-tipo="cep" maxlength="9" required autocomplete="postal-code" pattern="^[\d]{5}-?[\d]{3}$">
       
-          <label for="cadastro_usuario__cep" class="form__label">CEP</label>
+          <label for="cadastro_usuario__cep" class="form__label form__label--required">CEP</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -108,7 +110,7 @@
           <input type="text" id="cadastro_usuario__logradouro" class="form__input form__texto" name="logradouro"
             placeholder="Endereço" data-tipo="logradouro" minlength="5" maxlength="100" required autocomplete="address-line1">
       
-          <label for="cadastro_usuario__logradouro" class="form__label">Endereço</label>
+          <label for="cadastro_usuario__logradouro" class="form__label form__label--required">Endereço</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -117,7 +119,7 @@
           <input type="text" id="cadastro_usuario__bairro" class="form__input form__texto" name="bairro" placeholder="Bairro"
             data-tipo="bairro" minlength="3" maxlength="50" required autocomplete="address-level3">
       
-          <label for="cadastro_usuario__bairro" class="form__label">Bairro</label>
+          <label for="cadastro_usuario__bairro" class="form__label form__label--required">Bairro</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -144,7 +146,7 @@
           <input type="text" id="cadastro_usuario__cidade" class="form__input form__texto" name="cidade" placeholder="Cidade"
             data-tipo="cidade" minlength="3" maxlength="50" required autocomplete="address-level2">
       
-          <label for="cadastro_usuario__cidade" class="form__label">Cidade</label>
+          <label for="cadastro_usuario__cidade" class="form__label form__label--required">Cidade</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       
@@ -153,7 +155,7 @@
           <input type="text" id="cadastro_usuario__uf" class="form__input form__texto" name="uf" placeholder="UF"
             data-tipo="uf" minlength="2" maxlength="2" required autocomplete="address-level1">
       
-          <label for="cadastro_usuario__uf" class="form__label">UF</label>
+          <label for="cadastro_usuario__uf" class="form__label form__label--required">UF</label>
           <span class="form__fieldset__msg"></span>
         </fieldset>
       

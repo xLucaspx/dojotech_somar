@@ -36,7 +36,15 @@ export class ProjetoServices extends Services {
     try {
       return await this.buscaDados(url);
     } catch (error) {
-      throw error;
+      throw new Error(error.response?.data?.message || error.message);
+    }
+  }
+
+  async geraRelatorio() {
+    try {
+      return await this.buscaDados(this.url + "relatorio");
+    } catch (error) {
+      throw error
     }
   }
 }

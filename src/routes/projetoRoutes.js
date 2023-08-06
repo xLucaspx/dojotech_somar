@@ -5,6 +5,7 @@ const router = Router();
 
 router
   .get("/projetos", ProjetoController.buscaProjetos)
+  .get("/projetos/relatorio", ProjetoController.geraRelatorio)
   .get("/projetos/filtro?", ProjetoController.buscaProjetosComFiltro)
   .get("/projetos/usuario?", ProjetoController.buscaProjetosPorUsuario)
   .get("/projetos/:id", ProjetoController.buscaProjetoPorId)

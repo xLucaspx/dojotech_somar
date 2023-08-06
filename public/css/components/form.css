@@ -6,8 +6,21 @@
 }
 
 .form__descricao {
-  line-height: 1.8;
-  font-size: 18px;
+  margin-bottom: 1.25rem;
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.legend-asterisco {
+  color: var(--vermelho);
+  font-weight: 500;
+}
+
+.form__label--required::after {
+  content: "*";
+  color: var(--vermelho);
+  font-weight: 500;
 }
 
 .form__fieldset--texto,
@@ -168,10 +181,6 @@
 
 /* telas até 700px */
 @media screen and (max-width: 700px) {
-  .form__descricao {
-    font-size: 17px;
-  }
-
   .form__fieldset--checkbox {
     grid-template-columns: auto auto;
     gap: 0.75rem 0.5rem;

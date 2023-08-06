@@ -125,6 +125,15 @@ class ProjetoController {
       return res.status(500).json({ message: error.message });
     }
   }
+
+  static async geraRelatorio(req, res) {
+    try {
+      await projetoServices.criaRelatorioProjetos();
+      return res.status(204).json({});
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = ProjetoController;

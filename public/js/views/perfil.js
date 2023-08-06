@@ -22,6 +22,20 @@ if (tokenJwt) {
   window.location.href = "login.html";
 }
 
+const btnRelatorio = document.getElementById("btn-relatorio");
+btnRelatorio.onclick = async (event) => {
+  event.preventDefault();
+  try {
+    await projetoServices.geraRelatorio();
+    const link = document.createElement("a")
+    link.setAttribute("href", '../report/relatorio-projetos.txt')
+    link.setAttribute("download", "relatorio-projetos.txt")
+    link.click();
+  } catch (error) {
+    alert(`Ocorreu um errro ao gerar o relatório:\n${error.message}`);
+  }
+};
+
 const botoesUsuario = document.querySelector(".usuario__botoes_controle");
 
 const nome = document.getElementById("usuario__nome");
