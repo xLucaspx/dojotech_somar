@@ -88,8 +88,8 @@ class ProjetoServices extends Services {
           id_ods AS 'id',
           nome AS 'ods',
           COUNT(id_projeto) AS 'projetos'
-        FROM projeto_ods
-          INNER JOIN ods ON projeto_ods.id_ods = ods.id
+        FROM Projeto_ods
+          INNER JOIN Ods ON Projeto_ods.id_ods = Ods.id
         GROUP BY id_ods;`,
         { type: QueryTypes.SELECT }
       );
