@@ -6,25 +6,41 @@ const geraJwt = require("../utils/token/geraJwt");
 const verificaJwt = require("../utils/token/verificaJwt");
 const autenticaSenha = require("../utils/hash/autenticaSenha");
 const criaHashComSalt = require("../utils/hash/criaHashComSalt");
+const BadRequestError = require("../errors/BadRequestError");
 
 const usuarioServices = new UsuarioServices();
 
 class UsuarioController {
   static async buscaUsuarios(req, res) {
     try {
+      if (!verificaJwt(req.headers.authorization))
+        throw new BadRequestError(
+          "Não é possível buscar usuários sem um token de autorização!"
+        );
+
       const usuarios = await usuarioServices.buscaRegistros();
       return res.status(200).json(usuarios);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res
+        .status(error instanceof BadRequestError ? 400 : 500)
+        .json({ message: error.message });
     }
   }
 
   static async buscaUsuarioPorId(req, res) {
     const { id } = req.params;
     try {
+      if (!verificaJwt(req.headers.authorization))
+        throw new BadRequestError(
+          "Não é possível buscar um usuário sem um token de autorização!"
+        );
+
       const usuario = await usuarioServices.buscaUmRegistro({ id });
       return res.status(200).json(usuario);
     } catch (error) {
+      if (error instanceof BadRequestError)
+        return res.status(400).json({ message: error.message });
+
       return res
         .status(error instanceof NotFoundError ? 404 : 500)
         .json({ message: error.message });
@@ -65,17 +81,17 @@ class UsuarioController {
   }
 
   static async logaUsuario(req, res) {
-    const { usuarioDigitado, senhaDigitada } = req.body;
+    const { usuario, senha } = req.body;
 
     try {
       // define se foi digitado nome de usuário ou email e depois busca o usuário
-      const { id, nome, hash_senha, salt } = usuarioDigitado.match(
+      const { id, nome, hash_senha, salt } = usuario.match(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g
       )
-        ? await usuarioServices.buscaUsuarioLogin({ email: usuarioDigitado })
-        : await usuarioServices.buscaUsuarioLogin({ usuario: usuarioDigitado });
+        ? await usuarioServices.buscaUsuarioLogin({ email: usuario })
+        : await usuarioServices.buscaUsuarioLogin({ usuario: usuario });
 
-      if (autenticaSenha(senhaDigitada, salt, hash_senha)) {
+      if (autenticaSenha(senha, salt, hash_senha)) {
         const tokenJwt = geraJwt({ id, nome });
         return res.status(200).json(tokenJwt);
       }
@@ -91,12 +107,19 @@ class UsuarioController {
   }
 
   static async autenticaUsuario(req, res) {
-    const { tokenJwt } = req.body;
-
     try {
-      const token = verificaJwt(tokenJwt);
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível se autenticar sem um token de autorização!"
+        );
+
       return res.status(200).json(token);
     } catch (error) {
+      if (error instanceof BadRequestError)
+        return res.status(400).json({ message: error.message });
+
       return res
         .status(error instanceof JsonWebTokenError ? 401 : 500)
         .json({ message: `${error.message}` });
@@ -108,6 +131,11 @@ class UsuarioController {
     const usuario = req.body;
 
     try {
+      if (!verificaJwt(req.headers.authorization))
+        throw new BadRequestError(
+          "Não é possível editar informações do usuário sem um token de autorização!"
+        );
+
       if (usuario.senha) {
         const [salt, hash] = criaHashComSalt(usuario.senha).split(":");
         usuario.hash_senha = hash;
@@ -134,7 +162,9 @@ class UsuarioController {
           });
         }
       }
-      return res.status(500).json({ message: error.message });
+      return res
+        .status(error instanceof BadRequestError ? 400 : 500)
+        .json({ message: error.message });
     }
   }
 
@@ -142,11 +172,18 @@ class UsuarioController {
     const { id } = req.params;
 
     try {
+      if (!verificaJwt(req.headers.authorization))
+        throw new BadRequestError(
+          "Não é possível deletar um usuário sem um token de autorização!"
+        );
+
       await usuarioServices.deletaRegistro({ id });
 
       return res.status(204).json({});
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res
+        .status(error instanceof BadRequestError ? 400 : 500)
+        .json({ message: error.message });
     }
   }
 }

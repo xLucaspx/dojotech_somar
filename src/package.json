@@ -4,9 +4,10 @@
   "description": "backend para integração do banco de dados com a plataforma do programa Somar.",
   "main": "./server/index.js",
   "scripts": {
-    "server": "node --watch ./server/index.js",
-    "test": "NODE_ENV=test node --test test/",
-    "test:watch": "NODE_ENV=test node --watch --test test/",
+    "start": "node --watch index.js",
+    "test": "cross-env NODE_ENV=test node --test test/",
+    "test:cov": "cross-env NODE_ENV=test node --experimental-test-coverage --test test/",
+    "test:watch": "cross-env NODE_ENV=test node --watch --test test/",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate-and-seed": "npm run db:migrate && npm run db:seed",
@@ -32,5 +33,8 @@
     "mysql2": "^3.2.0",
     "sequelize": "^6.31.0",
     "sequelize-cli": "^6.6.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

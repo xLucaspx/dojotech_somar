@@ -25,13 +25,13 @@ const form = document.querySelector(".login__form");
 form.onsubmit = async (event) => {
   event.preventDefault();
 
-  const usuarioDigitado = inputUsuario.value;
-  const senhaDigitada = inputSenha.value;
+  const usuario = inputUsuario.value;
+  const senha = inputSenha.value;
 
   try {
     const tokenJwt = await usuarioServices.logaUsuario({
-      usuarioDigitado,
-      senhaDigitada,
+      usuario,
+      senha,
     });
     defineCookie("tokenJwt", tokenJwt);
     window.location.href = "index.html";
