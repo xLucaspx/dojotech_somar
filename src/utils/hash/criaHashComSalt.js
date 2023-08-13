@@ -1,5 +1,5 @@
 const { randomBytes, scryptSync } = require("crypto");
-const BadRequestError = require("../../errors/BadRequestError");
+const { BadRequestError } = require("../../errors");
 
 function criaHashComSalt(senha) {
   try {

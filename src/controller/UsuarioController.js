@@ -1,5 +1,9 @@
 const { UsuarioServices } = require("../services");
-const { NotFoundError, UnauthorizedError } = require("../errors");
+const {
+  NotFoundError,
+  UnauthorizedError,
+  ConflictError,
+} = require("../errors");
 const { ValidationError } = require("sequelize");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const geraJwt = require("../utils/token/geraJwt");
@@ -21,9 +25,7 @@ class UsuarioController {
       const usuarios = await usuarioServices.buscaRegistros();
       return res.status(200).json(usuarios);
     } catch (error) {
-      return res
-        .status(error instanceof BadRequestError ? 400 : 500)
-        .json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -38,12 +40,7 @@ class UsuarioController {
       const usuario = await usuarioServices.buscaUmRegistro({ id });
       return res.status(200).json(usuario);
     } catch (error) {
-      if (error instanceof BadRequestError)
-        return res.status(400).json({ message: error.message });
-
-      return res
-        .status(error instanceof NotFoundError ? 404 : 500)
-        .json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -56,27 +53,10 @@ class UsuarioController {
       usuario.salt = salt;
       delete usuario.senha;
 
-      const cadastro = await usuarioServices.criaRegistro(usuario);
+      const cadastro = await usuarioServices.cadastraUsuario(usuario);
       return res.status(201).json(cadastro);
     } catch (error) {
-      if (error instanceof ValidationError) {
-        const { fields } = error;
-        if (fields && fields.usuario) {
-          return res.status(409).json({
-            message: `O nome de usuário "${fields.usuario}" não está disponível!`,
-          });
-        } else if (fields && fields.email) {
-          return res.status(409).json({
-            message: `Já existe uma conta registrada para o email "${fields.email}"!`,
-          });
-        } else {
-          return res.status(400).json({
-            message:
-              "Por favor, verifique se os campos estão preenchidos corretamente!",
-          });
-        }
-      }
-      return res.status(error instanceof BadRequestError ? 400: 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -97,12 +77,7 @@ class UsuarioController {
       }
       throw new UnauthorizedError("Senha incorreta!");
     } catch (error) {
-      if (error instanceof NotFoundError) {
-        return res.status(404).json({ message: error.message });
-      } else if (error instanceof UnauthorizedError) {
-        return res.status(401).json({ message: error.message });
-      }
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -117,12 +92,7 @@ class UsuarioController {
 
       return res.status(200).json(token);
     } catch (error) {
-      if (error instanceof BadRequestError)
-        return res.status(400).json({ message: error.message });
-
-      return res
-        .status(error instanceof UnauthorizedError ? 401 : 500)
-        .json({ message: `${error.message}` });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -148,31 +118,11 @@ class UsuarioController {
         usuario.salt = salt;
         delete usuario.senha;
       }
-      await usuarioServices.atualizaRegistro(usuario, { id });
-      return res.status(204).json({});
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        const { fields } = error;
-        if (fields && fields.usuario) {
-          return res.status(409).json({
-            message: `O nome de usuário "${fields.usuario}" não está disponível!`,
-          });
-        } else if (fields && fields.email) {
-          return res.status(409).json({
-            message: `Já existe uma conta registrada para o email "${fields.email}"!`,
-          });
-        } else {
-          return res.status(400).json({
-            message:
-              "Por favor, verifique se os campos estão preenchidos corretamente!",
-          });
-        }
-      } else if (error instanceof UnauthorizedError)
-        return res.status(401).json({ message: error.message });
 
-      return res
-        .status(error instanceof BadRequestError ? 400 : 500)
-        .json({ message: error.message });
+      const updated = await usuarioServices.atualizaUsuario(usuario, id);
+      return res.status(200).json(updated);
+    } catch (error) {
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -193,11 +143,7 @@ class UsuarioController {
 
       return res.status(204).json({});
     } catch (error) {
-      if (error instanceof UnauthorizedError)
-        return res.status(401).json({ message: error.message });
-      return res
-        .status(error instanceof BadRequestError ? 400 : 500)
-        .json({ message: error.message });
+      return res.status(error.status || 500).json({ message: error.message });
     }
   }
 }

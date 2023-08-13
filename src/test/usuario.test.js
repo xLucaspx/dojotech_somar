@@ -3,7 +3,7 @@ const assert = require("node:assert");
 const app = require("../server");
 const verificaJwt = require("../utils/token/verificaJwt");
 
-describe("Dojotech API E2E test suite", async () => {
+describe("Dojotech API E2E test suite - Usuários", async () => {
   let BASE_URL = "";
   let _server = {};
 
@@ -559,7 +559,7 @@ describe("Dojotech API E2E test suite", async () => {
       );
     });
 
-    it("Deve retornar 204 (no content) ao editar informações do usuário", async () => {
+    it("Deve retornar 200 (OK) e o usuário modificado com token e informações corretas", async () => {
       const token = await getToken(BASE_URL, {
         usuario: "test_user",
         senha: "#senhaUsuario01",
@@ -578,11 +578,17 @@ describe("Dojotech API E2E test suite", async () => {
         }),
       });
 
-      const expected = 204;
+      const expected = 200;
       assert.strictEqual(
         res.status,
         expected,
         `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+
+      const modifiedUser = await res.json();
+      assert.ok(
+        modifiedUser,
+        "Deveria retornar o usuário com as informações atualizadas!"
       );
     });
   });
