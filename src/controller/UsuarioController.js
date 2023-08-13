@@ -76,7 +76,7 @@ class UsuarioController {
           });
         }
       }
-      return res.status(500).json({ message: error.message });
+      return res.status(error instanceof BadRequestError ? 400: 500).json({ message: error.message });
     }
   }
 
@@ -121,7 +121,7 @@ class UsuarioController {
         return res.status(400).json({ message: error.message });
 
       return res
-        .status(error instanceof JsonWebTokenError ? 401 : 500)
+        .status(error instanceof UnauthorizedError ? 401 : 500)
         .json({ message: `${error.message}` });
     }
   }
@@ -131,9 +131,15 @@ class UsuarioController {
     const usuario = req.body;
 
     try {
-      if (!verificaJwt(req.headers.authorization))
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
         throw new BadRequestError(
           "Não é possível editar informações do usuário sem um token de autorização!"
+        );
+      if (id != token.id)
+        throw new UnauthorizedError(
+          "Não é possível editar informações de outros usuários!"
         );
 
       if (usuario.senha) {
@@ -161,7 +167,9 @@ class UsuarioController {
               "Por favor, verifique se os campos estão preenchidos corretamente!",
           });
         }
-      }
+      } else if (error instanceof UnauthorizedError)
+        return res.status(401).json({ message: error.message });
+
       return res
         .status(error instanceof BadRequestError ? 400 : 500)
         .json({ message: error.message });
@@ -172,15 +180,21 @@ class UsuarioController {
     const { id } = req.params;
 
     try {
-      if (!verificaJwt(req.headers.authorization))
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
         throw new BadRequestError(
           "Não é possível deletar um usuário sem um token de autorização!"
         );
+      if (id != token.id)
+        throw new UnauthorizedError("Não é possível deletar outros usuários!");
 
       await usuarioServices.deletaRegistro({ id });
 
       return res.status(204).json({});
     } catch (error) {
+      if (error instanceof UnauthorizedError)
+        return res.status(401).json({ message: error.message });
       return res
         .status(error instanceof BadRequestError ? 400 : 500)
         .json({ message: error.message });

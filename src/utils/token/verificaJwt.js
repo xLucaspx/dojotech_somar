@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { UnauthorizedError } = require("../../errors");
 
 function verificaJwt(token) {
   if (!token) return false;
@@ -7,7 +8,7 @@ function verificaJwt(token) {
     token = token.replace(/bearer\s/gi, "");
     return jwt.verify(token, process.env.TOKEN_SECRET);
   } catch (error) {
-    throw error;
+    throw new UnauthorizedError(error.message);
   }
 }
 

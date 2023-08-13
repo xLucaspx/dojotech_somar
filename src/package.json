@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node --watch index.js",
     "test": "cross-env NODE_ENV=test node --test test/",
-    "test:cov": "cross-env NODE_ENV=test node --experimental-test-coverage --test test/",
     "test:watch": "cross-env NODE_ENV=test node --watch --test test/",
+    "test:cov": "cross-env NODE_ENV=test npx c8 --reporter html node --test test/",
+    "test:cov-native": "cross-env NODE_ENV=test node --experimental-test-coverage --test test/",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate-and-seed": "npm run db:migrate && npm run db:seed",
@@ -35,6 +36,7 @@
     "sequelize-cli": "^6.6.0"
   },
   "devDependencies": {
+    "c8": "^8.0.1",
     "cross-env": "^7.0.3"
   }
 }

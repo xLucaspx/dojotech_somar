@@ -137,10 +137,25 @@ describe("Dojotech API E2E test suite", async () => {
   });
 
   describe("POST /usuarios", () => {
-    it("Deve retornar 400 (bad request) ao tentar cadastrar um de usuário inválido", async () => {
+    it("Deve retornar 400 (bad request) ao tentar cadastrar um usuário inválido", async () => {
+      const res = await fetch(`${BASE_URL}/usuarios`, {
+        method: "POST",
+        body: JSON.stringify({}),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 400 (bad request) ao tentar cadastrar um usuário com informações faltando", async () => {
       const user = {
         usuario: "usuario",
-        senha: "#senhaUsuario01",
+        senha: "#senhaUsuario",
       };
 
       const res = await fetch(`${BASE_URL}/usuarios`, {
@@ -161,7 +176,7 @@ describe("Dojotech API E2E test suite", async () => {
       const user = {
         nome: "Juca da Silva",
         usuario: "juca_s",
-        email: "juca@projetosomar.com",
+        email: "juca@email.com",
         senha: "#senhaJuca01",
         telefone: "51 98765-0987",
         cep: "90040191",
@@ -217,43 +232,39 @@ describe("Dojotech API E2E test suite", async () => {
       );
     });
 
-    it(
-      "Deve retornar 201 (created) e o usuário criado",
-      { skip: "usuário já criado" },
-      async () => {
-        const user = {
-          id: 3,
-          nome: "Usuário de Teste",
-          usuario: "test_user",
-          email: "usuario@teste.com",
-          senha: "#senhaUsuario01",
-          telefone: "51 3456-7890",
-          cep: "90040191",
-          logradouro: "Avenida Venâncio Aires",
-          complemento: "",
-          numero: "93",
-          bairro: "Azenha",
-          cidade: "Porto Alegre",
-          uf: "RS",
-        };
+    it("Deve retornar 201 (created) e o usuário criado", async () => {
+      const user = {
+        id: 3,
+        nome: "Usuário de Teste",
+        usuario: "test_user",
+        email: "usuario@teste.com",
+        senha: "#senhaUsuario01",
+        telefone: "51 3456-7890",
+        cep: "90040191",
+        logradouro: "Avenida Venâncio Aires",
+        complemento: "",
+        numero: "93",
+        bairro: "Azenha",
+        cidade: "Porto Alegre",
+        uf: "RS",
+      };
 
-        const res = await fetch(`${BASE_URL}/usuarios/`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(user),
-        });
+      const res = await fetch(`${BASE_URL}/usuarios/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
 
-        const expected = 201;
-        assert.strictEqual(
-          res.status,
-          expected,
-          `Status deveria ser ${expected}. Retornado: ${res.status}`
-        );
+      const expected = 201;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
 
-        const actualUser = await res.json();
-        assert.ok(actualUser, `Deveria retornar o usuário cadastrado`);
-      }
-    );
+      const actualUser = await res.json();
+      assert.ok(actualUser, `Deveria retornar o usuário cadastrado`);
+    });
   });
 
   describe("POST /usuarios/login", () => {
@@ -438,12 +449,209 @@ describe("Dojotech API E2E test suite", async () => {
       assert.ok(user, `Deveria retornar nome e id do usuário`);
     });
   });
+
+  describe("PUT /usuarios/:id", () => {
+    it("Deve retornar 400 (bad request) sem token de autorização", async () => {
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome: "Usuario" }),
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 400 (bad request) ao passar informações inválidas", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "test_user",
+        senha: "#senhaUsuario01",
+      });
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          senha: "#novaSenha01",
+          cep: null,
+          nome: "",
+        }),
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 401 (unauthorized) com id diferente do presente no token", async () => {
+      const token = await getToken(BASE_URL); // silviads - id = 2
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ nome: "Usuario" }),
+      });
+
+      const expected = 401;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 409 (conflict) ao tentar alterar o nome de usuário para outro já existente", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "test_user",
+        senha: "#senhaUsuario01",
+      });
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ usuario: "silviads" }),
+      });
+
+      const expected = 409;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 409 (conflict) ao tentar alterar o email para outro já existente", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "test_user",
+        senha: "#senhaUsuario01",
+      });
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email: "silvia@projetosomar.com" }),
+      });
+
+      const expected = 409;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 204 (no content) ao editar informações do usuário", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "test_user",
+        senha: "#senhaUsuario01",
+      });
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          cep: "90200-500",
+          logradouro: "Rua Fecoméricio",
+          numero: 101,
+        }),
+      });
+
+      const expected = 204;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+  });
+
+  describe("DELETE /usuarios/:id", () => {
+    it("Deve retornar 400 (bad request) sem token de autorização", async () => {
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 401 (unauthorized) com id diferente do presente no token", async () => {
+      const token = await getToken(BASE_URL); // silviads - id = 2
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 401;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 204 (no content) ao excluir um usuário", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "test_user",
+        senha: "#senhaUsuario01",
+      });
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 204;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+  });
 });
 
-async function getToken(baseUrl) {
+async function getToken(
+  baseUrl,
+  input = { usuario: "silviads", senha: "#senhaSilvia01" }
+) {
   const res = await fetch(`${baseUrl}/usuarios/login`, {
     method: "POST",
-    body: JSON.stringify({ usuario: "silviads", senha: "#senhaSilvia01" }),
+    body: JSON.stringify(input),
     headers: { "Content-Type": "application/json" },
   });
   const token = await res.json();
