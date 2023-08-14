@@ -2,7 +2,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 const Services = require("./Services");
 const db = require("../models");
-const { NotFoundError, BadRequestError, ConflictError } = require("../errors");
+const {
+  NotFoundError,
+  BadRequestError,
+  ConflictError,
+  UnauthorizedError,
+} = require("../errors");
 const escapeRegex = require("../utils/escapeRegex");
 const { QueryTypes, ValidationError } = require("sequelize");
 const criaRelatorioProjetos = require("../utils/criaRelatorioProjetos");
@@ -83,10 +88,15 @@ class ProjetoServices extends Services {
     }
   }
 
-  async deletaProjeto(id) {
+  async deletaProjeto(id, idUsuario) {
     try {
       const projeto = await this.buscaProjetoPorId(id);
-      await this.deletaOds(id);
+
+      if (idUsuario != projeto.id_usuario)
+        throw new UnauthorizedError(
+          "Não é possível excluir o projeto de outro usuário!"
+        );
+
       return await projeto.destroy();
     } catch (error) {
       throw error;

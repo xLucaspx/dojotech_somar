@@ -23,8 +23,7 @@ function criaCabecalhoRelatorio(totalProjetos) {
     strTotal += arrStrTotal[i] ? arrStrTotal[i] : ".";
 
   return `# Relatório de projetos do programa Somar
-    \n${strData}\n\n${strTotal} ${projetos}
-    \n- Total de projetos para cada ODS:\n`;
+    \n${strData}\n\n${strTotal} ${projetos}`;
 }
 
 function formataLinhaRelatorio(id, ods, projetos) {
@@ -45,6 +44,9 @@ function formataLinhaRelatorio(id, ods, projetos) {
 function criaRelatorioProjetos(totalProjetos, dadosOds) {
   let relatorio = criaCabecalhoRelatorio(totalProjetos);
 
+  if (dadosOds.length === 0) return relatorio;
+
+  relatorio += `\n- Total de projetos para cada ODS:\n`;
   for (const line of dadosOds)
     relatorio += formataLinhaRelatorio(line.id, line.ods, line.projetos);
 

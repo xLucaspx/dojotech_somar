@@ -1,9 +1,10 @@
 const { describe, it, before, after } = require("node:test");
 const assert = require("node:assert");
-const app = require("../server");
-const verificaJwt = require("../utils/token/verificaJwt");
+const getToken = require("./getToken");
+const verificaJwt = require("../../utils/token/verificaJwt");
+const app = require("../../server");
 
-describe("Dojotech API E2E test suite - Usuários", () => {
+describe("Dojotech API E2E Test Suite - Usuários", () => {
   let BASE_URL = "";
   let _server = {};
 
@@ -252,7 +253,7 @@ describe("Dojotech API E2E test suite - Usuários", () => {
         uf: "RS",
       };
 
-      const res = await fetch(`${BASE_URL}/usuarios/`, {
+      const res = await fetch(`${BASE_URL}/usuarios`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
@@ -676,17 +677,3 @@ describe("Dojotech API E2E test suite - Usuários", () => {
     });
   });
 });
-
-async function getToken(
-  baseUrl,
-  input = { usuario: "silviads", senha: "#senhaSilvia01" }
-) {
-  const res = await fetch(`${baseUrl}/usuarios/login`, {
-    method: "POST",
-    body: JSON.stringify(input),
-    headers: { "Content-Type": "application/json" },
-  });
-  const token = await res.json();
-
-  return token;
-}

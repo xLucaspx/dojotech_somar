@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Usuario.hasMany(models.Projeto, {
         foreignKey: { name: "id_usuario", allowNull: false },
+        onDelete: "CASCADE",
       });
     }
   }

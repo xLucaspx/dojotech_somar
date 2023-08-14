@@ -152,8 +152,15 @@ class ProjetoController {
     const { id } = req.params;
 
     try {
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível excluir um projeto sem um token de autorização!"
+        );
+
+      await projetoServices.deletaProjeto(id, token.id);
       await midiaServices.deletaMidias(id);
-      await projetoServices.deletaProjeto(id);
 
       return res.status(204).json({});
     } catch (error) {

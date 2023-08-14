@@ -8,7 +8,7 @@ function verificaJwt(token) {
     token = token.replace(/bearer\s/gi, "");
     return jwt.verify(token, process.env.TOKEN_SECRET);
   } catch (error) {
-    throw new UnauthorizedError(error.message);
+    throw new UnauthorizedError(`Token inválido:\n${error.message}`);
   }
 }
 

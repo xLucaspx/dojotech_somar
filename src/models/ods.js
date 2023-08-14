@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       Ods.belongsToMany(models.Projeto, {
         through: models.Projeto_ods,
         foreignKey: { name: "id_ods", allowNull: false },
+        onDelete: "CASCADE",
       });
     }
   }

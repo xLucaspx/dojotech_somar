@@ -2,9 +2,10 @@ const { describe, it, before, after } = require("node:test");
 const fs = require("node:fs");
 const path = require("node:path");
 const assert = require("node:assert");
-const app = require("../server");
+const getToken = require("./getToken");
+const app = require("../../server");
 
-describe("Dojotech API E2E test suite - Projetos", () => {
+describe("Dojotech API E2E Test Suite - Projetos", () => {
   let BASE_URL = "";
   let _server = {};
 
@@ -75,7 +76,7 @@ describe("Dojotech API E2E test suite - Projetos", () => {
       );
 
       const relatorio = fs.existsSync(
-        path.join(__dirname, "../../public/report/relatorio-projetos.txt")
+        path.join(__dirname, "../../../public/report/relatorio-projetos.txt")
       );
       assert.ok(relatorio, `Deveria criar o relatório de projetos`);
     });
@@ -679,18 +680,81 @@ describe("Dojotech API E2E test suite - Projetos", () => {
       assert.ok(actualProject, `Deveria retornar o projeto editado`);
     });
   });
-});
 
-async function getToken(
-  baseUrl,
-  input = { usuario: "silviads", senha: "#senhaSilvia01" }
-) {
-  const res = await fetch(`${baseUrl}/usuarios/login`, {
-    method: "POST",
-    body: JSON.stringify(input),
-    headers: { "Content-Type": "application/json" },
+  describe("DELETE /projetos/:id", () => {
+    it("Deve retornar 400 (bad request) ao tentar excluir um projeto sem token de autorização", async () => {
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 401 (unauthorized) ao tentar excluir um projeto de outro usuário", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "juca_s",
+        senha: "#senhaJuca01",
+      }); // id: 1
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        // usuario_id: 2
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 401;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 404 (not found) ao tentar excluir um projeto inexistente", async () => {
+      const token = await getToken(BASE_URL);
+
+      const res = await fetch(`${BASE_URL}/projetos/45`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 404;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 204 (no content) ao excluir um projeto com sucesso", async () => {
+      const token = await getToken(BASE_URL);
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 204;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
   });
-  const token = await res.json();
-
-  return token;
-}
+});
