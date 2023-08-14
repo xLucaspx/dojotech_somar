@@ -62,6 +62,10 @@ class UsuarioServices extends Services {
   async atualizaUsuario(dados, id) {
     try {
       const usuario = await this.buscaUsuario({ id });
+
+      if (dados.id && dados.id != usuario.id)
+        throw new ConflictError("Não é possível editar o id de um usuário!");
+
       return await usuario.update(dados);
     } catch (error) {
       if (error instanceof ValidationError) {

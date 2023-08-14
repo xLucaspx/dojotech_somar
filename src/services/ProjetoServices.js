@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const Services = require("./Services");
 const db = require("../models");
-const { NotFoundError, BadRequestError } = require("../errors");
+const { NotFoundError, BadRequestError, ConflictError } = require("../errors");
 const escapeRegex = require("../utils/escapeRegex");
 const { QueryTypes, ValidationError } = require("sequelize");
 const criaRelatorioProjetos = require("../utils/criaRelatorioProjetos");
@@ -57,20 +57,28 @@ class ProjetoServices extends Services {
     }
   }
 
-  async atualizaProjeto(dados, id) {
+  async atualizaProjeto(dados, ods, id) {
     try {
-      await this.atualizaRegistro(dados, { id });
-    } catch (error) {
-      throw error;
-    }
-  }
+      let projeto = await this.buscaProjetoPorId(id);
 
-  async atualizaOds(idProjeto, ods) {
-    try {
-      const projeto = await this.buscaProjetoPorId(idProjeto);
-      await this.deletaOds(idProjeto);
+      if (dados.id && dados.id != projeto.id)
+        throw new ConflictError("Não é possível editar o id de um projeto!");
+      if (dados.id_usuario && dados.id_usuario != projeto.id_usuario)
+        throw new ConflictError(
+          "Não é possível editar o usuário de um projeto!"
+        );
+
+      projeto = await projeto.update(dados);
+      await this.deletaOds(id);
       ods.forEach(async (item) => await projeto.addOds(item));
+
+      return projeto;
     } catch (error) {
+      if (error instanceof ValidationError)
+        throw new BadRequestError(
+          "Por favor, verifique se os campos estão preenchidos corretamente!"
+        );
+
       throw error;
     }
   }

@@ -303,7 +303,7 @@ describe("Dojotech API E2E test suite - Projetos", () => {
     it("Deve retornar 400 (bad request) ao tentar cadastrar um projeto sem token de autorização", async () => {
       const input = {
         projeto: {
-          id: 3,
+          id: 4,
           nome: "Projeto Teste",
           causa: "Realizar os testes do sistema",
           objetivo: "Testar o cadastro de projetos",
@@ -335,7 +335,7 @@ describe("Dojotech API E2E test suite - Projetos", () => {
 
       const input = {
         projeto: {
-          id: 3,
+          id: 4,
           parceiros: "Node.js core test runner",
           publico_alvo: "Futuros usuários do sistema",
           id_usuario: 2,
@@ -365,7 +365,7 @@ describe("Dojotech API E2E test suite - Projetos", () => {
 
       const input = {
         projeto: {
-          id: 3,
+          id: 4,
           nome: "Projeto Teste",
           causa: "Realizar os testes do sistema",
           objetivo: "Testar o cadastro de projetos",
@@ -400,7 +400,7 @@ describe("Dojotech API E2E test suite - Projetos", () => {
 
       const input = {
         projeto: {
-          id: 3,
+          id: 4,
           parceiros: "Node.js core test runner",
           publico_alvo: "Futuros usuários do sistema",
         },
@@ -429,7 +429,7 @@ describe("Dojotech API E2E test suite - Projetos", () => {
 
       const input = {
         projeto: {
-          id: 3,
+          id: 4,
           nome: "Projeto Teste",
           causa: "Realizar os testes do sistema",
           objetivo: "Testar o cadastro de projetos",
@@ -459,12 +459,12 @@ describe("Dojotech API E2E test suite - Projetos", () => {
       );
     });
 
-    it("Deve retornar 201 (created) e o projeto criado", {skip: "skipping until implement the delete route test"}, async () => {
+    it("Deve retornar 201 (created) e o projeto criado", async () => {
       const token = await getToken(BASE_URL);
 
       const input = {
         projeto: {
-          id: 3,
+          id: 4,
           nome: "Projeto Teste",
           causa: "Realizar os testes do sistema",
           objetivo: "Testar o cadastro de projetos",
@@ -495,6 +495,188 @@ describe("Dojotech API E2E test suite - Projetos", () => {
 
       const actualProject = await res.json();
       assert.ok(actualProject, `Deveria retornar o projeto cadastrado`);
+    });
+  });
+
+  describe("PUT /projetos/:id", () => {
+    it("Deve retornar 400 (bad request) ao tentar editar um projeto sem token de autorização", async () => {
+      const input = {
+        projeto: {
+          nome: "Projeto Teste Atualizado",
+          objetivo: "Testar o cadastro e a edição de projetos",
+          parceiros: "Node.js core test runner, c8",
+          resumo: "Lorem ipsum dolor sit amet!",
+        },
+        ods: [4, 8, 9, 17],
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 400 (bad request) ao tentar remover informações do projeto", async () => {
+      const token = await getToken(BASE_URL);
+
+      const input = {
+        projeto: {
+          nome: "",
+          objetivo: "",
+          resumo: "",
+          id_usuario: "",
+        },
+        ods: [1],
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 400 (bad request) ao tentar editar um projeto sem ODS", async () => {
+      const token = await getToken(BASE_URL);
+
+      const input = {
+        projeto: {
+          nome: "Projeto Teste Atualizado",
+          objetivo: "Testar o cadastro e a edição de projetos",
+          parceiros: "Node.js core test runner, c8",
+          resumo: "Lorem ipsum dolor sit amet!",
+        },
+        ods: "",
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 400;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 409 (conflict) ao tentar editar o id de um projeto", async () => {
+      const token = await getToken(BASE_URL);
+
+      const input = {
+        projeto: {
+          id: 15,
+          nome: "Projeto Teste Atualizado",
+          objetivo: "Testar o cadastro e a edição de projetos",
+          parceiros: "Node.js core test runner, c8",
+          resumo: "Lorem ipsum dolor sit amet!",
+        },
+        ods: [1, 2],
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 409;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 409 (conflict) ao tentar editar o id de usuário de um projeto", async () => {
+      const token = await getToken(BASE_URL);
+
+      const input = {
+        projeto: {
+          nome: "Projeto Teste Atualizado",
+          objetivo: "Testar o cadastro e a edição de projetos",
+          parceiros: "Node.js core test runner, c8",
+          resumo: "Lorem ipsum dolor sit amet!",
+          id_usuario: 1,
+        },
+        ods: [1, 2],
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const expected = 409;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
+    it("Deve retornar 200 (OK) e o projeto editado", async () => {
+      const token = await getToken(BASE_URL);
+
+      const input = {
+        projeto: {
+          nome: "Projeto Teste Atualizado",
+          objetivo: "Testar o cadastro e a edição de projetos",
+          parceiros: "Node.js core test runner, c8",
+          resumo: "Lorem ipsum dolor sit amet!",
+        },
+        ods: [4, 8, 9, 17],
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      const expected = 200;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+
+      const actualProject = await res.json();
+      assert.ok(actualProject, `Deveria retornar o projeto editado`);
     });
   });
 });

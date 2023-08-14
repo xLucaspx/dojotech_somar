@@ -516,6 +516,29 @@ describe("Dojotech API E2E test suite - Usuários", () => {
       );
     });
 
+    it("Deve retornar 409 (conflict) ao tentar alterar o id do usuário", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "test_user",
+        senha: "#senhaUsuario01",
+      });
+
+      const res = await fetch(`${BASE_URL}/usuarios/3`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id: 15 }),
+      });
+
+      const expected = 409;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+    });
+
     it("Deve retornar 409 (conflict) ao tentar alterar o nome de usuário para outro já existente", async () => {
       const token = await getToken(BASE_URL, {
         usuario: "test_user",

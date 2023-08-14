@@ -123,12 +123,26 @@ class ProjetoController {
     const { projeto, ods } = req.body;
 
     try {
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível editar um projeto sem um token de autorização!"
+        );
+      if (!ods || !Array.isArray(ods) || ods.length === 0)
+        throw new BadRequestError(
+          "Não é possível editar um projeto sem nenhum ODS!"
+        );
+
       // mídias são excluídas para serem re-cadastradas:
       await midiaServices.deletaMidias(id);
-      await projetoServices.atualizaProjeto(projeto, id);
-      await projetoServices.atualizaOds(id, ods);
+      const projetoAtualizado = await projetoServices.atualizaProjeto(
+        projeto,
+        ods,
+        id
+      );
 
-      return res.status(200).json({ id });
+      return res.status(200).json(projetoAtualizado);
     } catch (error) {
       return res.status(error.status || 500).json({ message: error.message });
     }

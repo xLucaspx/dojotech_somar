@@ -24,9 +24,9 @@ class Services {
       const registro = await db[this.nomeDoModelo].findOne({
         where: { ...where },
       });
-      if (registro) {
-        return registro;
-      }
+
+      if (registro) return registro;
+
       throw new NotFoundError("Registro não encontrado!");
     } catch (error) {
       throw error;
@@ -41,13 +41,13 @@ class Services {
     }
   }
 
-  async atualizaRegistro(dados, where = {}) {
-    try {
-      return await db[this.nomeDoModelo].update(dados, { where: { ...where } });
-    } catch (error) {
-      throw error;
-    }
-  }
+  // async atualizaRegistro(dados, where = {}) {
+  //   try {
+  //     return await db[this.nomeDoModelo].update(dados, { where: { ...where } });
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   async deletaRegistro(where = {}) {
     try {
