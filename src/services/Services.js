@@ -1,5 +1,7 @@
 const db = require("../models");
 const NotFoundError = require("../errors/NotFoundError");
+const { BadRequestError } = require("../errors");
+const { DatabaseError } = require("sequelize");
 
 class Services {
   constructor(nomeDoModelo) {
@@ -10,6 +12,9 @@ class Services {
     try {
       return await db[this.nomeDoModelo].findAll({ where: { ...where } });
     } catch (error) {
+      if (error instanceof DatabaseError)
+        throw new BadRequestError("O filtro selecionado é inválido!");
+
       throw error;
     }
   }

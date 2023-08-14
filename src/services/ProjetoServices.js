@@ -2,9 +2,9 @@ const fs = require("node:fs");
 const path = require("node:path");
 const Services = require("./Services");
 const db = require("../models");
-const { NotFoundError } = require("../errors");
+const { NotFoundError, BadRequestError } = require("../errors");
 const escapeRegex = require("../utils/escapeRegex");
-const { QueryTypes } = require("sequelize");
+const { QueryTypes, ValidationError } = require("sequelize");
 const criaRelatorioProjetos = require("../utils/criaRelatorioProjetos");
 
 class ProjetoServices extends Services {
@@ -40,6 +40,19 @@ class ProjetoServices extends Services {
       });
       return Array.from(projetosFiltrados);
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async cadastraProjeto(projeto) {
+    try {
+      return await this.criaRegistro(projeto);
+    } catch (error) {
+      if (error instanceof ValidationError)
+        throw new BadRequestError(
+          "Por favor, verifique se os campos estão preenchidos corretamente!"
+        );
+
       throw error;
     }
   }

@@ -3,7 +3,7 @@ const assert = require("node:assert");
 const app = require("../server");
 const verificaJwt = require("../utils/token/verificaJwt");
 
-describe("Dojotech API E2E test suite - Usuários", async () => {
+describe("Dojotech API E2E test suite - Usuários", () => {
   let BASE_URL = "";
   let _server = {};
 
@@ -22,7 +22,7 @@ describe("Dojotech API E2E test suite - Usuários", async () => {
 
   after((done) => _server.close(done));
 
-  describe("GET /usuarios", async () => {
+  describe("GET /usuarios", () => {
     it("Deve retornar 400 (bad request) sem token de autorização", async () => {
       const res = await fetch(`${BASE_URL}/usuarios`, {
         method: "GET",
@@ -75,10 +75,10 @@ describe("Dojotech API E2E test suite - Usuários", async () => {
       );
     });
 
-    it("Deve retornar 404 (not found) ao buscar por um id inexistente", async () => {
-      const token = await getToken(BASE_URL);
+    it("Deve retornar 401 (unauthorized) ao buscar por um id diferente do presente no token", async () => {
+      const token = await getToken(BASE_URL); // id: 2
 
-      const res = await fetch(`${BASE_URL}/usuarios/aaa`, {
+      const res = await fetch(`${BASE_URL}/usuarios/5`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ describe("Dojotech API E2E test suite - Usuários", async () => {
         },
       });
 
-      const expected = 404;
+      const expected = 401;
       assert.strictEqual(
         res.status,
         expected,
@@ -94,8 +94,11 @@ describe("Dojotech API E2E test suite - Usuários", async () => {
       );
     });
 
-    it("Deve retornar 200 (OK) e o usuário buscado", async () => {
-      const token = await getToken(BASE_URL);
+    it("Deve retornar 200 (OK) e o usuário buscado com token e id válidos", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "juca@projetosomar.com",
+        senha: "#senhaJuca01",
+      });
 
       const res = await fetch(`${BASE_URL}/usuarios/1`, {
         method: "GET",

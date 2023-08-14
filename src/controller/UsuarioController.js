@@ -1,16 +1,9 @@
 const { UsuarioServices } = require("../services");
-const {
-  NotFoundError,
-  UnauthorizedError,
-  ConflictError,
-} = require("../errors");
-const { ValidationError } = require("sequelize");
-const { JsonWebTokenError } = require("jsonwebtoken");
+const { BadRequestError, UnauthorizedError } = require("../errors");
 const geraJwt = require("../utils/token/geraJwt");
 const verificaJwt = require("../utils/token/verificaJwt");
 const autenticaSenha = require("../utils/hash/autenticaSenha");
 const criaHashComSalt = require("../utils/hash/criaHashComSalt");
-const BadRequestError = require("../errors/BadRequestError");
 
 const usuarioServices = new UsuarioServices();
 
@@ -32,9 +25,15 @@ class UsuarioController {
   static async buscaUsuarioPorId(req, res) {
     const { id } = req.params;
     try {
-      if (!verificaJwt(req.headers.authorization))
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
         throw new BadRequestError(
           "Não é possível buscar um usuário sem um token de autorização!"
+        );
+      if (id != token.id)
+        throw new UnauthorizedError(
+          "Não é possível buscar as informações de outros usuários!"
         );
 
       const usuario = await usuarioServices.buscaUmRegistro({ id });
