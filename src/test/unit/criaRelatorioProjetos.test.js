@@ -4,21 +4,9 @@ const criaRelatorioProjetos = require("../../utils/criaRelatorioProjetos");
 const listaOds = require("../listaOds");
 
 describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
-  const strData = new Date().toLocaleString("pt-BR", {
-    timeZone: "America/Sao_Paulo",
-    hour12: false,
-    hourCycle: "h24",
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  });
-
   it("Deve gerar corretamente o relatório de projetos com as informações passadas", () => {
     {
+      const strData = getStringData();
       const expected = `
         # Relatório de projetos do programa Somar${strData}
         - Total de projetos cadastrados............................. 0000
@@ -33,6 +21,7 @@ describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
       );
     }
     {
+      const strData = getStringData();
       const expected = `
         # Relatório de projetos do programa Somar${strData}
         - Total de projetos cadastrados............................. 0005
@@ -54,6 +43,7 @@ describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
       );
     }
     {
+      const strData = getStringData();
       const expected = `
         # Relatório de projetos do programa Somar${strData}
         - Total de projetos cadastrados............................. 0018
@@ -77,6 +67,7 @@ describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
       );
     }
     {
+      const strData = getStringData();
       const expected = `
         # Relatório de projetos do programa Somar${strData}
         - Total de projetos cadastrados............................. 0175
@@ -106,6 +97,7 @@ describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
       );
     }
     {
+      const strData = getStringData();
       const expected = `
         # Relatório de projetos do programa Somar${strData}
         - Total de projetos cadastrados............................. 3975
@@ -135,6 +127,7 @@ describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
       );
     }
     {
+      const strData = getStringData();
       const expected = `
         # Relatório de projetos do programa Somar${strData}
         - Total de projetos cadastrados............................. 23422
@@ -165,3 +158,18 @@ describe("Dojotech API Unit Test Suite - Relatório de Projetos", () => {
     }
   });
 });
+
+function getStringData() {
+  return new Date().toLocaleString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    hour12: false,
+    hourCycle: "h24",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+}

@@ -31,7 +31,7 @@ const form = document.querySelector(".cadastro_usuario__form");
 
 if (tokenJwt) {
   try {
-    const { id } = await usuarioServices.autenticaUsuario({ tokenJwt });
+    const { id } = await usuarioServices.autenticaUsuario(tokenJwt);
     idUsuario = id;
     const usuario = await usuarioServices.buscaPorId(id);
 

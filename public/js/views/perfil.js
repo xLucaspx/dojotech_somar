@@ -10,7 +10,7 @@ let idUsuario;
 
 if (tokenJwt) {
   try {
-    const usuario = await usuarioServices.autenticaUsuario({ tokenJwt });
+    const usuario = await usuarioServices.autenticaUsuario(tokenJwt);
     idUsuario = usuario.id;
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);

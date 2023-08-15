@@ -11,7 +11,7 @@ import { UsuarioServices } from "./services/UsuarioServices.js";
   if (tokenJwt) {
     try {
       const usuarioServices = new UsuarioServices();
-      const { nome } = await usuarioServices.autenticaUsuario({ tokenJwt });
+      const { nome } = await usuarioServices.autenticaUsuario(tokenJwt);
 
       const profileLink = document.createElement("li");
       profileLink.classList.add("nav__list__item");

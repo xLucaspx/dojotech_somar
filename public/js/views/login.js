@@ -7,7 +7,7 @@ const usuarioServices = new UsuarioServices();
 
 if (tokenJwt) {
   try {
-    await usuarioServices.autenticaUsuario({ tokenJwt });
+    await usuarioServices.autenticaUsuario(tokenJwt);
     alert("Você já está logado!");
     window.location.href = "perfil.html";
   } catch (error) {
