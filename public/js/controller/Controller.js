@@ -14,9 +14,14 @@ export class Controller {
           authorization: `Bearer ${token}`,
         },
       });
-      return await res.json();
+
+      const data = await res.json();
+
+      if (res.ok) return data;
+
+      throw new Error(data.message);
     } catch (error) {
-      console.error(error);
+      alert(error);
     }
   }
 
@@ -29,10 +34,12 @@ export class Controller {
           authorization: `Bearer ${token}`,
         },
       });
+      const data = await res.json();
 
-      return await res.json();
+      if (res.ok) return data;
+
+      throw new Error(data.message);
     } catch (error) {
-      console.log("deu pau aqui mano");
       alert(`Erro ao buscar dados:\n${error.message}`);
     }
   }
