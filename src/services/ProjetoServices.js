@@ -62,12 +62,18 @@ class ProjetoServices extends Services {
     }
   }
 
-  async atualizaProjeto(dados, ods, id) {
+  async atualizaProjeto(dados, ods, id, idUsuario) {
     try {
       let projeto = await this.buscaProjetoPorId(id);
 
       if (dados.id && dados.id != projeto.id)
         throw new ConflictError("Não é possível editar o id de um projeto!");
+
+      if (projeto.id_usuario != idUsuario)
+        throw new UnauthorizedError(
+          "Não épossível editar o projeto de outros usuários!"
+        );
+
       if (dados.id_usuario && dados.id_usuario != projeto.id_usuario)
         throw new ConflictError(
           "Não é possível editar o usuário de um projeto!"
