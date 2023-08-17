@@ -1,7 +1,9 @@
-import { Controller } from "./Controller.js";
+import Controller from "./Controller.js";
 
-export class OdsController extends Controller {
+class OdsController extends Controller {
   constructor() {
     super("/ods");
   }
 }
+
+export default OdsController;

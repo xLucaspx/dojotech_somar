@@ -1,6 +1,6 @@
-import { Controller } from "./Controller.js";
+import Controller from "./Controller.js";
 
-export class UsuarioController extends Controller {
+class UsuarioController extends Controller {
   constructor() {
     super("/usuarios");
   }
@@ -8,14 +8,14 @@ export class UsuarioController extends Controller {
   async autenticaUsuario(token) {
     try {
       const res = await fetch(`${this.url}/autenticar`, {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application.json",
           authorization: `Bearer ${token}`,
         },
       });
 
-      const data = await req.json();
+      const data = await res.json();
 
       if (res.ok) return data;
 
@@ -24,10 +24,36 @@ export class UsuarioController extends Controller {
       if (error instanceof SyntaxError) {
         console.error(error);
         throw new Error(
-          "Ocorreu um erro inesperado ao realizar a autenticação do usuário"
+          "Ocorreu um erro inesperado ao tentar realizar a autenticação do usuário!"
+        );
+      }
+      throw error;
+    }
+  }
+
+  async logaUsuario(dados) {
+    try {
+      const res = await fetch(`${this.url}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) return data;
+
+      throw new Error(data.error);
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        console.error(error);
+        throw new Error(
+          "Ocorreu um erro inesperado ao tentar realizar o login do usuário!"
         );
       }
       throw error;
     }
   }
 }
+
+export default UsuarioController;

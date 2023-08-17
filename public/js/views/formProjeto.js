@@ -1,22 +1,24 @@
-import { OdsServices } from "../services/OdsServices.js";
-import { ProjetoServices } from "../services/ProjetoServices.js";
-import { UsuarioServices } from "../services/UsuarioServices.js";
+import {
+  OdsController,
+  ProjetoController,
+  UsuarioController,
+} from "../controller/index.js";
 import { buscaCookie } from "../utils/cookie.js";
 import { fileTypes } from "../utils/fileTypes.js";
 import { limpaInputs } from "../utils/input.js";
 import { renameFile } from "../utils/renameFile.js";
 import { criaCheckboxOds, renderizaDados } from "../utils/renderizaDados.js";
 
-const tokenJwt = buscaCookie("tokenJwt");
-const projetoServices = new ProjetoServices();
-const usuarioServices = new UsuarioServices();
-const odsServices = new OdsServices();
+const token = buscaCookie("tokenJwt");
+const odsController = new OdsController();
+const projetoController = new ProjetoController();
+const usuarioController = new UsuarioController();
 let projeto;
 let idUsuario;
 
-if (tokenJwt) {
+if (token) {
   try {
-    const usuario = await usuarioServices.autenticaUsuario(tokenJwt);
+    const usuario = await usuarioController.autenticaUsuario(token);
     idUsuario = usuario.id;
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
@@ -29,7 +31,7 @@ if (tokenJwt) {
 }
 
 const listaOds = document.querySelector(".form__lista_ods");
-renderizaDados(listaOds, await odsServices.buscaDados(), criaCheckboxOds);
+renderizaDados(listaOds, await odsController.buscaDados(), criaCheckboxOds);
 
 const btnVoltar = document.querySelector(".btnVoltar");
 btnVoltar.onclick = cancelarAlterações;
@@ -48,7 +50,7 @@ const inputResumo = document.getElementById("cadastro_projeto__resumo");
 const idProjeto = new URL(window.location).searchParams.get("idProjeto");
 if (idProjeto) {
   try {
-    projeto = await projetoServices.buscaPorId(idProjeto);
+    projeto = await projetoController.buscaPorId(idProjeto);
 
     if (!projeto) throw new Error("Projeto não encontrado!");
     if (projeto.id_usuario !== idUsuario)
@@ -136,8 +138,8 @@ form.onsubmit = async (event) => {
     }
 
     const { id } = !idProjeto
-      ? await projetoServices.cadastra({ projeto, ods })
-      : await projetoServices.atualiza({ projeto, ods }, idProjeto);
+      ? await projetoController.cadastra({ projeto, ods }, token)
+      : await projetoController.atualiza({ projeto, ods }, idProjeto, token);
 
     let formData;
 
@@ -160,7 +162,7 @@ form.onsubmit = async (event) => {
       formData.append(file.name, file);
     }
 
-    if (formData) await projetoServices.cadastraMidias(id, formData);
+    if (formData) await projetoController.cadastraMidias(id, formData, token);
 
     alert(
       !idProjeto

@@ -1,21 +1,20 @@
-import { OdsServices } from "../services/OdsServices.js";
-import { ProjetoServices } from "../services/ProjetoServices.js";
+import { OdsController, ProjetoController } from "../controller/index.js";
 import {
   criaBtnOds,
   criaCardProjeto,
   renderizaDados,
 } from "../utils/renderizaDados.js";
 
-const odsServices = new OdsServices();
-const projetoServices = new ProjetoServices();
+const odsController = new OdsController();
+const projetoController = new ProjetoController();
 
 const listaOds = document.querySelector(".projetos__lista_ods");
 const listaProjetos = document.querySelector(".busca__lista");
 const buscaMsg = document.querySelector(".busca__msg");
 
 try {
-  const ods = await odsServices.buscaDados();
-  const projetos = await projetoServices.buscaDados();
+  const ods = await odsController.buscaDados();
+  const projetos = await projetoController.buscaDados();
 
   renderizaDados(listaOds, ods, criaBtnOds);
   renderizaDados(listaProjetos, projetos, criaCardProjeto);
@@ -48,9 +47,10 @@ inputBusca.addEventListener("search", async (event) => {
   event.preventDefault();
 
   try {
-    const projetos = await projetoServices.filtraProjetos({
-      [selectFiltro.value]: inputBusca.value,
-    });
+    const projetos = await projetoController.buscaPorFiltro(
+      selectFiltro.value,
+      inputBusca.value
+    );
 
     if (projetos.length > 0)
       renderizaDados(listaProjetos, projetos, criaCardProjeto);

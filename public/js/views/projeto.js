@@ -1,5 +1,4 @@
-import { ProjetoServices } from "../services/ProjetoServices.js";
-import { UsuarioServices } from "../services/UsuarioServices.js";
+import { ProjetoController, UsuarioController } from "../controller/index.js";
 import { buscaCookie } from "../utils/cookie.js";
 import { fileTypes } from "../utils/fileTypes.js";
 import {
@@ -9,16 +8,17 @@ import {
   renderizaDados,
 } from "../utils/renderizaDados.js";
 
-const tokenJwt = buscaCookie("tokenJwt");
-const usuarioServices = new UsuarioServices();
-const projetoServices = new ProjetoServices();
+const token = buscaCookie("tokenJwt");
+const usuarioController = new UsuarioController();
+const projetoController = new ProjetoController();
+
 let projeto;
 let idUsuario;
 
-if (tokenJwt) {
+if (token) {
   try {
-    const usuario = await usuarioServices.autenticaUsuario(tokenJwt);
-    idUsuario = usuario.id;
+    const { id } = await usuarioController.autenticaUsuario(token);
+    idUsuario = id;
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
     removeCookie("tokenJwt");
@@ -27,7 +27,7 @@ if (tokenJwt) {
 
 try {
   const idProjeto = new URL(window.location).searchParams.get("id");
-  projeto = await projetoServices.buscaPorId(idProjeto);
+  projeto = await projetoController.buscaPorId(idProjeto);
 
   if (!projeto) throw new Error("Projeto não encontrado!");
   document.title = `${projeto.nome} | Programa Somar`;
@@ -51,7 +51,7 @@ if (idUsuario === projeto.id_usuario) {
         `Tem certeza que deseja excluir o projeto "${projeto.nome}"?`
       );
       if (excluir) {
-        await projetoServices.deleta(projeto.id);
+        await projetoController.deleta(projeto.id, token);
         window.location.replace("projetos.html");
       }
     } catch (error) {

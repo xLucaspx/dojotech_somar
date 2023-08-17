@@ -1,4 +1,4 @@
-export class Controller {
+class Controller {
   baseUrl = "http://localhost:3000";
 
   constructor(resource) {
@@ -19,9 +19,9 @@ export class Controller {
 
       if (res.ok) return data;
 
-      throw new Error(data.message);
+      throw new Error(data.error);
     } catch (error) {
-      alert(error);
+      throw error;
     }
   }
 
@@ -38,9 +38,9 @@ export class Controller {
 
       if (res.ok) return data;
 
-      throw new Error(data.message);
+      throw new Error(data.error);
     } catch (error) {
-      alert(`Erro ao buscar dados:\n${error.message}`);
+      throw error;
     }
   }
 
@@ -59,11 +59,11 @@ export class Controller {
 
       if (res.ok) return data;
 
-      throw new Error(data.message);
+      throw new Error(data.error);
     } catch (error) {
-      if (error instanceof SyntaxError) console.error("Syntax:\n", error);
+      // if (error instanceof SyntaxError) console.error("Syntax:\n", error);
 
-      console.error("Erro ao cadastrar:\n", error);
+      throw error;
     }
   }
 
@@ -82,9 +82,9 @@ export class Controller {
 
       if (res.ok) return data;
 
-      throw new Error(data.message);
+      throw new Error(data.error);
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   }
 
@@ -98,14 +98,14 @@ export class Controller {
         },
       });
 
+      if (res.ok) return;
+
       const data = await res.json();
-
-      if (res.ok) return data;
-
-      throw new Error(data.message);
+      throw new Error(data.error);
     } catch (error) {
-      console.error(error);
-      console.log(res);
+      throw error;
     }
   }
 }
+
+export default Controller;

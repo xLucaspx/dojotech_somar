@@ -1,9 +1,9 @@
-import { UsuarioServices } from "../services/UsuarioServices.js";
+import { UsuarioController } from "../controller/index.js";
 import { buscaCookie, removeCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
 
-const tokenJwt = buscaCookie("tokenJwt");
-const usuarioServices = new UsuarioServices();
+const token = buscaCookie("tokenJwt");
+const usuarioController = new UsuarioController();
 let idUsuario;
 
 const btnVoltar = document.querySelector(".btnVoltar");
@@ -29,11 +29,11 @@ const inputUf = document.getElementById("cadastro_usuario__uf");
 
 const form = document.querySelector(".cadastro_usuario__form");
 
-if (tokenJwt) {
+if (token) {
   try {
-    const { id } = await usuarioServices.autenticaUsuario(tokenJwt);
+    const { id } = await usuarioController.autenticaUsuario(token);
     idUsuario = id;
-    const usuario = await usuarioServices.buscaPorId(id);
+    const usuario = await usuarioController.buscaPorId(id, token);
 
     document.title = "Editar informações de usuário | Programa Somar";
     tituloForm.innerHTML = "Editar suas informações";
@@ -81,8 +81,8 @@ form.onsubmit = async (event) => {
 
   try {
     !idUsuario
-      ? await usuarioServices.cadastra(usuario)
-      : await usuarioServices.atualiza(usuario, idUsuario);
+      ? await usuarioController.cadastra(usuario)
+      : await usuarioController.atualiza(usuario, idUsuario, token);
 
     alert(
       !idUsuario
