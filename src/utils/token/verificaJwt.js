@@ -11,7 +11,7 @@ function verificaJwt(token) {
 
     return jwt.verify(token, process.env.TOKEN_SECRET);
   } catch (error) {
-    throw new UnauthorizedError(`Token inválido:\n${error.message}`);
+    throw new UnauthorizedError("Token de autorização inválido!");
   }
 }
 

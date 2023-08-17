@@ -9,6 +9,11 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
   let _server = {};
 
   before(async () => {
+    if (process.env.NODE_ENV !== "test")
+      throw new Error(
+        "É preciso estar no ambiente de testes para realizar os teste E2E!"
+      );
+
     // quando não passamos nenhuma porta, o Node escolhe uma vazia:
     _server = app.listen();
     await new Promise((resolve, reject) => {
@@ -30,12 +35,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível buscar usuários sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e a lista de usuários", async () => {
@@ -68,12 +86,26 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível buscar um usuário sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) ao buscar por um id diferente do presente no token", async () => {
@@ -87,12 +119,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         },
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível buscar as informações de outros usuários!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e o usuário buscado com token e id válidos", async () => {
@@ -109,51 +154,65 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         },
       });
 
-      const expected = 200;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 200;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          id: 1,
+          nome: "Juca da Silva",
+          usuario: "juca_s",
+          email: "juca@projetosomar.com",
+          telefone: "51 98765-0987",
+          cep: "90040191",
+          logradouro: "Avenida Venâncio Aires",
+          complemento: null,
+          numero: "93",
+          bairro: "Azenha",
+          cidade: "Porto Alegre",
+          uf: "RS",
+        };
 
-      const expectedUser = {
-        id: 1,
-        nome: "Juca da Silva",
-        usuario: "juca_s",
-        email: "juca@projetosomar.com",
-        telefone: "51 98765-0987",
-        cep: "90040191",
-        logradouro: "Avenida Venâncio Aires",
-        complemento: null,
-        numero: "93",
-        bairro: "Azenha",
-        cidade: "Porto Alegre",
-        uf: "RS",
-      };
-
-      const actualUser = await res.json();
-      assert.deepStrictEqual(
-        actualUser,
-        expectedUser,
-        `Deveria retornar o usuário com ID correspondente`
-      );
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar o usuário com ID correspondente`
+        );
+      }
     });
   });
 
   describe("POST /usuarios", () => {
-    it("Deve retornar 400 (bad request) ao tentar cadastrar um usuário inválido", async () => {
+    it("Deve retornar 400 (bad request) ao tentar cadastrar um usuário sem senha", async () => {
       const res = await fetch(`${BASE_URL}/usuarios`, {
         method: "POST",
         body: JSON.stringify({}),
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "A senha não foi preenchida corretamente!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao tentar cadastrar um usuário com informações faltando", async () => {
@@ -168,12 +227,26 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Por favor, verifique se os campos estão preenchidos corretamente!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar cadastrar um nome de usuário já utilizado", async () => {
@@ -198,12 +271,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: `O nome de usuário "${user.usuario}" não está disponível!`,
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar cadastrar um email já utilizado", async () => {
@@ -228,12 +314,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: `Já existe uma conta registrada para o email "${user.email}"!`,
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 201 (created) e o usuário criado", async () => {
@@ -266,8 +365,8 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         `Status deveria ser ${expected}. Retornado: ${res.status}`
       );
 
-      const actualUser = await res.json();
-      assert.ok(actualUser, `Deveria retornar o usuário cadastrado`);
+      const actual = await res.json();
+      assert.ok(actual, `Deveria retornar o usuário cadastrado`);
     });
   });
 
@@ -284,12 +383,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify(input),
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Senha incorreta!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) com email válido e senha incorreta", async () => {
@@ -304,12 +414,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify(input),
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Senha incorreta!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 404 (not found) com usuário inválido", async () => {
@@ -324,12 +445,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify(input),
       });
 
-      const expected = 404;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 404;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Usuário não encontrado!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 404 (not found) com email inválido", async () => {
@@ -344,12 +476,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify(input),
       });
 
-      const expected = 404;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 404;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Usuário não encontrado!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e token de acesso com usuário e senha válidos", async () => {
@@ -406,12 +549,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível se autenticar sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) com token de autorização inválido", async () => {
@@ -423,12 +579,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         },
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Token de autorização inválido!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK), nome e id do usuário com token válido", async () => {
@@ -449,8 +616,8 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         `Status deveria ser ${expected}. Retornado: ${res.status}`
       );
 
-      const user = await res.json();
-      assert.ok(user, `Deveria retornar nome e id do usuário`);
+      const actual = await res.json();
+      assert.ok(actual, `Deveria retornar nome e id do usuário`);
     });
   });
 
@@ -462,12 +629,26 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify({ nome: "Usuario" }),
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível editar informações do usuário sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao passar informações inválidas", async () => {
@@ -489,12 +670,26 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         }),
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Por favor, verifique se os campos estão preenchidos corretamente!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) com id diferente do presente no token", async () => {
@@ -509,12 +704,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify({ nome: "Usuario" }),
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível editar informações de outros usuários!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar alterar o id do usuário", async () => {
@@ -532,12 +740,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify({ id: 15 }),
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Não é possível editar o id de um usuário!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar alterar o nome de usuário para outro já existente", async () => {
@@ -555,12 +774,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify({ usuario: "silviads" }),
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: `O nome de usuário "silviads" não está disponível!`,
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar alterar o email para outro já existente", async () => {
@@ -578,12 +810,25 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         body: JSON.stringify({ email: "silvia@projetosomar.com" }),
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: `Já existe uma conta registrada para o email "silvia@projetosomar.com"!`,
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e o usuário modificado com token e informações corretas", async () => {
@@ -612,9 +857,9 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         `Status deveria ser ${expected}. Retornado: ${res.status}`
       );
 
-      const modifiedUser = await res.json();
+      const actual = await res.json();
       assert.ok(
-        modifiedUser,
+        actual,
         "Deveria retornar o usuário com as informações atualizadas!"
       );
     });
@@ -627,12 +872,26 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível deletar um usuário sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) com id diferente do presente no token", async () => {
@@ -646,12 +905,23 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         },
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Não é possível deletar outros usuários!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 204 (no content) ao excluir um usuário", async () => {

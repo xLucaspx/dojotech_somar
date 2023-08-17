@@ -18,7 +18,7 @@ class UsuarioController {
       const usuarios = await usuarioServices.buscaRegistros();
       return res.status(200).json(usuarios);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -39,7 +39,7 @@ class UsuarioController {
       const usuario = await usuarioServices.buscaUmRegistro({ id });
       return res.status(200).json(usuario);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -55,7 +55,7 @@ class UsuarioController {
       const cadastro = await usuarioServices.cadastraUsuario(usuario);
       return res.status(201).json(cadastro);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -74,9 +74,10 @@ class UsuarioController {
         const tokenJwt = geraJwt({ id, nome });
         return res.status(200).json(tokenJwt);
       }
+
       throw new UnauthorizedError("Senha incorreta!");
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -91,7 +92,7 @@ class UsuarioController {
 
       return res.status(200).json(token);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -121,7 +122,7 @@ class UsuarioController {
       const updated = await usuarioServices.atualizaUsuario(usuario, id);
       return res.status(200).json(updated);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -142,7 +143,7 @@ class UsuarioController {
 
       return res.status(204).json({});
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 }

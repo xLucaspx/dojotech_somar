@@ -12,7 +12,7 @@ class ProjetoController {
       const projetos = await projetoServices.buscaRegistros();
       return res.status(200).json(projetos);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -23,7 +23,7 @@ class ProjetoController {
       const projeto = await projetoServices.buscaProjetoPorId(id);
       return res.status(200).json(projeto);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -47,7 +47,7 @@ class ProjetoController {
       });
       return res.status(200).json(projetos);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -68,7 +68,7 @@ class ProjetoController {
       }
       return res.status(200).json(projetos);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -100,7 +100,7 @@ class ProjetoController {
 
       return res.status(201).json(projetoCadastrado);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -114,7 +114,7 @@ class ProjetoController {
 
       return res.status(204).json({});
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -144,7 +144,7 @@ class ProjetoController {
 
       return res.status(200).json(projetoAtualizado);
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -164,7 +164,7 @@ class ProjetoController {
 
       return res.status(204).json({});
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -178,7 +178,7 @@ class ProjetoController {
       await projetoServices.criaRelatorioProjetos();
       return res.status(204).json({});
     } catch (error) {
-      return res.status(error.status || 500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 }

@@ -10,6 +10,11 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
   let _server = {};
 
   before(async () => {
+    if (process.env.NODE_ENV !== "test")
+      throw new Error(
+        "É preciso estar no ambiente de testes para realizar os teste E2E!"
+      );
+
     _server = app.listen();
     await new Promise((resolve, reject) => {
       _server.once("listening", () => {
@@ -49,12 +54,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível gerar um relatório de projetos sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 204 (no content) e gerar o relatório de projetos", async () => {
@@ -89,12 +108,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "O filtro selecionado é inválido!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e a lista de projetos ao buscar por ODS", async () => {
@@ -217,12 +249,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível listar projetos de um usuário sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) ao buscar um id diferente do presente no token", async () => {
@@ -236,12 +282,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível listar projetos de outros usuários!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e a lista de projetos do usuário autenticado", async () => {
@@ -274,12 +333,23 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 404;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 404;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Projeto não encontrado!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e o projeto buscado", async () => {
@@ -323,12 +393,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível cadastrar um projeto sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao tentar cadastrar um projeto com informações faltando", async () => {
@@ -353,12 +437,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Por favor, verifique se os campos estão preenchidos corretamente!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao tentar cadastrar um projeto sem ODS", async () => {
@@ -388,12 +486,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível cadastrar um projeto sem nenhum ODS!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao tentar cadastrar um projeto sem id de usuário", async () => {
@@ -417,12 +528,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível cadastrar um projeto sem id de usuário!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) ao tentar cadastrar um projeto com id de outro usuário", async () => {
@@ -452,12 +576,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível cadastrar um projeto para outros usuários!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 201 (created) e o projeto criado", async () => {
@@ -517,12 +654,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível editar um projeto sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao tentar remover informações do projeto", async () => {
@@ -547,12 +698,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Por favor, verifique se os campos estão preenchidos corretamente!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 400 (bad request) ao tentar editar um projeto sem ODS", async () => {
@@ -577,12 +742,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível editar um projeto sem nenhum ODS!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar editar o id de um projeto", async () => {
@@ -608,12 +786,23 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Não é possível editar o id de um projeto!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 409 (conflict) ao tentar editar o id de usuário de um projeto", async () => {
@@ -639,12 +828,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 409;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 409;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível editar o usuário de um projeto!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 200 (OK) e o projeto editado", async () => {
@@ -688,12 +890,26 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      const expected = 400;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível excluir um projeto sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 401 (unauthorized) ao tentar excluir um projeto de outro usuário", async () => {
@@ -711,12 +927,25 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 401;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível excluir o projeto de outro usuário!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 404 (not found) ao tentar excluir um projeto inexistente", async () => {
@@ -730,12 +959,23 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
         },
       });
 
-      const expected = 404;
-      assert.strictEqual(
-        res.status,
-        expected,
-        `Status deveria ser ${expected}. Retornado: ${res.status}`
-      );
+      {
+        const expected = 404;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = { error: "Projeto não encontrado!" };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
     });
 
     it("Deve retornar 204 (no content) ao excluir um projeto com sucesso", async () => {
