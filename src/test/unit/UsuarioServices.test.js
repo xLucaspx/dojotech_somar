@@ -6,7 +6,17 @@ const usuarioServices = new UsuarioServices();
 
 describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
   describe("Método buscaUsuario", () => {
-    it("Deve lançar um NotFoundError ao buscar por um usuário inexistente", async () => {
+    it("Deve lançar um erro ao buscar com um filtro inexistente", async () => {
+      await assert.rejects(
+        usuarioServices.buscaUsuario({ inexistente: "inexistente" }),
+        {
+          message: "O filtro selecionado é inválido!",
+          status: 400,
+        }
+      );
+    });
+
+    it("Deve lançar um erro ao buscar por um usuário inexistente", async () => {
       await assert.rejects(
         usuarioServices.buscaUsuario({ nome: "inexistente" }),
         {
@@ -43,7 +53,7 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
   });
 
   describe("Método buscaUsuarioLogin", () => {
-    it("Deve lançar um NotFoundError ao buscar por um usuário inexistente", async () => {
+    it("Deve lançar um erro ao buscar por um usuário inexistente", async () => {
       await assert.rejects(
         usuarioServices.buscaUsuarioLogin({ usuario: "inexistente" }),
         {
@@ -74,8 +84,8 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
     });
   });
 
-  describe("Método cadastraUsuario", async () => {
-    it("Deve lançar um BadRequestError ao tentar cadastrar um usuário inválido", async () => {
+  describe("Método cadastraUsuario", () => {
+    it("Deve lançar um erro ao tentar cadastrar um usuário inválido", async () => {
       await assert.rejects(usuarioServices.cadastraUsuario({}), {
         message:
           "Por favor, verifique se os campos estão preenchidos corretamente!",
@@ -83,7 +93,34 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
       });
     });
 
-    it("Deve lançar um ConflictError ao tentar cadastrar um nome de usuário repetido", async () => {
+    it("Deve lançar um erro ao tentar cadastrar um ID repetido", async () => {
+      const [salt, hash] = criaHashComSalt("#senhaUsuario01").split(":");
+      const user = {
+        id: 1,
+        nome: "Usuário de Teste",
+        usuario: "test_user",
+        email: "usuario@teste.com",
+        hash_senha: hash,
+        salt: salt,
+        telefone: "51 3344-5678",
+        cep: "90040191",
+        logradouro: "Avenida Venâncio Aires",
+        complemento: "",
+        numero: "93",
+        bairro: "Azenha",
+        cidade: "Porto Alegre",
+        uf: "RS",
+        updatedAt: new Date(),
+        createdAt: new Date(),
+      };
+
+      await assert.rejects(usuarioServices.cadastraUsuario(user), {
+        message: `O ID ${user.id} não está disponível!`,
+        status: 409,
+      });
+    });
+
+    it("Deve lançar um erro ao tentar cadastrar um nome de usuário repetido", async () => {
       const [salt, hash] = criaHashComSalt("#senhaUsuario01").split(":");
       const user = {
         nome: "Usuário de Teste",
@@ -107,7 +144,7 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
       });
     });
 
-    it("Deve lançar um ConflictError ao tentar cadastrar um email repetido", async () => {
+    it("Deve lançar um erro ao tentar cadastrar um email repetido", async () => {
       const [salt, hash] = criaHashComSalt("#senhaUsuario01").split(":");
       const user = {
         nome: "Usuário de Teste",
@@ -162,8 +199,8 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
     });
   });
 
-  describe("Método atualizaUsuario", async () => {
-    it("Deve lançar um BadRequestError ao tentar remover informações de um usuário", async () => {
+  describe("Método atualizaUsuario", () => {
+    it("Deve lançar um erro ao tentar remover informações de um usuário", async () => {
       await assert.rejects(
         usuarioServices.atualizaUsuario({ nome: "", cep: null }, 3),
         {
@@ -174,14 +211,14 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
       );
     });
 
-    it("Deve lançar um NotFoundError ao tentar editar um usuário inexistente", async () => {
+    it("Deve lançar um erro ao tentar editar um usuário inexistente", async () => {
       await assert.rejects(usuarioServices.atualizaUsuario({}, "aaa"), {
         message: "Usuário não encontrado!",
         status: 404,
       });
     });
 
-    it("Deve lançar um ConflictError ao tentar editar o id de um usuário", async () => {
+    it("Deve lançar um erro ao tentar editar o id de um usuário", async () => {
       const user = {
         id: 55,
         nome: "Usuário de Teste Atualizado",
@@ -193,7 +230,7 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
       });
     });
 
-    it("Deve lançar um ConflictError ao tentar atualizar o nome de usuário para um já cadastrado", async () => {
+    it("Deve lançar um erro ao tentar atualizar o nome de usuário para um já cadastrado", async () => {
       const user = {
         usuario: "juca_s",
       };
@@ -204,7 +241,7 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
       });
     });
 
-    it("Deve lançar um ConflictError ao tentar atualizar o email para um já cadastrado", async () => {
+    it("Deve lançar um erro ao tentar atualizar o email para um já cadastrado", async () => {
       const user = {
         email: "juca@projetosomar.com",
       };
@@ -215,5 +252,15 @@ describe("Dojotech API Unit Test Suite - UsuarioServices", () => {
       });
     });
   });
-  // falta fazer deleta
+
+  describe("Método deletaRegistro", () => {
+    it("Deve deletar o usuário informado", async () => {
+      const deleted = await usuarioServices.deletaRegistro({ id: 3 });
+      assert.strictEqual(
+        deleted,
+        1,
+        `Deveria retornar 1. Retornado: ${deleted}`
+      );
+    });
+  });
 });

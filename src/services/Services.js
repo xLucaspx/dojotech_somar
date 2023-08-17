@@ -1,7 +1,7 @@
 const db = require("../models");
 const NotFoundError = require("../errors/NotFoundError");
-const { BadRequestError } = require("../errors");
-const { DatabaseError } = require("sequelize");
+const { BadRequestError, ConflictError } = require("../errors");
+const { DatabaseError, UniqueConstraintError } = require("sequelize");
 
 class Services {
   constructor(nomeDoModelo) {
@@ -29,6 +29,9 @@ class Services {
 
       throw new NotFoundError("Registro não encontrado!");
     } catch (error) {
+      if (error instanceof DatabaseError)
+        throw new BadRequestError("O filtro selecionado é inválido!");
+
       throw error;
     }
   }
@@ -37,6 +40,11 @@ class Services {
     try {
       return await db[this.nomeDoModelo].create(dados);
     } catch (error) {
+      if (error instanceof UniqueConstraintError && error.fields.PRIMARY)
+        throw new ConflictError(
+          `O ID ${error.fields.PRIMARY} não está disponível!`
+        );
+
       throw error;
     }
   }
