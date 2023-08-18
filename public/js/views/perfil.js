@@ -90,7 +90,12 @@ try {
   cidade.innerHTML = `${usuario.cidade} - ${usuario.uf}`;
 
   if (projetos.length === 0)
-    msgProjetos.innerHTML = "Você ainda não cadastrou nenhum projeto!";
+    msgProjetos.innerHTML = `
+      Você ainda não possui projetos.
+      <a href="form_projeto.html" class="link" title="Cadastre um projeto | Programa Somar">
+          <strong class="texto--destaque">Cadastre um projeto!</strong>
+      </a>
+    `;
   else {
     msgProjetos.innerHTML =
       projetos.length === 1
