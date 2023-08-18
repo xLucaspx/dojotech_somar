@@ -1,7 +1,7 @@
 const { describe, it, before, after } = require("node:test");
+const assert = require("node:assert");
 const fs = require("node:fs");
 const path = require("node:path");
-const assert = require("node:assert");
 const getToken = require("./getToken");
 const app = require("../../server");
 
@@ -753,6 +753,52 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
       {
         const expected = {
           error: "Não é possível editar um projeto sem nenhum ODS!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
+    });
+
+    it("Deve retornar 401 (unauthorized) ao editar um projeto com id de usuário diferente do presente no token", async () => {
+      const token = await getToken(BASE_URL, {
+        usuario: "juca_s",
+        senha: "#senhaJuca01",
+      });
+
+      const input = {
+        projeto: {
+          nome: "Projeto Teste Atualizado",
+          objetivo: "Testar o cadastro e a edição de projetos",
+          parceiros: "Node.js core test runner, c8",
+          resumo: "Lorem ipsum dolor sit amet!",
+        },
+        ods: [1, 2],
+      };
+
+      const res = await fetch(`${BASE_URL}/projetos/4`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não é possível editar o projeto de outros usuários!",
         };
         const actual = await res.json();
         assert.deepStrictEqual(

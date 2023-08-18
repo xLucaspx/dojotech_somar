@@ -1,6 +1,6 @@
+const db = require("../models");
 const { ValidationError } = require("sequelize");
 const { NotFoundError, ConflictError, BadRequestError } = require("../errors");
-const db = require("../models");
 const Services = require("./Services");
 
 class UsuarioServices extends Services {

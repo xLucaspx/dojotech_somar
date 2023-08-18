@@ -1,7 +1,7 @@
-const { Op, ValidationError } = require("sequelize");
 const { ProjetoServices, MidiaServices } = require("../services");
-const verificaJwt = require("../utils/token/verificaJwt");
 const { BadRequestError, UnauthorizedError } = require("../errors");
+const { Op } = require("sequelize");
+const verificaJwt = require("../utils/token/verificaJwt");
 
 const projetoServices = new ProjetoServices();
 const midiaServices = new MidiaServices();

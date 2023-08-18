@@ -1,15 +1,15 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const Services = require("./Services");
 const db = require("../models");
+const { QueryTypes, ValidationError } = require("sequelize");
 const {
   NotFoundError,
   BadRequestError,
   ConflictError,
   UnauthorizedError,
 } = require("../errors");
+const Services = require("./Services");
 const escapeRegex = require("../utils/escapeRegex");
-const { QueryTypes, ValidationError } = require("sequelize");
 const criaRelatorioProjetos = require("../utils/criaRelatorioProjetos");
 
 class ProjetoServices extends Services {
@@ -71,7 +71,7 @@ class ProjetoServices extends Services {
 
       if (projeto.id_usuario != idUsuario)
         throw new UnauthorizedError(
-          "Não épossível editar o projeto de outros usuários!"
+          "Não é possível editar o projeto de outros usuários!"
         );
 
       if (dados.id_usuario && dados.id_usuario != projeto.id_usuario)

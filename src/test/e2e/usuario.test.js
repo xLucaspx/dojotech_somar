@@ -79,7 +79,7 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
     });
   });
 
-  describe("GET /usuarios/:id", async () => {
+  describe("GET /usuarios/:id", () => {
     it("Deve retornar 400 (bad request) sem token de autorização", async () => {
       const res = await fetch(`${BASE_URL}/usuarios/1`, {
         method: "GET",
@@ -575,7 +575,7 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization: JSON.stringify("Bearer invalid.json.token"),
+          authorization: JSON.stringify("Bearer "),
         },
       });
 
@@ -869,7 +869,10 @@ describe("Dojotech API E2E Test Suite - Usuários", () => {
     it("Deve retornar 400 (bad request) sem token de autorização", async () => {
       const res = await fetch(`${BASE_URL}/usuarios/3`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer ",
+        },
       });
 
       {

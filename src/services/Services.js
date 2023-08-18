@@ -1,7 +1,6 @@
 const db = require("../models");
-const NotFoundError = require("../errors/NotFoundError");
-const { BadRequestError, ConflictError } = require("../errors");
 const { DatabaseError, UniqueConstraintError } = require("sequelize");
+const { BadRequestError, ConflictError, NotFoundError } = require("../errors");
 
 class Services {
   constructor(nomeDoModelo) {

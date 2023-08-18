@@ -1,7 +1,7 @@
 const { describe, it, before, after } = require("node:test");
 const assert = require("node:assert");
-const app = require("../../server");
 const listaOds = require("../listaOds");
+const app = require("../../server");
 
 describe("Dojotech API E2E Test Suite - ODS", () => {
   let BASE_URL = "";
