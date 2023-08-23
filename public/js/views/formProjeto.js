@@ -6,6 +6,7 @@ import {
 import { buscaCookie } from "../utils/cookie.js";
 import { fileTypes } from "../utils/fileTypes.js";
 import { limpaInputs } from "../utils/input.js";
+import { escapeHtmlTags } from "../utils/regex.js";
 import { renameFile } from "../utils/renameFile.js";
 import { criaCheckboxOds, renderizaDados } from "../utils/renderizaDados.js";
 
@@ -120,13 +121,13 @@ form.onsubmit = async (event) => {
   event.preventDefault();
 
   const projeto = {
-    nome: inputNome.value,
-    causa: inputCausa.value,
-    objetivo: inputObjetivo.value,
-    publico_alvo: inputPublico.value,
-    cidade: inputCidade.value,
-    parceiros: inputParceiros.value,
-    resumo: inputResumo.value,
+    nome: escapeHtmlTags(inputNome.value),
+    causa: escapeHtmlTags(inputCausa.value),
+    objetivo: escapeHtmlTags(inputObjetivo.value),
+    publico_alvo: escapeHtmlTags(inputPublico.value),
+    cidade: escapeHtmlTags(inputCidade.value),
+    parceiros: escapeHtmlTags(inputParceiros.value),
+    resumo: escapeHtmlTags(inputResumo.value),
     id_usuario: idUsuario,
   };
   const inputOds = document.querySelectorAll("input[name=ods]:checked");
