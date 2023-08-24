@@ -41,9 +41,9 @@ Desenvolver, em quatro meses, um site que visa a comunicação com a sociedade v
 
 ### O que é preciso instalar?
 
-Para executar o projeto é preciso ter instalado o [_Node.js_](https://nodejs.org/pt-br); a versão utilizada para o desenvolvimento foi a _18.13.0 LTS_.
+Para executar o projeto é preciso ter instalado o [_Node.js_](https://nodejs.org/pt-br). A versão utilizada para o desenvolvimento foi a **18.13.0 LTS**; para os testes foi utilizada a versão **20.5.1**.
 
-Também será necessário instalar o [_MySQL_](https://dev.mysql.com/downloads/windows/installer/8.0.html); a versão utilizada para o desenvolvimento foi a _8.0.31_.
+Também será necessário instalar o [_MySQL_](https://dev.mysql.com/downloads/windows/installer/8.0.html); a versão utilizada para o desenvolvimento foi a **8.0.31**.
 
 É recomendado que o usuário utilize as versões mais próximas possíveis das utilizadas em desenvolvimento. Tenha em mente que versões anteriores podem causar problemas de compatibilidade e erros na execução do projeto.
 
@@ -65,13 +65,15 @@ DB_USERNAME = "seu_usuario"
 DB_PASSWORD = "sua_senha"
 DB_DATABASE = "nome_do_banco"
 
-# Segredo Token JWT
+TEST_DATABASE = "banco_para_testes"
+
+# Segredo Token JWT:
 TOKEN_SECRET = "uma senha para validar seus tokens"
 ```
 
 #### MySQL
 
-Este projeto utiliza o [_Sequelize_](https://sequelize.org/) como _ORM_ para realizar ações no banco de dados. Para que isso funcione corretamente, você precisa criar um banco de dados (o nome utilizado durante o desenvolvimento do projeto foi "dojotech_somar") e, no arquivo `.env`, você deve substituir os valores de **DB_USERNAME** pelo nome do seu usuário que vai acessar o banco de dados no _MySQL_ (lembrando que o usuário deve ter as permissões necessárias para realizar as operações), **DB_PASSWORD** pela senha deste usuário - ou uma string vazia (`""`) caso não tenha senha - e **DB_DATABASE** pelo nome do banco de dados que você criou.
+Este projeto utiliza o [_Sequelize_](https://sequelize.org/) como _ORM_ para realizar ações no banco de dados. Para que isso funcione corretamente, você precisa criar um banco de dados e, no arquivo `.env`, você deve substituir os valores de **DB_USERNAME** pelo nome do seu usuário que vai acessar o banco de dados no _MySQL_ (lembrando que o usuário deve ter as permissões necessárias para realizar as operações), **DB_PASSWORD** pela senha deste usuário - ou uma string vazia (`""`) caso não tenha senha - e **DB_DATABASE** pelo nome do banco de dados que você criou.
 
 Utilizando as variáveis de ambiente, essas informações serão importadas no arquivo [_config.js_](src/config/config.js), desta forma:
 
@@ -95,35 +97,53 @@ Após instalar a extensão, deve aparecer um botão no canto inferior direito do
 
 #### Node
 
-Navegue até a pasta [**src**](src/) pelo terminal. Execute comando `npm i` para instalar as dependências do projeto. Quando a instalação for concluída, execute os comandos a seguir para criar as tabelas do banco e inserir alguns dados nelas, respectivamente:
+Navegue até a pasta [**src**](src/) pelo terminal. Execute comando `npm i` para instalar as dependências do projeto. Quando a instalação for concluída, execute o seguinte script para criar as tabelas do banco e inserir alguns dados nelas:
 
 ```
-npx sequelize-cli db:migrate
-npx sequelize-cli db:seed:all
+npm run db:migrate-and-seed
+
+# se preferir, você também pode executar as migrations e os seeders separadamente:
+
+npm run db:migrate
+npm run db:seed
 ```
 
-Agora você já deve ter todas as tabelas do projeto criadas no seu banco, com os dados dos arquivos [_seeders_](src/seeders/) inseridos.
-
-#### Dependências
-
-Pacotes do Node.js necessários para executar o projeto; estão disponíveis também no arquivo [_package.json_](src/package.json):
-
-- [Nodemon](https://nodemon.io/);
-- [Dotenv](https://www.npmjs.com/package/dotenv);
-- [Sequelize](https://sequelize.org/);
-  - [Sequelize-CLI](https://www.npmjs.com/package/sequelize-cli);
-  - [MySQL2](https://www.npmjs.com/package/mysql2);
-- [Express](https://expressjs.com/);
-  - [Express-FileUpload](https://www.npmjs.com/package/express-fileupload);
-  - [Body-parser](https://expressjs.com/en/resources/middleware/body-parser.html);
-  - [CORS](https://expressjs.com/en/resources/middleware/cors.html);
-- [JSON Web Token](https://jwt.io/libraries?language=Node.js).
+Agora você já deve ter todas as tabelas do projeto criadas no seu banco, com os dados dos arquivos [**seeders**](src/seeders/) inseridos.
 
 ### Executando
 
-Para rodar o servidor no _backend_ do projeto, ainda no terminal e na pasta [**src**](src/), execute o comando `npm run server`.
+Para rodar o servidor no _backend_ do projeto, ainda no terminal e na pasta [**src**](src/), execute o comando `npm start`.
 
-Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) abra o arquivo [index.html](public/views/index.html) e clique no botão "Go Live" do _Live Server_.
+Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) abra o arquivo [**index.html**](public/views/index.html) e clique no botão "Go Live" do _Live Server_.
+
+### Testes
+
+Foram desenvolvidos testes _end-to-end_ e unitários utilizando o _test-runner_ nativo do Node.js 20.5; para executá-los é necessário criar um banco de dados à parte e informá-lo no arquivo `.env` como `TEST_DATABASE = <seu-banco>`. Para criar as tabelas e executar os arquivos [**seeders**](src/seeders/), defina manualmente a variável de ambiente `NODE_ENV` com o valor `test` (`$env:NODE_ENV="test"` no Windows e `NODE_ENV=test` no Linux/Unix) e, dentro da pasta [**src**](src/), execute o script `npm run db:migrate-and-seed` — ou, se preferir, pode executá-los separadamente com `db:migrate` e `db:seed`.
+
+Com o ambiente de testes configurado, não precisa mais se preocupar em definir seu `NODE_ENV` manualmente: foi utilizado o [_cross-env_](https://www.npmjs.com/package/cross-env) para definir o ambiente de testes nos _scripts_ de teste. Para executar os testes, utilize os seguintes _scripts_:
+
+| Script                    | Descrição                                                                        |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| `npm t`                   | roda os testes uma vez                                                           |
+| `npm run test:watch`      | reinicia as _suites_ sempre que um arquivo é alterado                            |
+| `npm run test:cov`        | utiliza o [_c8_](https://www.npmjs.com/package/c8) para gerar _coverage_ em HTML |
+| `npm run test:cov-native` | gera um _output_ contendo as informações de _coverage_ no terminal               |
+
+### Dependências
+
+Pacotes do Node.js necessários para executar o projeto; estão disponíveis também no arquivo [**package.json**](src/package.json):
+
+- [Nodemon](https://nodemon.io/) (desenvolvimento);
+- [c8](https://www.npmjs.com/package/c8) (testes);
+- [cross-env](https://www.npmjs.com/package/cross-env) (testes);
+- [Dotenv](https://www.npmjs.com/package/dotenv);
+- [Sequelize](https://sequelize.org/);
+    - [Sequelize-CLI](https://www.npmjs.com/package/sequelize-cli);
+    - [MySQL2](https://www.npmjs.com/package/mysql2);
+- [Express](https://expressjs.com/);
+    - [Express-FileUpload](https://www.npmjs.com/package/express-fileupload);
+    - [CORS](https://expressjs.com/en/resources/middleware/cors.html);
+- [JSON Web Token](https://jwt.io/libraries?language=Node.js).
 
 ## Requisitos, regras de negócio e tarefas
 
@@ -156,7 +176,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] O usuário deve ser identificado com JWT;
 - [x] Utilizar expressões regulares para escapar possíveis entradas maliciosas do usuário;
 - [x] Validar e limitar tamanho máximo de upload de arquivos;
-- [X] Criar componentes que possam ser reutilizados, evitando repetição e facilitando a manutenibilidade do projeto;
+- [x] Criar componentes que possam ser reutilizados, evitando repetição e facilitando a manutenibilidade do projeto;
 - [x] Estruturar o projeto separando os arquivos por funcionalidade e coerência;
 - [x] Procurar escrever o código de forma semântica e organizada, facilitando o entendimento do sistema;
 - [x] Validar dados inseridos pelo usuário conforme regras de negócio;
@@ -170,7 +190,7 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] O campo e-mail deve ser validado;
 - [x] O campo telefone deve ser validado;
 - [x] O campo CEP deve ser validado e buscar os dados de endereço do usuário;
-- [x] Os campos obrigatórios deve ser marcados com "*";
+- [x] Os campos obrigatórios deve ser marcados com "\*";
 - [x] O usuário deve estar autenticado para cadastrar um projeto;
 - [x] O projeto deve possuir pelo menos 1 ODS.
 
@@ -224,19 +244,20 @@ Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) a
 - [x] 14/04 - Página inicial e página de login;
 - [x] 21/04 - Página “conheça nossos projetos”;
 - [x] 28/04 - Página de projeto;
-- [x] 05/05 - Apresentação da **Fase 1** para a equipe do comitê de sustentabilidade.
+- [x] 05/05 - Pitch da **Fase 1** para a equipe do comitê de sustentabilidade.
 
 ### Fase 2 - Funcionalidades Recomendáveis
 
 - [x] 12/05 a 09/06 - Visualização de contabilização de quantos projetos ao total, quantos para cada ODS e possibilidade de _upload_ de até 5 fotos por projeto;
-- [x] 16/06 - Apresentação das **Fases 1 e 2** para a equipe do comitê de sustentabilidade.
+- [x] 16/06 - Pitch das **Fases 1 e 2** para a equipe do comitê de sustentabilidade.
 
 ### Fase 3 - Funcionalidades Diferenciadas
 
 - [x] 23/06 a 14/07 - Possibilidade de _upload_ de um vídeo de até dois minutos por projeto e filtros para visualização de projetos por cidade, ODS, causa de atuação e público-alvo;
-- [x] 21/07 - Banca avaliadora irá avaliar o desenvolvimento do projeto como um todo;
-- [ ] 27/07 - Apresentação do projeto final para a banca avaliadora e comitê do projeto Somar (a banca avaliadora vai definir o projeto vencedor);
-- [ ] 25/08 - Entrega do projeto para o comitê de sustentabilidade.
+- [x] 20/07 - Banca avaliadora irá avaliar o desenvolvimento do projeto como um todo;
+- [x] 04/08 - Pitch final para a equipe do comitê de sustentabilidade;
+- [ ] 28/08 - Apresentação do projeto final para a banca avaliadora e comitê do projeto Somar (a banca avaliadora vai definir o projeto vencedor);
+- [ ] ??/08 - Entrega do projeto para o comitê de sustentabilidade.
 
 ## Linguagens, frameworks e ferramentas
 

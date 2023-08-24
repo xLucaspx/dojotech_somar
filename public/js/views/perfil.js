@@ -90,19 +90,20 @@ try {
   cidade.innerHTML = `${usuario.cidade} - ${usuario.uf}`;
 
   if (projetos.length === 0)
-    msgProjetos.innerHTML = `
-      Você ainda não possui projetos.
-      <a href="form_projeto.html" class="link" title="Cadastre um projeto | Programa Somar">
-          <strong class="texto--destaque">Cadastre um projeto!</strong>
-      </a>
-    `;
+    msgProjetos.innerHTML = "Você ainda não possui projetos.";
   else {
     msgProjetos.innerHTML =
       projetos.length === 1
-        ? "Você possui 1 projeto cadastrado!"
-        : `Você possui ${projetos.length} projetos cadastrados!`;
+        ? "Você possui 1 projeto cadastrado."
+        : `Você possui ${projetos.length} projetos cadastrados.`;
     renderizaDados(listaProjetos, projetos, criaCardProjeto);
   }
+
+  msgProjetos.innerHTML += `
+    <a href="form_projeto.html" class="link" title="Cadastre um projeto | Programa Somar">
+      <strong class="texto--destaque">Cadastre um projeto!</strong>
+    </a>
+  `;
 } catch (error) {
   alert(`Erro ao buscar informações do usuário:\n${error.message}`);
   window.location.replace("index.html");
