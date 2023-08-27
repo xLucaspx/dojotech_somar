@@ -636,6 +636,185 @@ describe("Dojotech API E2E Test Suite - Projetos", () => {
     });
   });
 
+  describe("POST /projetos/:idProjeto/midias", () => {
+    it("Deve retornar 400 (bad request) ao enviar um FormData sem mídias", async () => {
+      const token = await getToken(BASE_URL);
+
+      const formData = new FormData();
+
+      const res = await fetch(`${BASE_URL}/projetos/4/midias`, {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error: "Não foram encontradas mídias para serem cadastradas!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
+    });
+
+    it("Deve retornar 400 (bad request) ao tentar cadastrar mídias sem token de autorização", async () => {
+      const filePath = path.join(__dirname, "../../../img/no-media.png");
+      const rawFile = fs.readFileSync(filePath);
+      const file = new File([rawFile], "midia_1.png", {
+        type: rawFile.type,
+        lastModified: rawFile.lastModified,
+      });
+
+      const formData = new FormData();
+      formData.append(file.name, file);
+
+      const res = await fetch(`${BASE_URL}/projetos/4/midias`, {
+        method: "POST",
+        headers: { authorization: "Bearer" },
+        body: formData,
+      });
+
+      {
+        const expected = 400;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível cadastrar mídias em um projeto sem um token de autorização!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
+    });
+
+    it("Deve retornar 401 (unauthorized) ao tentar cadastrar mídias no projeto de outro usuário", async () => {
+      const token = await getToken(BASE_URL); // id: 2
+
+      const filePath = path.join(__dirname, "../../../img/no-media.png");
+      const rawFile = fs.readFileSync(filePath);
+      const file = new File([rawFile], "midia_1.png", {
+        type: rawFile.type,
+        lastModified: rawFile.lastModified,
+      });
+
+      const formData = new FormData();
+      formData.append(file.name, file);
+
+      // id_usuario: 1
+      const res = await fetch(`${BASE_URL}/projetos/1/midias`, {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      {
+        const expected = 401;
+        assert.strictEqual(
+          res.status,
+          expected,
+          `Status deveria ser ${expected}. Retornado: ${res.status}`
+        );
+      }
+      {
+        const expected = {
+          error:
+            "Não é possível cadastrar mídias no projeto de outros usuários!",
+        };
+        const actual = await res.json();
+        assert.deepStrictEqual(
+          actual,
+          expected,
+          `Deveria retornar "${expected.error}". Retornado: "${actual.error}"`
+        );
+      }
+    });
+
+    it("Deve retornar 204 (no content) e cadastrar as mídias", async () => {
+      const token = await getToken(BASE_URL);
+
+      const filePath = path.join(__dirname, "../../../img/no-media.png");
+      const rawFile = fs.readFileSync(filePath);
+      const file = new File([rawFile], "midia_1.png", {
+        type: rawFile.type,
+        lastModified: rawFile.lastModified,
+      });
+
+      const formData = new FormData();
+      formData.append(file.name, file);
+
+      const res = await fetch(`${BASE_URL}/projetos/4/midias`, {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      const expected = 204;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+
+      const midia = fs.existsSync(
+        path.join(__dirname, "../../../public/img/projetos/4/midia_1.png")
+      );
+      assert.ok(midia, `Deveria cadastrar a mídia!`);
+    });
+
+    it("Deve retornar 204 (no content) e substituir a mídia", async () => {
+      const token = await getToken(BASE_URL);
+
+      const filePath = path.join(__dirname, "../../../img/diagramas/er.png");
+      const rawFile = fs.readFileSync(filePath);
+      const file = new File([rawFile], "midia_1.png", {
+        type: rawFile.type,
+        lastModified: rawFile.lastModified,
+      });
+
+      const formData = new FormData();
+      formData.append(file.name, file);
+
+      const res = await fetch(`${BASE_URL}/projetos/4/midias`, {
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+        body: formData,
+      });
+
+      const expected = 204;
+      assert.strictEqual(
+        res.status,
+        expected,
+        `Status deveria ser ${expected}. Retornado: ${res.status}`
+      );
+
+      const midia = fs.existsSync(
+        path.join(__dirname, "../../../public/img/projetos/4/midia_1.png")
+      );
+      assert.ok(midia, `Deveria substituir a mídia!`);
+    });
+  });
+
   describe("PUT /projetos/:id", () => {
     it("Deve retornar 400 (bad request) ao tentar editar um projeto sem token de autorização", async () => {
       const input = {

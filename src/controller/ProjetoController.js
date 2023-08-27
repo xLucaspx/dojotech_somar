@@ -105,9 +105,28 @@ class ProjetoController {
   }
 
   static async cadastraMidias(req, res) {
-    const { idProjeto } = req.body;
+    const { idProjeto } = req.params;
 
     try {
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível cadastrar mídias em um projeto sem um token de autorização!"
+        );
+
+      const { id_usuario } = await projetoServices.buscaProjetoPorId(idProjeto);
+
+      if (id_usuario != token.id)
+        throw new UnauthorizedError(
+          "Não é possível cadastrar mídias no projeto de outros usuários!"
+        );
+
+      if (!req.files || req.files.length == 0)
+        throw new BadRequestError(
+          "Não foram encontradas mídias para serem cadastradas!"
+        );
+
       for await (const key of Object.keys(req.files)) {
         await midiaServices.cadastraMidia(idProjeto, req.files[key]);
       }
@@ -134,13 +153,13 @@ class ProjetoController {
           "Não é possível editar um projeto sem nenhum ODS!"
         );
 
-      // mídias são excluídas para serem re-cadastradas:
       const projetoAtualizado = await projetoServices.atualizaProjeto(
         projeto,
         ods,
         id,
         token.id
       );
+      // mídias são deletadas para serem recadastradas:
       await midiaServices.deletaMidias(id);
 
       return res.status(200).json(projetoAtualizado);

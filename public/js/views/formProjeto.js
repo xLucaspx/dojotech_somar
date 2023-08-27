@@ -149,10 +149,7 @@ form.onsubmit = async (event) => {
 
       if (input.files.length === 0) continue;
 
-      if (!formData) {
-        formData = new FormData();
-        formData.append("idProjeto", id);
-      }
+      if (!formData) formData = new FormData();
 
       let file = input.files[0];
       // pega a extensão do arquivo:
