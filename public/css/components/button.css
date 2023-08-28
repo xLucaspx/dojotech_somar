@@ -61,7 +61,7 @@
 }
 
 .btnVoltar:hover,
-.btnVoltar:active {
+.btnVoltar:focus {
   background-image: url("../../img/icons/back-white.svg");
 }
 
@@ -77,7 +77,7 @@
 }
 
 .btnExcluir:hover,
-.btnExcluir:active {
+.btnExcluir:focus {
   background-color: var(--vermelho_escuro);
   border-color: var(--vermelho_escuro);
 }

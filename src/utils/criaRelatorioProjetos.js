@@ -23,7 +23,7 @@ function criaCabecalhoRelatorio(totalProjetos) {
     strTotal += arrStrTotal[i] ? arrStrTotal[i] : ".";
 
   return `# Relatório de projetos do programa Somar
-    \n${strData}\n\n${strTotal} ${projetos}`;
+    \n${strData}\n\n${strTotal} ${projetos}\n`;
 }
 
 function formataLinhaRelatorio(id, ods, projetos) {
