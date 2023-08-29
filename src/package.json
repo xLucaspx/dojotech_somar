@@ -2,9 +2,14 @@
   "name": "dojotech_somar",
   "version": "1.0.0",
   "description": "backend para integração do banco de dados com a plataforma do programa Somar.",
-  "main": "./server/index.js",
+  "main": "index.js",
   "scripts": {
-    "server": "nodemon ./server/index.js",
+    "start": "npx nodemon index.js",
+    "start-native": "node --watch index.js",
+    "test": "cross-env NODE_ENV=test node --test test/",
+    "test:watch": "cross-env NODE_ENV=test node --watch --test test/",
+    "test:cov": "cross-env NODE_ENV=test npx c8 --reporter html node --test test/",
+    "test:cov-native": "cross-env NODE_ENV=test node --experimental-test-coverage --test test/",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:migrate-and-seed": "npm run db:migrate && npm run db:seed",
@@ -21,11 +26,7 @@
     "url": "https://github.com/xLucaspx/dojotech_somar/issues"
   },
   "homepage": "https://github.com/xLucaspx/dojotech_somar#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.22"
-  },
   "dependencies": {
-    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.1.3",
     "express": "^4.18.2",
@@ -34,5 +35,10 @@
     "mysql2": "^3.2.0",
     "sequelize": "^6.31.0",
     "sequelize-cli": "^6.6.0"
+  },
+  "devDependencies": {
+    "c8": "^8.0.1",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.0.1"
   }
 }

@@ -10,14 +10,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Projeto.belongsTo(models.Usuario, {
         foreignKey: { name: "id_usuario", allowNull: false },
+        onDelete: "CASCADE",
       });
       Projeto.hasMany(models.Midia, {
         foreignKey: { name: "id_projeto", allowNull: false },
+        onDelete: "CASCADE",
       });
 
       Projeto.belongsToMany(models.Ods, {
         through: models.Projeto_ods,
         foreignKey: { name: "id_projeto", allowNull: false },
+        onDelete: "CASCADE",
       });
     }
   }

@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Midia.belongsTo(models.Projeto, {
         foreignKey: { name: "id_projeto", allowNull: false },
+        onDelete: "CASCADE",
       });
     }
   }

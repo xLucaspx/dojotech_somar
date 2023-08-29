@@ -17,6 +17,7 @@ module.exports = {
       id_projeto: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
         references: { model: "Projeto", key: "id" },
       },
       createdAt: { allowNull: false, type: Sequelize.DATE },

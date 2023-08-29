@@ -1,21 +1,23 @@
-import { insertHeaderAndFooter } from "./utils/insertHeaderAndFooter.js";
+import { UsuarioController } from "./controller/index.js";
 import { buscaCookie, removeCookie } from "./utils/cookie.js";
-import { UsuarioServices } from "./services/UsuarioServices.js";
+import { insertHeaderAndFooter } from "./utils/insertHeaderAndFooter.js";
 
 (async () => {
   insertHeaderAndFooter();
-  const tokenJwt = buscaCookie("tokenJwt");
+  const token = buscaCookie("tokenJwt");
   const btnLog = document.getElementById("btnLog");
   const navList = document.querySelector(".nav__list");
 
-  if (tokenJwt) {
+  if (token) {
     try {
-      const usuarioServices = new UsuarioServices();
-      const { nome } = await usuarioServices.autenticaUsuario({ tokenJwt });
+      const usuarioController = new UsuarioController();
+      const { nome } = await usuarioController.autenticaUsuario(token);
 
       const profileLink = document.createElement("li");
       profileLink.classList.add("nav__list__item");
-      profileLink.innerHTML = `<a href="perfil.html" title="Suas informações" class="nav__link nav__link--profile">${nome.split(" ")[0]}</a>`;
+      profileLink.innerHTML = `<a href="perfil.html" title="Suas informações" class="nav__link nav__link--profile">${
+        nome.split(" ")[0]
+      }</a>`;
 
       navList.appendChild(profileLink);
 

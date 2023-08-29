@@ -1,16 +1,15 @@
-import { ProjetoServices } from "../services/ProjetoServices.js";
-import { UsuarioServices } from "../services/UsuarioServices.js";
+import { ProjetoController, UsuarioController } from "../controller/index.js";
 import { buscaCookie, removeCookie } from "../utils/cookie.js";
 import { criaCardProjeto, renderizaDados } from "../utils/renderizaDados.js";
 
-const tokenJwt = buscaCookie("tokenJwt");
-const usuarioServices = new UsuarioServices();
-const projetoServices = new ProjetoServices();
+const token = buscaCookie("tokenJwt");
+const usuarioController = new UsuarioController();
+const projetoController = new ProjetoController();
 let idUsuario;
 
-if (tokenJwt) {
+if (token) {
   try {
-    const usuario = await usuarioServices.autenticaUsuario({ tokenJwt });
+    const usuario = await usuarioController.autenticaUsuario(token);
     idUsuario = usuario.id;
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
@@ -26,11 +25,12 @@ const btnRelatorio = document.getElementById("btn-relatorio");
 btnRelatorio.onclick = async (event) => {
   event.preventDefault();
   try {
-    await projetoServices.geraRelatorio();
-    const link = document.createElement("a")
-    link.setAttribute("href", '../report/relatorio-projetos.txt')
-    link.setAttribute("download", "relatorio-projetos.txt")
+    await projetoController.geraRelatorio(token);
+    const link = document.createElement("a");
+    link.setAttribute("href", "../report/relatorio-projetos.txt");
+    link.setAttribute("download", "relatorio-projetos.txt");
     link.click();
+    link.remove();
   } catch (error) {
     alert(`Ocorreu um errro ao gerar o relatório:\n${error.message}`);
   }
@@ -51,8 +51,8 @@ const listaProjetos = document.querySelector(".busca__lista");
 const msgProjetos = document.querySelector(".busca__msg");
 
 try {
-  const usuario = await usuarioServices.buscaPorId(idUsuario);
-  const projetos = await projetoServices.buscaPorUsuario(idUsuario);
+  const usuario = await usuarioController.buscaPorId(idUsuario, token);
+  const projetos = await projetoController.buscaPorUsuario(idUsuario, token);
 
   botoesUsuario.innerHTML = `
     <a href="form_usuario.html" class="btnEditar btn btnPadrao btnNav" title="Editar suas informações">Editar</a>
@@ -67,10 +67,7 @@ try {
       );
 
       if (excluir) {
-        for await (const projeto of projetos) {
-          await projetoServices.deleta(projeto.id);
-        }
-        await usuarioServices.deleta(idUsuario);
+        await usuarioController.deleta(idUsuario, token);
         removeCookie("tokenJwt");
         window.location.replace("index.html");
       }
@@ -93,14 +90,20 @@ try {
   cidade.innerHTML = `${usuario.cidade} - ${usuario.uf}`;
 
   if (projetos.length === 0)
-    msgProjetos.innerHTML = "Você ainda não cadastrou nenhum projeto!";
+    msgProjetos.innerHTML = "Você ainda não possui projetos.";
   else {
     msgProjetos.innerHTML =
       projetos.length === 1
-        ? "Você possui 1 projeto cadastrado!"
-        : `Você possui ${projetos.length} projetos cadastrados!`;
+        ? "Você possui 1 projeto cadastrado."
+        : `Você possui ${projetos.length} projetos cadastrados.`;
     renderizaDados(listaProjetos, projetos, criaCardProjeto);
   }
+
+  msgProjetos.innerHTML += `
+    <a href="form_projeto.html" class="link" title="Cadastre um projeto | Programa Somar">
+      <strong class="texto--destaque">Cadastre um projeto!</strong>
+    </a>
+  `;
 } catch (error) {
   alert(`Erro ao buscar informações do usuário:\n${error.message}`);
   window.location.replace("index.html");

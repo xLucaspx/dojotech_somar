@@ -1,6 +1,7 @@
-const { Op, ValidationError } = require("sequelize");
 const { ProjetoServices, MidiaServices } = require("../services");
-const { NotFoundError, ConflictError } = require("../errors");
+const { BadRequestError, UnauthorizedError } = require("../errors");
+const { Op } = require("sequelize");
+const verificaJwt = require("../utils/token/verificaJwt");
 
 const projetoServices = new ProjetoServices();
 const midiaServices = new MidiaServices();
@@ -11,7 +12,7 @@ class ProjetoController {
       const projetos = await projetoServices.buscaRegistros();
       return res.status(200).json(projetos);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -22,9 +23,7 @@ class ProjetoController {
       const projeto = await projetoServices.buscaProjetoPorId(id);
       return res.status(200).json(projeto);
     } catch (error) {
-      return res
-        .status(error instanceof NotFoundError ? 404 : 500)
-        .json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -32,12 +31,23 @@ class ProjetoController {
     const { idUsuario } = req.query;
 
     try {
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível listar projetos de um usuário sem um token de autorização!"
+        );
+      if (idUsuario != token.id)
+        throw new UnauthorizedError(
+          "Não é possível listar projetos de outros usuários!"
+        );
+
       const projetos = await projetoServices.buscaRegistros({
         id_usuario: idUsuario,
       });
       return res.status(200).json(projetos);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -58,7 +68,7 @@ class ProjetoController {
       }
       return res.status(200).json(projetos);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -66,34 +76,64 @@ class ProjetoController {
     const { projeto, ods } = req.body;
 
     try {
-      const projetoCadastrado = await projetoServices.criaRegistro(projeto);
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível cadastrar um projeto sem um token de autorização!"
+        );
+      if (!projeto.id_usuario)
+        throw new BadRequestError(
+          "Não é possível cadastrar um projeto sem id de usuário!"
+        );
+      if (projeto.id_usuario != token.id)
+        throw new UnauthorizedError(
+          "Não é possível cadastrar um projeto para outros usuários!"
+        );
+      if (!ods || !Array.isArray(ods) || ods.length === 0)
+        throw new BadRequestError(
+          "Não é possível cadastrar um projeto sem nenhum ODS!"
+        );
+
+      const projetoCadastrado = await projetoServices.cadastraProjeto(projeto);
       ods.forEach(async (ods) => await projetoCadastrado.addOds(ods));
 
       return res.status(201).json(projetoCadastrado);
     } catch (error) {
-      if (error instanceof ValidationError) {
-        return res.status(400).json({
-          message:
-            "Por favor, verifique se os campos estão preenchidos corretamente!",
-        });
-      }
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
   static async cadastraMidias(req, res) {
-    const { idProjeto } = req.body;
+    const { idProjeto } = req.params;
 
     try {
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível cadastrar mídias em um projeto sem um token de autorização!"
+        );
+
+      const { id_usuario } = await projetoServices.buscaProjetoPorId(idProjeto);
+
+      if (id_usuario != token.id)
+        throw new UnauthorizedError(
+          "Não é possível cadastrar mídias no projeto de outros usuários!"
+        );
+
+      if (!req.files || req.files.length == 0)
+        throw new BadRequestError(
+          "Não foram encontradas mídias para serem cadastradas!"
+        );
+
       for await (const key of Object.keys(req.files)) {
         await midiaServices.cadastraMidia(idProjeto, req.files[key]);
       }
 
       return res.status(204).json({});
     } catch (error) {
-      return res
-        .status(error instanceof ConflictError ? 409 : 500)
-        .json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -102,14 +142,29 @@ class ProjetoController {
     const { projeto, ods } = req.body;
 
     try {
-      // mídias são excluídas para serem re-cadastradas:
-      await midiaServices.deletaMidias(id);
-      await projetoServices.atualizaProjeto(projeto, id);
-      await projetoServices.atualizaOds(id, ods);
+      const token = verificaJwt(req.headers.authorization);
 
-      return res.status(200).json({ id });
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível editar um projeto sem um token de autorização!"
+        );
+      if (!ods || !Array.isArray(ods) || ods.length === 0)
+        throw new BadRequestError(
+          "Não é possível editar um projeto sem nenhum ODS!"
+        );
+
+      const projetoAtualizado = await projetoServices.atualizaProjeto(
+        projeto,
+        ods,
+        id,
+        token.id
+      );
+      // mídias são deletadas para serem recadastradas:
+      await midiaServices.deletaMidias(id);
+
+      return res.status(200).json(projetoAtualizado);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
@@ -117,21 +172,33 @@ class ProjetoController {
     const { id } = req.params;
 
     try {
+      const token = verificaJwt(req.headers.authorization);
+
+      if (!token)
+        throw new BadRequestError(
+          "Não é possível excluir um projeto sem um token de autorização!"
+        );
+
+      await projetoServices.deletaProjeto(id, token.id);
       await midiaServices.deletaMidias(id);
-      await projetoServices.deletaProjeto(id);
 
       return res.status(204).json({});
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 
   static async geraRelatorio(req, res) {
     try {
+      if (!verificaJwt(req.headers.authorization))
+        throw new BadRequestError(
+          "Não é possível gerar um relatório de projetos sem um token de autorização!"
+        );
+
       await projetoServices.criaRelatorioProjetos();
       return res.status(204).json({});
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(error.status || 500).json({ error: error.message });
     }
   }
 }

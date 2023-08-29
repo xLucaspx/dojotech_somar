@@ -1,5 +1,6 @@
-const { NotFoundError } = require("../errors");
 const db = require("../models");
+const { ValidationError } = require("sequelize");
+const { NotFoundError, ConflictError, BadRequestError } = require("../errors");
 const Services = require("./Services");
 
 class UsuarioServices extends Services {
@@ -28,6 +29,63 @@ class UsuarioServices extends Services {
 
       throw new NotFoundError("Usuário não encontrado!");
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async cadastraUsuario(usuario) {
+    try {
+      return await this.criaRegistro(usuario);
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const { fields } = error;
+
+        if (!fields)
+          throw new BadRequestError(
+            "Por favor, verifique se os campos estão preenchidos corretamente!"
+          );
+
+        if (fields.usuario)
+          throw new ConflictError(
+            `O nome de usuário "${fields.usuario}" não está disponível!`
+          );
+
+        if (fields.email)
+          throw new ConflictError(
+            `Já existe uma conta registrada para o email "${fields.email}"!`
+          );
+      }
+      throw error;
+    }
+  }
+
+  async atualizaUsuario(dados, id) {
+    try {
+      const usuario = await this.buscaUsuario({ id });
+
+      if (dados.id && dados.id != usuario.id)
+        throw new ConflictError("Não é possível editar o id de um usuário!");
+
+      return await usuario.update(dados);
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const { fields } = error;
+
+        if (!fields)
+          throw new BadRequestError(
+            "Por favor, verifique se os campos estão preenchidos corretamente!"
+          );
+
+        if (fields.usuario)
+          throw new ConflictError(
+            `O nome de usuário "${fields.usuario}" não está disponível!`
+          );
+
+        if (fields.email)
+          throw new ConflictError(
+            `Já existe uma conta registrada para o email "${fields.email}"!`
+          );
+      }
       throw error;
     }
   }

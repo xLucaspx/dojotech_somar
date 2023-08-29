@@ -10,8 +10,8 @@ router
   .get("/projetos/usuario?", ProjetoController.buscaProjetosPorUsuario)
   .get("/projetos/:id", ProjetoController.buscaProjetoPorId)
   .post("/projetos", ProjetoController.cadastraProjeto)
-  .post("/projetos/:id/midias", ProjetoController.cadastraMidias)
+  .post("/projetos/:idProjeto/midias", ProjetoController.cadastraMidias)
   .put("/projetos/:id", ProjetoController.atualizaProjeto)
-  .delete("/projetos/:id", ProjetoController.deletaProjeto)
+  .delete("/projetos/:id", ProjetoController.deletaProjeto);
 
 module.exports = router;

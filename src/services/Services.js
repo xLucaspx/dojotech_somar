@@ -1,5 +1,6 @@
 const db = require("../models");
-const NotFoundError = require("../errors/NotFoundError");
+const { DatabaseError, UniqueConstraintError } = require("sequelize");
+const { BadRequestError, ConflictError, NotFoundError } = require("../errors");
 
 class Services {
   constructor(nomeDoModelo) {
@@ -10,6 +11,9 @@ class Services {
     try {
       return await db[this.nomeDoModelo].findAll({ where: { ...where } });
     } catch (error) {
+      if (error instanceof DatabaseError)
+        throw new BadRequestError("O filtro selecionado é inválido!");
+
       throw error;
     }
   }
@@ -19,11 +23,14 @@ class Services {
       const registro = await db[this.nomeDoModelo].findOne({
         where: { ...where },
       });
-      if (registro) {
-        return registro;
-      }
+
+      if (registro) return registro;
+
       throw new NotFoundError("Registro não encontrado!");
     } catch (error) {
+      if (error instanceof DatabaseError)
+        throw new BadRequestError("O filtro selecionado é inválido!");
+
       throw error;
     }
   }
@@ -32,17 +39,22 @@ class Services {
     try {
       return await db[this.nomeDoModelo].create(dados);
     } catch (error) {
+      if (error instanceof UniqueConstraintError && error.fields.PRIMARY)
+        throw new ConflictError(
+          `O ID ${error.fields.PRIMARY} não está disponível!`
+        );
+
       throw error;
     }
   }
 
-  async atualizaRegistro(dados, where = {}) {
-    try {
-      return await db[this.nomeDoModelo].update(dados, { where: { ...where } });
-    } catch (error) {
-      throw error;
-    }
-  }
+  // async atualizaRegistro(dados, where = {}) {
+  //   try {
+  //     return await db[this.nomeDoModelo].update(dados, { where: { ...where } });
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   async deletaRegistro(where = {}) {
     try {

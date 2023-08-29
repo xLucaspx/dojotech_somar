@@ -1,13 +1,13 @@
-import { UsuarioServices } from "../services/UsuarioServices.js";
+import { UsuarioController } from "../controller/index.js";
 import { buscaCookie, defineCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
 
-const tokenJwt = buscaCookie("tokenJwt");
-const usuarioServices = new UsuarioServices();
+const token = buscaCookie("tokenJwt");
+const usuarioController = new UsuarioController();
 
-if (tokenJwt) {
+if (token) {
   try {
-    await usuarioServices.autenticaUsuario({ tokenJwt });
+    await usuarioController.autenticaUsuario(token);
     alert("Você já está logado!");
     window.location.href = "perfil.html";
   } catch (error) {
@@ -25,13 +25,13 @@ const form = document.querySelector(".login__form");
 form.onsubmit = async (event) => {
   event.preventDefault();
 
-  const usuarioDigitado = inputUsuario.value;
-  const senhaDigitada = inputSenha.value;
+  const usuario = inputUsuario.value;
+  const senha = inputSenha.value;
 
   try {
-    const tokenJwt = await usuarioServices.logaUsuario({
-      usuarioDigitado,
-      senhaDigitada,
+    const tokenJwt = await usuarioController.logaUsuario({
+      usuario,
+      senha,
     });
     defineCookie("tokenJwt", tokenJwt);
     window.location.href = "index.html";
