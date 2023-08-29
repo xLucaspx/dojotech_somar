@@ -4,7 +4,7 @@
 
 **Nome**: Devs da 222
 
-**Integrantes**: Felipe Verdade, Glauber Martini, Lucas da Paz Oliveira
+**Integrantes**: <a href="https://www.linkedin.com/in/felipe-verdade-didio/" title="Felipe Verdade | LinkedIn" target="_blank">Felipe Verdade</a>, <a href="https://www.linkedin.com/in/glauber-martini-ab8743b0/" title="Glauber Martini | LinkedIn" target="_blank">Glauber Martini</a>, <a href="https://www.linkedin.com/in/xlucaspx/" title="Lucas da Paz | LinkedIn" target="_blank">Lucas da Paz</a>
 
 **Turma**: DEV1N222
 
@@ -16,22 +16,25 @@
   - [Instalações necessárias](#o-que-é-preciso-instalar)
   - [Configurando o ambiente](#configurando-o-ambiente)
   - [Executando](#executando)
-- [Requisitos, regras de negócio e tarefas](#requisitos-regras-de-negócio-de-tarefas)
+  - [Testes](#testes)
+  - [Dependências](#dependências)
+- [Requisitos, regras de negócio e tarefas](#requisitos-regras-de-negócio-e-tarefas)
   - [Requisitos funcionais](#requisitos-funcionais)
   - [Requisitos não funcionais](#requisitos-não-funcionais)
   - [Regras de negócio](#regras-de-negócio)
   - [Tarefas](#o-que-é-preciso-fazer)
-- [Diagramas](#diagramas)
 - [Cronograma](#cronograma)
   - [Fase 1 - até 05/05](#fase-1---projeto-base-mvp)
   - [Fase 2 - até 16/06](#fase-2---funcionalidades-recomendáveis)
-  - [Fase 3 - até 25/08](#fase-3---funcionalidades-diferenciadas)
+  - [Fase 3 - até 28/08](#fase-3---funcionalidades-diferenciadas)
 - [Linguagens, frameworks e ferramentas](#linguagens-frameworks-e-ferramentas)
-- [Design e layouts](#design-e-layouts)
+- [Diagramas, design e layouts](#diagramas-design-e-layouts)
 
 ## Produto
 
 Website para registro e mapeamento dos projetos realizados dentro do programa Somar.
+
+<a href="https://youtu.be/m0VvSiY7pd8?si=GJR0iPDkqiiWv0FY" title="Programa Somar (DojoTech) - Pitch Final (Devs da 222)" target="_blank">Pitch de apresentação do projeto</a>.
 
 ## Objetivo (meta)
 
@@ -138,11 +141,11 @@ Pacotes do Node.js necessários para executar o projeto; estão disponíveis tam
 - [cross-env](https://www.npmjs.com/package/cross-env) (testes);
 - [Dotenv](https://www.npmjs.com/package/dotenv);
 - [Sequelize](https://sequelize.org/);
-    - [Sequelize-CLI](https://www.npmjs.com/package/sequelize-cli);
-    - [MySQL2](https://www.npmjs.com/package/mysql2);
+  - [Sequelize-CLI](https://www.npmjs.com/package/sequelize-cli);
+  - [MySQL2](https://www.npmjs.com/package/mysql2);
 - [Express](https://expressjs.com/);
-    - [Express-FileUpload](https://www.npmjs.com/package/express-fileupload);
-    - [CORS](https://expressjs.com/en/resources/middleware/cors.html);
+  - [Express-FileUpload](https://www.npmjs.com/package/express-fileupload);
+  - [CORS](https://expressjs.com/en/resources/middleware/cors.html);
 - [JSON Web Token](https://jwt.io/libraries?language=Node.js).
 
 ## Requisitos, regras de negócio e tarefas
@@ -218,20 +221,6 @@ Pacotes do Node.js necessários para executar o projeto; estão disponíveis tam
   - [x] Possibilidade de editar e excluir projeto;
   - [x] Opção de gerar relatório contendo total de projetos e total de projetos por ODS.
 
-## Diagramas
-
-### Casos de uso
-
-![Diagrama de casos de uso](img/diagramas/casos_de_uso.png)
-
-### ER (Entidade-Relacionamento)
-
-![Diagrama ER do banco de dados](img/diagramas/er.png)
-
-### Relacional
-
-![Modelo relacional do banco de dados](img/diagramas/relacional.png)
-
 ## Cronograma
 
 - [x] 17/03 - Início do projeto;
@@ -256,8 +245,7 @@ Pacotes do Node.js necessários para executar o projeto; estão disponíveis tam
 - [x] 23/06 a 14/07 - Possibilidade de _upload_ de um vídeo de até dois minutos por projeto e filtros para visualização de projetos por cidade, ODS, causa de atuação e público-alvo;
 - [x] 20/07 - Banca avaliadora irá avaliar o desenvolvimento do projeto como um todo;
 - [x] 04/08 - Pitch final para a equipe do comitê de sustentabilidade;
-- [ ] 28/08 - Apresentação do projeto final para a banca avaliadora e comitê do projeto Somar (a banca avaliadora vai definir o projeto vencedor);
-- [ ] ??/08 - Entrega do projeto para o comitê de sustentabilidade.
+- [x] 28/08 - Apresentação do projeto final para a banca avaliadora e comitê do projeto Somar (a banca avaliadora vai definir o projeto vencedor);
 
 ## Linguagens, frameworks e ferramentas
 
@@ -278,7 +266,21 @@ Pacotes do Node.js necessários para executar o projeto; estão disponíveis tam
 - brModelo;
 - Astah UML.
 
-## Design e layouts
+## Diagramas, design e layouts
+
+Os diagramas e telas abaixo foram desenvolvidos durante a concepção inicial do projeto, podendo ter sofrido alterações durante o desenvolvimento.
+
+### Diagrama de casos de uso
+
+![Diagrama de casos de uso](img/diagramas/casos_de_uso.png)
+
+### Diagrama ER (Entidade-Relacionamento)
+
+![Diagrama ER do banco de dados](img/diagramas/er.png)
+
+### Diagrama relacional
+
+![Modelo relacional do banco de dados](img/diagramas/relacional.png)
 
 ### Guia de Cores ODS
 
