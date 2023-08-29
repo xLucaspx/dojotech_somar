@@ -33,14 +33,14 @@ export function insertHeaderAndFooter() {
       <img src="../img/logos/logo_fecomercio_branco.webp" alt class="footer__img"></a>
     
       <ul class="footer__social">
-        <li><a href="https://www.linkedin.com/school/senac-rs/" class="social__link social__link--linkedin"
-            target="_blank" title="Senac RS | LinkedIn"></a>
+        <li><a href="https://www.linkedin.com/in/xlucaspx/" class="social__link social__link--linkedin"
+            target="_blank" title="Lucas da Paz | LinkedIn"></a>
         </li>
-        <li><a href="https://www.instagram.com/senactech/" class="social__link social__link--instagram" target="_blank"
-            title="Senac Tech | Instagram"></a>
+        <li><a href="https://www.instagram.com/luacspaz/" class="social__link social__link--instagram" target="_blank"
+            title="Lucas da Paz | Instagram"></a>
         </li>
-        <li><a href="https://twitter.com/senacrs" class="social__link social__link--twitter" target="_blank"
-            title="Senac RS | Twitter"></a>
+        <li><a href="https://twitter.com/xLucaspx" class="social__link social__link--twitter" target="_blank"
+            title="Lucas da Paz | Twitter"></a>
         </li>
       </ul>
 

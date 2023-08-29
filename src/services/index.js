@@ -1,11 +1,11 @@
 const UsuarioServices = require("./UsuarioServices");
-const ProjetoServices = require("./ProjetoServices");
 const OdsServices = require("./OdsServices");
+const ProjetoServices = require("./ProjetoServices");
 const MidiaServices = require("./MidiaServices");
 
 module.exports = {
   UsuarioServices,
-  ProjetoServices,
   OdsServices,
+  ProjetoServices,
   MidiaServices,
 };

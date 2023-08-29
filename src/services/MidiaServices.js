@@ -12,8 +12,8 @@ class MidiaServices extends Services {
       const filePath = `../../public/img/projetos/${idProjeto}/${midia.name}`;
       const fullPath = path.join(__dirname, filePath);
 
-      // se o arquivo já existir, é substituído:
-      if (fs.existsSync(fullPath)) this.deletaMidia(idProjeto, midia.name);
+      // excluindo arquivo caso já exista:
+      this.deletaMidia(idProjeto, midia.name);
 
       midia.mv(fullPath);
 

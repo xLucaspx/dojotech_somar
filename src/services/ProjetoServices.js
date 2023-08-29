@@ -1,10 +1,15 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const Services = require("./Services");
 const db = require("../models");
-const { NotFoundError } = require("../errors");
+const { QueryTypes, ValidationError } = require("sequelize");
+const {
+  NotFoundError,
+  BadRequestError,
+  ConflictError,
+  UnauthorizedError,
+} = require("../errors");
+const Services = require("./Services");
 const escapeRegex = require("../utils/escapeRegex");
-const { QueryTypes } = require("sequelize");
 const criaRelatorioProjetos = require("../utils/criaRelatorioProjetos");
 
 class ProjetoServices extends Services {
@@ -44,28 +49,60 @@ class ProjetoServices extends Services {
     }
   }
 
-  async atualizaProjeto(dados, id) {
+  async cadastraProjeto(projeto) {
     try {
-      await this.atualizaRegistro(dados, { id });
+      return await this.criaRegistro(projeto);
     } catch (error) {
+      if (error instanceof ValidationError)
+        throw new BadRequestError(
+          "Por favor, verifique se os campos estão preenchidos corretamente!"
+        );
+
       throw error;
     }
   }
 
-  async atualizaOds(idProjeto, ods) {
+  async atualizaProjeto(dados, ods, id, idUsuario) {
     try {
-      const projeto = await this.buscaProjetoPorId(idProjeto);
-      await this.deletaOds(idProjeto);
+      let projeto = await this.buscaProjetoPorId(id);
+
+      if (dados.id && dados.id != projeto.id)
+        throw new ConflictError("Não é possível editar o id de um projeto!");
+
+      if (projeto.id_usuario != idUsuario)
+        throw new UnauthorizedError(
+          "Não é possível editar o projeto de outros usuários!"
+        );
+
+      if (dados.id_usuario && dados.id_usuario != projeto.id_usuario)
+        throw new ConflictError(
+          "Não é possível editar o usuário de um projeto!"
+        );
+
+      projeto = await projeto.update(dados);
+      await this.deletaOds(id);
       ods.forEach(async (item) => await projeto.addOds(item));
+
+      return projeto;
     } catch (error) {
+      if (error instanceof ValidationError)
+        throw new BadRequestError(
+          "Por favor, verifique se os campos estão preenchidos corretamente!"
+        );
+
       throw error;
     }
   }
 
-  async deletaProjeto(id) {
+  async deletaProjeto(id, idUsuario) {
     try {
       const projeto = await this.buscaProjetoPorId(id);
-      await this.deletaOds(id);
+
+      if (idUsuario != projeto.id_usuario)
+        throw new UnauthorizedError(
+          "Não é possível excluir o projeto de outro usuário!"
+        );
+
       return await projeto.destroy();
     } catch (error) {
       throw error;
@@ -88,8 +125,8 @@ class ProjetoServices extends Services {
           id_ods AS 'id',
           nome AS 'ods',
           COUNT(id_projeto) AS 'projetos'
-        FROM projeto_ods
-          INNER JOIN ods ON projeto_ods.id_ods = ods.id
+        FROM Projeto_ods
+          INNER JOIN Ods ON Projeto_ods.id_ods = Ods.id
         GROUP BY id_ods;`,
         { type: QueryTypes.SELECT }
       );

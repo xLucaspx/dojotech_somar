@@ -1,9 +1,10 @@
-import { UsuarioServices } from "../services/UsuarioServices.js";
+import { UsuarioController } from "../controller/index.js";
 import { buscaCookie, removeCookie } from "../utils/cookie.js";
 import { limpaInputs } from "../utils/input.js";
+import { escapeHtmlTags } from "../utils/regex.js";
 
-const tokenJwt = buscaCookie("tokenJwt");
-const usuarioServices = new UsuarioServices();
+const token = buscaCookie("tokenJwt");
+const usuarioController = new UsuarioController();
 let idUsuario;
 
 const btnVoltar = document.querySelector(".btnVoltar");
@@ -29,11 +30,11 @@ const inputUf = document.getElementById("cadastro_usuario__uf");
 
 const form = document.querySelector(".cadastro_usuario__form");
 
-if (tokenJwt) {
+if (token) {
   try {
-    const { id } = await usuarioServices.autenticaUsuario({ tokenJwt });
+    const { id } = await usuarioController.autenticaUsuario(token);
     idUsuario = id;
-    const usuario = await usuarioServices.buscaPorId(id);
+    const usuario = await usuarioController.buscaPorId(id, token);
 
     document.title = "Editar informações de usuário | Programa Somar";
     tituloForm.innerHTML = "Editar suas informações";
@@ -65,24 +66,24 @@ form.onsubmit = async (event) => {
   event.preventDefault();
 
   const usuario = {
-    nome: inputNome.value,
-    email: inputEmail.value,
-    usuario: inputUsuario.value,
-    telefone: inputTelefone.value,
-    senha: inputSenha.value,
-    cep: inputCep.value,
-    logradouro: inputLogradouro.value,
-    bairro: inputBairro.value,
-    numero: inputNumero.value,
-    complemento: inputComplemento.value,
-    cidade: inputCidade.value,
-    uf: inputUf.value,
+    nome: escapeHtmlTags(inputNome.value),
+    email: escapeHtmlTags(inputEmail.value),
+    usuario: escapeHtmlTags(inputUsuario.value),
+    telefone: escapeHtmlTags(inputTelefone.value),
+    senha: escapeHtmlTags(inputSenha.value),
+    cep: escapeHtmlTags(inputCep.value),
+    logradouro: escapeHtmlTags(inputLogradouro.value),
+    bairro: escapeHtmlTags(inputBairro.value),
+    numero: escapeHtmlTags(inputNumero.value),
+    complemento: escapeHtmlTags(inputComplemento.value),
+    cidade: escapeHtmlTags(inputCidade.value),
+    uf: escapeHtmlTags(inputUf.value),
   };
 
   try {
     !idUsuario
-      ? await usuarioServices.cadastra(usuario)
-      : await usuarioServices.atualiza(usuario, idUsuario);
+      ? await usuarioController.cadastra(usuario)
+      : await usuarioController.atualiza(usuario, idUsuario, token);
 
     alert(
       !idUsuario

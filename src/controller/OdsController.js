@@ -8,7 +8,7 @@ class OdsController {
       const ods = await odsServices.buscaRegistros();
       return res.status(200).json(ods);
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 }
