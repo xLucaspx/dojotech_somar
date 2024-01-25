@@ -36,7 +36,7 @@ export function insertHeaderAndFooter() {
         <li><a href="https://www.linkedin.com/in/xlucaspx/" class="social__link social__link--linkedin"
             target="_blank" title="Lucas da Paz | LinkedIn"></a>
         </li>
-        <li><a href="https://www.instagram.com/luacspaz/" class="social__link social__link--instagram" target="_blank"
+        <li><a href="https://www.instagram.com/_xlucaspx/" class="social__link social__link--instagram" target="_blank"
             title="Lucas da Paz | Instagram"></a>
         </li>
         <li><a href="https://twitter.com/xLucaspx" class="social__link social__link--twitter" target="_blank"
