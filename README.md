@@ -117,7 +117,7 @@ Agora você já deve ter todas as tabelas do projeto criadas no seu banco, com o
 
 Para rodar o servidor no _backend_ do projeto, ainda no terminal e na pasta [**src**](src/), execute o comando `npm start`.
 
-Abra o projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) abra o arquivo [**index.html**](public/views/index.html) e clique no botão "Go Live" do _Live Server_.
+Abra a raíz do projeto no _VS Code_; dentro da pasta [**public/views**](public/views/) abra o arquivo [**index.html**](public/views/index.html) e clique no botão "Go Live" do _Live Server_.
 
 ### Testes
 

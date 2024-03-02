@@ -23,7 +23,7 @@ function criaCardProjeto(dados) {
   const li = document.createElement("li");
   let arrOds = dados.Ods.map((ods) => ods.id);
   let miniatura = `
-    <img src="${dados.Midia.length === 0 ? "../img/projetos/no-media.webp" : dados.Midia[0].url}" alt class="projeto__miniatura">
+    <img src="${dados.Midia.length === 0 ? "/public/img/projetos/no-media.webp" : dados.Midia[0].url}" alt class="projeto__miniatura">
   `;
 
   if (fileTypes.video.includes(dados.Midia[0]?.tipo)) miniatura = `<video src="${dados.Midia[0].url}" alt class="projeto__miniatura"></video>`
