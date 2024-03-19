@@ -30,7 +30,7 @@ export function insertHeaderAndFooter() {
 
   footer.innerHTML = `
     <div class="footer__div">
-      <img src="../img/logos/logo_fecomercio_branco.webp" alt class="footer__img"></a>
+      <img src="../img/logos/logo_fecomercio_branco.webp" alt class="footer__img">
     
       <ul class="footer__social">
         <li><a href="https://www.linkedin.com/in/xlucaspx/" class="social__link social__link--linkedin"
