@@ -1,5 +1,7 @@
+import { BASE_URL } from "../baseUrl.js";
+
 class Controller {
-  baseUrl = "http://localhost:3000";
+  baseUrl = BASE_URL;
 
   constructor(resource) {
     this.url = this.baseUrl + resource;
@@ -27,7 +29,7 @@ class Controller {
 
   async buscaPorId(id, token = "") {
     try {
-      const res = await fetch(`${this.url}/${id}`, {
+      const res = await fetch(`${this.url}/details?id=${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

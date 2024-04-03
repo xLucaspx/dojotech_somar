@@ -2,11 +2,11 @@ import Controller from "./Controller.js";
 
 class ProjetoController extends Controller {
   constructor() {
-    super("/projetos");
+    super("/project");
   }
 
   async buscaPorFiltro(filtro, valor) {
-    const url = this.url + `/filtro?${filtro}=${valor}`;
+    const url = this.url + `?${filtro}=${valor}`;
 
     try {
       const res = await fetch(url, {

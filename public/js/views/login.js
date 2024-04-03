@@ -29,12 +29,12 @@ form.onsubmit = async (event) => {
   const senha = inputSenha.value;
 
   try {
-    const tokenJwt = await usuarioController.logaUsuario({
-      usuario,
-      senha,
+    const token = await usuarioController.logaUsuario({
+      user: usuario,
+      password: senha,
     });
-    defineCookie("tokenJwt", tokenJwt);
-    window.location.href = "index.html";
+    defineCookie("tokenJwt", token);
+    // window.location.href = "index.html";
   } catch (error) {
     alert(`Erro ao fazer login:\n${error.message}`);
   } finally {
