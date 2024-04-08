@@ -32,25 +32,25 @@ const form = document.querySelector(".cadastro_usuario__form");
 
 if (token) {
   try {
-    const { id } = await usuarioController.autenticaUsuario(token);
-    idUsuario = id;
-    const usuario = await usuarioController.buscaPorId(id, token);
+    const { sub } = await usuarioController.autenticaUsuario(token);
+    idUsuario = sub;
+    const usuario = await usuarioController.buscaPorId(sub, token);
 
     document.title = "Editar informações de usuário | Programa Somar";
     tituloForm.innerHTML = "Editar suas informações";
     btnForm.textContent = "Atualizar informações";
 
-    inputNome.value = usuario.nome;
+    inputNome.value = usuario.name;
     inputEmail.value = usuario.email;
-    inputUsuario.value = usuario.usuario;
-    inputTelefone.value = usuario.telefone;
-    inputCep.value = usuario.cep;
-    inputLogradouro.value = usuario.logradouro;
-    inputBairro.value = usuario.bairro;
-    inputNumero.value = usuario.numero;
-    inputComplemento.value = usuario.complemento;
-    inputCidade.value = usuario.cidade;
-    inputUf.value = usuario.uf;
+    inputUsuario.value = usuario.username;
+    inputTelefone.value = usuario.phone.replace(/^(\d{2})(9?)(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+    inputCep.value = usuario.address.postalCode.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+    inputLogradouro.value = usuario.address.address;
+    inputBairro.value = usuario.address.district;
+    inputNumero.value = usuario.address.number;
+    inputComplemento.value = usuario.address.complement;
+    inputCidade.value = usuario.address.city;
+    inputUf.value = usuario.address.state;
 
     inputSenha.required = false;
     const labelSenha = document.getElementById("label-senha");
@@ -66,19 +66,22 @@ form.onsubmit = async (event) => {
   event.preventDefault();
 
   const usuario = {
-    nome: escapeHtmlTags(inputNome.value),
+    name: escapeHtmlTags(inputNome.value),
     email: escapeHtmlTags(inputEmail.value),
-    usuario: escapeHtmlTags(inputUsuario.value),
-    telefone: escapeHtmlTags(inputTelefone.value),
-    senha: escapeHtmlTags(inputSenha.value),
-    cep: escapeHtmlTags(inputCep.value),
-    logradouro: escapeHtmlTags(inputLogradouro.value),
-    bairro: escapeHtmlTags(inputBairro.value),
-    numero: escapeHtmlTags(inputNumero.value),
-    complemento: escapeHtmlTags(inputComplemento.value),
-    cidade: escapeHtmlTags(inputCidade.value),
-    uf: escapeHtmlTags(inputUf.value),
+    username: escapeHtmlTags(inputUsuario.value),
+    phone: escapeHtmlTags(inputTelefone.value),
+    postalCode: escapeHtmlTags(inputCep.value),
+    address: escapeHtmlTags(inputLogradouro.value),
+    district: escapeHtmlTags(inputBairro.value),
+    number: escapeHtmlTags(inputNumero.value),
+    complement: escapeHtmlTags(inputComplemento.value),
+    city: escapeHtmlTags(inputCidade.value),
+    state: escapeHtmlTags(inputUf.value),
   };
+
+	if (inputSenha.value) {
+		usuario.password = escapeHtmlTags(inputSenha.value);
+	}
 
   try {
     !idUsuario

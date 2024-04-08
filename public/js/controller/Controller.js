@@ -71,7 +71,7 @@ class Controller {
 
   async atualiza(dados, id, token = "") {
     try {
-      const res = await fetch(`${this.url}/${id}`, {
+      const res = await fetch(`${this.url}?id=${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -80,10 +80,9 @@ class Controller {
         body: JSON.stringify(dados),
       });
 
+      if (res.ok) return;
+
       const data = await res.json();
-
-      if (res.ok) return data;
-
       throw new Error(data.error);
     } catch (error) {
       throw error;

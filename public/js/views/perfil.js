@@ -9,8 +9,8 @@ let idUsuario;
 
 if (token) {
   try {
-    const usuario = await usuarioController.autenticaUsuario(token);
-    idUsuario = usuario.id;
+		const { sub } = await usuarioController.autenticaUsuario(token);
+		idUsuario = sub;
   } catch (error) {
     alert(`Erro ao autenticar usuário:\n${error.message}`);
     removeCookie("tokenJwt");
@@ -52,7 +52,7 @@ const msgProjetos = document.querySelector(".busca__msg");
 
 try {
   const usuario = await usuarioController.buscaPorId(idUsuario, token);
-  const projetos = await projetoController.buscaPorUsuario(idUsuario, token);
+  const projetos = await usuarioController.buscaProjetos(idUsuario, token);
 
   botoesUsuario.innerHTML = `
     <a href="form_usuario.html" class="btnEditar btn btnPadrao btnNav" title="Editar suas informações">Editar</a>
@@ -76,18 +76,18 @@ try {
     }
   });
 
-  nome.innerHTML = usuario.nome;
-  username.innerHTML = usuario.usuario;
+  nome.innerHTML = usuario.name;
+  username.innerHTML = usuario.username;
   email.innerHTML = usuario.email;
-  telefone.innerHTML = usuario.telefone;
-  cep.innerHTML = usuario.cep;
+  telefone.innerHTML = usuario.phone.replace(/^(\d{2})(9?)(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+  cep.innerHTML = usuario.address.postalCode.replace(/^(\d{5})(\d{3})$/, '$1-$2');
   endereco.innerHTML = criaStringEndereco(
-    usuario.logradouro,
-    usuario.numero,
-    usuario.complemento
+    usuario.address.address,
+    usuario.address.number,
+    usuario.address.complement
   );
-  bairro.innerHTML = usuario.bairro;
-  cidade.innerHTML = `${usuario.cidade} - ${usuario.uf}`;
+  bairro.innerHTML = usuario.address.district;
+  cidade.innerHTML = `${usuario.address.city} - ${usuario.address.state}`;
 
   if (projetos.length === 0)
     msgProjetos.innerHTML = "Você ainda não possui projetos.";

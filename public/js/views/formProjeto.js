@@ -1,3 +1,4 @@
+import { BASE_URL } from "../baseUrl.js";
 import {
 	OdsController,
 	ProjetoController,
@@ -19,8 +20,8 @@ let idUsuario;
 
 if (token) {
 	try {
-		const usuario = await usuarioController.autenticaUsuario(token);
-		idUsuario = usuario.id;
+		const { sub } = await usuarioController.autenticaUsuario(token);
+		idUsuario = sub;
 	} catch (error) {
 		alert(`Erro ao autenticar usuário:\n${error.message}`);
 		removeCookie("tokenJwt");
@@ -54,42 +55,42 @@ if (idProjeto) {
 		projeto = await projetoController.buscaPorId(idProjeto);
 
 		if (!projeto) throw new Error("Projeto não encontrado!");
-		if (projeto.id_usuario !== idUsuario)
+		if (projeto.userId !== idUsuario)
 			throw new Error(
 				`Você não tem permissão para acessar esta página! Apenas o usuário que cadastrou o projeto pode editar suas informações.`
 			);
 
-		document.title = `Editar projeto ${projeto.nome} | Programa Somar`;
+		document.title = `Editar projeto ${projeto.name} | Programa Somar`;
 
-		btnVoltar.title = `Voltar à página do projeto ${projeto.nome}`;
+		btnVoltar.title = `Voltar à página do projeto ${projeto.name}`;
 
 		tituloForm.innerHTML = "Editar projeto";
 		btnForm.textContent = "Atualizar projeto";
 
-		inputNome.value = projeto.nome;
-		inputCausa.value = projeto.causa;
-		inputObjetivo.value = projeto.objetivo;
-		inputPublico.value = projeto.publico_alvo;
-		inputCidade.value = projeto.cidade;
-		inputParceiros.value = projeto.parceiros;
-		inputResumo.value = projeto.resumo;
+		inputNome.value = projeto.name;
+		inputCausa.value = projeto.cause;
+		inputObjetivo.value = projeto.goal;
+		inputPublico.value = projeto.target;
+		inputCidade.value = projeto.city;
+		inputParceiros.value = projeto.partners;
+		inputResumo.value = projeto.summary;
 
 		// marcando as ODS do projeto:
-		projeto.Ods.forEach(
+		projeto.sdg.forEach(
 			(ods) => (document.getElementById(`ods_${ods.id}`).checked = true)
 		);
 
-		for (let i = 0; i < projeto.Midia.length; i++) {
-			const midia = projeto.Midia[i];
-			const input = fileTypes.video.includes(midia.tipo)
+		for (let i = 0; i < projeto.medias.length; i++) {
+			const midia = projeto.medias[i];
+			const input = fileTypes.video.includes(midia.type)
 				? document.getElementById("cadastro_projeto__video--1")
 				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
 
-			const itemMidia = await fetch(midia.url);
+			const itemMidia = await fetch(BASE_URL + midia.url);	
 			const blobMidia = await itemMidia.blob();
 			const dt = new DataTransfer();
 			dt.items.add(
-				new File([blobMidia], midia.nome, {
+				new File([blobMidia], midia.url.split("/").pop(), {
 					type: blobMidia.type,
 					lastModified: new Date(),
 				})
@@ -98,8 +99,9 @@ if (idProjeto) {
 			input.dispatchEvent(new Event("change"));
 		}
 	} catch (error) {
-		alert(`Houve um erro ao acessar a página:\n${error.message}`);
-		window.location.href = "projetos.html";
+		// alert(`Houve um erro ao acessar a página:\n${error.message}`);
+		// window.location.href = "projetos.html";
+		console.error(error);
 	}
 }
 

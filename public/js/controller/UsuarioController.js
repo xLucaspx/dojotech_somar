@@ -3,7 +3,7 @@ import Controller from "./Controller.js";
 
 class UsuarioController extends Controller {
 	constructor() {
-		super("/usuarios");
+		super("/user");
 	}
 
 	async autenticaUsuario(token) {
@@ -55,6 +55,28 @@ class UsuarioController extends Controller {
 			throw error;
 		}
 	}
+
+	async buscaProjetos(idUsuario, token = "") {
+    const url = this.url + `/projects?userId=${idUsuario}`;
+
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+
+      if (res.ok) return data;
+
+      throw new Error(data.error);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default UsuarioController;

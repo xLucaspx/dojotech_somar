@@ -24,28 +24,6 @@ class ProjetoController extends Controller {
     }
   }
 
-  async buscaPorUsuario(idUsuario, token = "") {
-    const url = this.url + `/usuario?idUsuario=${idUsuario}`;
-
-    try {
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-
-      if (res.ok) return data;
-
-      throw new Error(data.error);
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async geraRelatorio(token = "") {
     try {
       const res = await fetch(`${this.url}/relatorio`, {

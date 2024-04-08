@@ -59,7 +59,7 @@ function criaCheckboxOds(dados) {
 
 	const conteudo = `
     <input type="checkbox" name="ods" id="ods_${id}" value="${id}" class="form__input--checkbox">
-    <label for="ods_${id}" class="form__label--checkbox">${id} - ${dados.nome}</label>
+    <label for="ods_${id}" class="form__label--checkbox">${id} - ${dados.name}</label>
   `;
 
 	li.innerHTML = conteudo;
