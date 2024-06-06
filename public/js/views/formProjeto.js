@@ -82,22 +82,40 @@ if (idProjeto) {
 
 		for (let i = 0; i < projeto.medias.length; i++) {
 			const midia = projeto.medias[i];
+		
+			// pegando o input
 			const input = fileTypes.video.includes(midia.type)
-				? document.getElementById("cadastro_projeto__video--1")
-				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
+					? document.getElementById("cadastro_projeto__video--1")
+					: document.getElementById(`cadastro_projeto__imagem--${i + 1}`)
 
-			const itemMidia = await fetch(BASE_URL + midia.url);	
-			const blobMidia = await itemMidia.blob();
-			const dt = new DataTransfer();
-			dt.items.add(
-				new File([blobMidia], midia.url.split("/").pop(), {
-					type: blobMidia.type,
-					lastModified: new Date(),
-				})
-			);
-			input.files = dt.files;
-			input.dispatchEvent(new Event("change"));
+			// atualizando midia info
+			const info = input.parentElement.querySelector(".cadastro_projeto__midia-info");
+			info.innerHTML = midia.url.split("/").pop();
+
+			// atualizando botão de remover mídia
+			const btnRemoverMidia = input.parentElement.querySelector(".btnRemoverMidia");
+			btnRemoverMidia.classList.remove("btnRemoverMidia--hidden");
+			btnRemoverMidia.dataset.idMidia = midia.id;
 		}
+
+		// for (let i = 0; i < projeto.medias.length; i++) {
+		// 	const midia = projeto.medias[i];
+		// 	const input = fileTypes.video.includes(midia.type)
+		// 		? document.getElementById("cadastro_projeto__video--1")
+		// 		: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
+
+		// 	const itemMidia = await fetch(BASE_URL + midia.url);
+		// 	const blobMidia = await itemMidia.blob();
+		// 	const dt = new DataTransfer();
+		// 	dt.items.add(
+		// 		new File([blobMidia], midia.url.split("/").pop(), {
+		// 			type: blobMidia.type,
+		// 			lastModified: new Date(),
+		// 		})
+		// 	);
+		// 	input.files = dt.files;
+		// 	input.dispatchEvent(new Event("change"));
+		// }
 	} catch (error) {
 		// alert(`Houve um erro ao acessar a página:\n${error.message}`);
 		// window.location.href = "projetos.html";
@@ -106,11 +124,21 @@ if (idProjeto) {
 }
 
 const btnRemoverMidia = document.querySelectorAll(".btnRemoverMidia");
-
 btnRemoverMidia.forEach((btn) =>
-	btn.addEventListener("click", () => {
+	btn.addEventListener("click", async () => {
 		const input = btn.parentElement.querySelector(".cadastro_projeto__midia");
-		input.value = "";
+
+		if (btn.dataset.idMidia) {
+		const remove = confirm("Tem certeza que deseja excluir esta mídia do seu projeto?\nNão é possível desfazer esta ação!");
+
+		if (!remove) return;
+
+		await projetoController.removeMidia(idProjeto, btn.dataset.idMidia, token);	
+		} else {
+			input.value = "";
+		}
+
+		// atualizando input
 		input.dispatchEvent(new Event("change"));
 	})
 );
@@ -123,17 +151,21 @@ form.onsubmit = async (event) => {
 	event.preventDefault();
 
 	const projeto = {
-		nome: escapeHtmlTags(inputNome.value),
-		causa: escapeHtmlTags(inputCausa.value),
-		objetivo: escapeHtmlTags(inputObjetivo.value),
-		publico_alvo: escapeHtmlTags(inputPublico.value),
-		cidade: escapeHtmlTags(inputCidade.value),
-		parceiros: escapeHtmlTags(inputParceiros.value),
-		resumo: escapeHtmlTags(inputResumo.value),
-		id_usuario: idUsuario,
+		name: escapeHtmlTags(inputNome.value),
+		cause: escapeHtmlTags(inputCausa.value),
+		goal: escapeHtmlTags(inputObjetivo.value),
+		target: escapeHtmlTags(inputPublico.value),
+		city: escapeHtmlTags(inputCidade.value),
+		partners: escapeHtmlTags(inputParceiros.value),
+		summary: escapeHtmlTags(inputResumo.value),
+		userId: idUsuario,
 	};
 	const inputOds = document.querySelectorAll("input[name=ods]:checked");
 	const ods = Array.from(inputOds).map((input) => input.value);
+
+	if (idProjeto) {
+		projeto.id = idProjeto;
+	}
 
 	try {
 		if (ods.length <= 0) {
@@ -141,30 +173,32 @@ form.onsubmit = async (event) => {
 		}
 
 		const { id } = !idProjeto
-			? await projetoController.cadastra({ projeto, ods }, token)
-			: await projetoController.atualiza({ projeto, ods }, idProjeto, token);
+			? await projetoController.cadastra({ project: projeto, sdg: ods }, token)
+			: await projetoController.atualiza({ project: projeto, sdg: ods }, token);
 
-		let formData;
-		let i = 1;
+		console.log(id);
 
-		for (const input of listaInputMidia) {
-			if (input.files.length === 0) continue;
+		// let formData;
+		// let i = 1;
 
-			if (!formData) formData = new FormData();
+		// for (const input of listaInputMidia) {
+		// 	if (input.files.length === 0) continue;
 
-			let file = input.files[0];
-			// pega a extensão do arquivo:
-			const ext = file.name.split(".").pop();
-			// renomeia o arquivo:
-			file = fileTypes.video.includes(file.type)
-				? renameFile(file, `video.${ext}`)
-				: renameFile(file, `midia_${i}.${ext}`);
+		// 	if (!formData) formData = new FormData();
 
-			formData.append(file.name, file);
-			i++;
-		}
+		// 	let file = input.files[0];
+		// 	// pega a extensão do arquivo:
+		// 	const ext = file.name.split(".").pop();
+		// 	// renomeia o arquivo:
+		// 	file = fileTypes.video.includes(file.type)
+		// 		? renameFile(file, `video.${ext}`)
+		// 		: renameFile(file, `midia_${i}.${ext}`);
 
-		if (formData) await projetoController.cadastraMidias(id, formData, token);
+		// 	formData.append(file.name, file);
+		// 	i++;
+		// }
+
+		// if (formData) await projetoController.cadastraMidias(id, formData, token);
 
 		alert(
 			!idProjeto
@@ -207,6 +241,6 @@ function cancelarAlterações() {
 		msg = `Tem certeza que deseja retornar à página do projeto ${projeto.nome}?`;
 	}
 
-	if (confirm(msg + "\nTodas as alterações serão perdidas!"))
+	if (confirm(msg + "\nAs alterações podem ser perdidas!"))
 		window.location.replace(url);
 }

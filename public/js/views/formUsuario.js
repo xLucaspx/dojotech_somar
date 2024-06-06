@@ -79,6 +79,10 @@ form.onsubmit = async (event) => {
     state: escapeHtmlTags(inputUf.value),
   };
 
+	if (idUsuario) {
+		usuario.id = idUsuario;
+	}
+
 	if (inputSenha.value) {
 		usuario.password = escapeHtmlTags(inputSenha.value);
 	}
@@ -86,7 +90,7 @@ form.onsubmit = async (event) => {
   try {
     !idUsuario
       ? await usuarioController.cadastra(usuario)
-      : await usuarioController.atualiza(usuario, idUsuario, token);
+      : await usuarioController.atualiza(usuario, token);
 
     alert(
       !idUsuario

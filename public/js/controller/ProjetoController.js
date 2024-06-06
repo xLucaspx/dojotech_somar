@@ -66,6 +66,24 @@ class ProjetoController extends Controller {
       throw error;
     }
   }
+
+	async removeMidia(idProjeto, idMidia, token = "") {
+		const url = this.url + `/media`
+
+			const res = await fetch(url, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${token}`
+				},
+				body: JSON.stringify({ projectId: idProjeto, mediaId: idMidia }),
+			});
+
+			if (res.ok) return;
+
+			const data = await res.json();
+			throw new Error(data.error);
+	}
 }
 
 export default ProjetoController;
