@@ -44,46 +44,41 @@ class ProjetoController extends Controller {
   }
 
   async cadastraMidias(idProjeto, formData, token = "") {
-    const url = this.url + `/${idProjeto}/midias`;
+    const url = this.url + `/$media?projectId=${idProjeto}`;
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          // não colocar o content-type para que o browser defina o
-          // boundary=----WebKitFormBoundary, que delimita os arquivos
-          authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        // não colocar o content-type para que o browser defina o
+        // boundary=----WebKitFormBoundary, que delimita os arquivos
+        authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
 
-      if (res.ok) return;
+    if (res.ok) return;
 
-      const data = await res.json();
-      throw new Error(data.error);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    const data = await res.json();
+    throw new Error(data.error);
   }
 
-	async removeMidia(idProjeto, idMidia, token = "") {
-		const url = this.url + `/media`
+  async removeMidia(idProjeto, idMidia, token = "") {
+    const url = this.url + `/media`
 
-			const res = await fetch(url, {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-					authorization: `Bearer ${token}`
-				},
-				body: JSON.stringify({ projectId: idProjeto, mediaId: idMidia }),
-			});
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ projectId: idProjeto, mediaId: idMidia }),
+    });
 
-			if (res.ok) return;
+    if (res.ok) return;
 
-			const data = await res.json();
-			throw new Error(data.error);
-	}
+    const data = await res.json();
+    throw new Error(data.error);
+  }
 }
 
 export default ProjetoController;

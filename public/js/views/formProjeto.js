@@ -82,11 +82,11 @@ if (idProjeto) {
 
 		for (let i = 0; i < projeto.medias.length; i++) {
 			const midia = projeto.medias[i];
-		
+
 			// pegando o input
 			const input = fileTypes.video.includes(midia.type)
-					? document.getElementById("cadastro_projeto__video--1")
-					: document.getElementById(`cadastro_projeto__imagem--${i + 1}`)
+				? document.getElementById("cadastro_projeto__video--1")
+				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`)
 
 			// atualizando midia info
 			const info = input.parentElement.querySelector(".cadastro_projeto__midia-info");
@@ -97,29 +97,9 @@ if (idProjeto) {
 			btnRemoverMidia.classList.remove("btnRemoverMidia--hidden");
 			btnRemoverMidia.dataset.idMidia = midia.id;
 		}
-
-		// for (let i = 0; i < projeto.medias.length; i++) {
-		// 	const midia = projeto.medias[i];
-		// 	const input = fileTypes.video.includes(midia.type)
-		// 		? document.getElementById("cadastro_projeto__video--1")
-		// 		: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
-
-		// 	const itemMidia = await fetch(BASE_URL + midia.url);
-		// 	const blobMidia = await itemMidia.blob();
-		// 	const dt = new DataTransfer();
-		// 	dt.items.add(
-		// 		new File([blobMidia], midia.url.split("/").pop(), {
-		// 			type: blobMidia.type,
-		// 			lastModified: new Date(),
-		// 		})
-		// 	);
-		// 	input.files = dt.files;
-		// 	input.dispatchEvent(new Event("change"));
-		// }
 	} catch (error) {
-		// alert(`Houve um erro ao acessar a página:\n${error.message}`);
-		// window.location.href = "projetos.html";
-		console.error(error);
+		alert(`Houve um erro ao acessar a página:\n${error.message}`);
+		window.location.href = "projetos.html";
 	}
 }
 
@@ -129,11 +109,12 @@ btnRemoverMidia.forEach((btn) =>
 		const input = btn.parentElement.querySelector(".cadastro_projeto__midia");
 
 		if (btn.dataset.idMidia) {
-		const remove = confirm("Tem certeza que deseja excluir esta mídia do seu projeto?\nNão é possível desfazer esta ação!");
+			const remove = confirm("Tem certeza que deseja excluir esta mídia do seu projeto?\nNão é possível desfazer esta ação!");
 
-		if (!remove) return;
+			if (!remove) return;
 
-		await projetoController.removeMidia(idProjeto, btn.dataset.idMidia, token);	
+			await projetoController.removeMidia(idProjeto, btn.dataset.idMidia, token);
+			btn.dataset.idMidia = '';
 		} else {
 			input.value = "";
 		}
@@ -176,29 +157,27 @@ form.onsubmit = async (event) => {
 			? await projetoController.cadastra({ project: projeto, sdg: ods }, token)
 			: await projetoController.atualiza({ project: projeto, sdg: ods }, token);
 
-		console.log(id);
+		let formData;
+		let i = 1;
 
-		// let formData;
-		// let i = 1;
+		for (const input of listaInputMidia) {
+			if (input.files.length === 0) continue;
 
-		// for (const input of listaInputMidia) {
-		// 	if (input.files.length === 0) continue;
+			if (!formData) formData = new FormData();
 
-		// 	if (!formData) formData = new FormData();
+			let file = input.files[0];
+			// pega a extensão do arquivo:
+			const ext = file.name.split(".").pop();
+			// renomeia o arquivo:
+			file = fileTypes.video.includes(file.type)
+				? renameFile(file, `video.${ext}`)
+				: renameFile(file, `imagem_${i}.${ext}`);
 
-		// 	let file = input.files[0];
-		// 	// pega a extensão do arquivo:
-		// 	const ext = file.name.split(".").pop();
-		// 	// renomeia o arquivo:
-		// 	file = fileTypes.video.includes(file.type)
-		// 		? renameFile(file, `video.${ext}`)
-		// 		: renameFile(file, `midia_${i}.${ext}`);
+			formData.append(file.name, file);
+			i++;
+		}
 
-		// 	formData.append(file.name, file);
-		// 	i++;
-		// }
-
-		// if (formData) await projetoController.cadastraMidias(id, formData, token);
+		if (formData) await projetoController.cadastraMidias(id, formData, token);
 
 		alert(
 			!idProjeto
