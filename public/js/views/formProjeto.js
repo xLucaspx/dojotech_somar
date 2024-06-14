@@ -86,14 +86,17 @@ if (idProjeto) {
 			// pegando o input
 			const input = fileTypes.video.includes(midia.type)
 				? document.getElementById("cadastro_projeto__video--1")
-				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`)
+				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
 
 			// atualizando midia info
-			const info = input.parentElement.querySelector(".cadastro_projeto__midia-info");
+			const info = input.parentElement.querySelector(
+				".cadastro_projeto__midia-info"
+			);
 			info.innerHTML = midia.url.split("/").pop();
 
 			// atualizando botão de remover mídia
-			const btnRemoverMidia = input.parentElement.querySelector(".btnRemoverMidia");
+			const btnRemoverMidia =
+				input.parentElement.querySelector(".btnRemoverMidia");
 			btnRemoverMidia.classList.remove("btnRemoverMidia--hidden");
 			btnRemoverMidia.dataset.idMidia = midia.id;
 		}
@@ -109,12 +112,18 @@ btnRemoverMidia.forEach((btn) =>
 		const input = btn.parentElement.querySelector(".cadastro_projeto__midia");
 
 		if (btn.dataset.idMidia) {
-			const remove = confirm("Tem certeza que deseja excluir esta mídia do seu projeto?\nNão é possível desfazer esta ação!");
+			const remove = confirm(
+				"Tem certeza que deseja excluir esta mídia do seu projeto?\nNão é possível desfazer esta ação!"
+			);
 
 			if (!remove) return;
 
-			await projetoController.removeMidia(idProjeto, btn.dataset.idMidia, token);
-			btn.dataset.idMidia = '';
+			await projetoController.removeMidia(
+				idProjeto,
+				btn.dataset.idMidia,
+				token
+			);
+			btn.dataset.idMidia = "";
 		} else {
 			input.value = "";
 		}
@@ -153,9 +162,17 @@ form.onsubmit = async (event) => {
 			throw new Error("Você precisa selecionar pelo menos um ODS!");
 		}
 
-		const { id } = !idProjeto
-			? await projetoController.cadastra({ project: projeto, sdg: ods }, token)
-			: await projetoController.atualiza({ project: projeto, sdg: ods }, token);
+		let id;
+		if (idProjeto) {
+			await projetoController.atualiza({ project: projeto, sdg: ods }, token);
+			id = idProjeto;
+		} else {
+			const res = await projetoController.cadastra(
+				{ project: projeto, sdg: ods },
+				token
+			);
+			id = res.id;
+		}
 
 		let formData;
 		let i = 1;
@@ -165,13 +182,8 @@ form.onsubmit = async (event) => {
 
 			if (!formData) formData = new FormData();
 
-			let file = input.files[0];
-			// pega a extensão do arquivo:
-			const ext = file.name.split(".").pop();
-			// renomeia o arquivo:
-			file = fileTypes.video.includes(file.type)
-				? renameFile(file, `video.${ext}`)
-				: renameFile(file, `imagem_${i}.${ext}`);
+			// renomeia e retorna o arquivo:
+			const file = renameFile(input.files[0]);
 
 			formData.append(file.name, file);
 			i++;
