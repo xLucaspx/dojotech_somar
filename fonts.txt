@@ -1,4 +1,0 @@
-// Ubuntu (300, 400, 500, 700) + Bitter (300, 400, 500, 700)
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700&family=Ubuntu:wght@300;400;500;700&display=swap">
