@@ -31,7 +31,7 @@ try {
 	projeto = await projetoController.buscaPorId(idProjeto);
 
 	if (!projeto) throw new Error("Projeto não encontrado!");
-	document.title = `${projeto.name} | Programa Somar`;
+	document.title = `${projeto.name} | Ajuda RS`;
 } catch (error) {
 	alert(`Houve um erro ao abrir a página do projeto:\n${error.message}`);
 	window.location.href = "projetos.html";

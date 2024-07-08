@@ -100,7 +100,7 @@ try {
   }
 
   msgProjetos.innerHTML += `
-    <a href="form_projeto.html" class="link" title="Cadastre um projeto | Programa Somar">
+    <a href="form_projeto.html" class="link" title="Cadastre um projeto | Ajuda RS">
       <strong class="texto--destaque">Cadastre um projeto!</strong>
     </a>
   `;

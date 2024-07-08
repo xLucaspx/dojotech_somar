@@ -17,8 +17,9 @@ export function insertHeaderAndFooter() {
   const footer = document.getElementById("dynamic_footer");
 
   header.innerHTML = `
-    <a href="index.html" class="logo__link" title="Home | Programa Somar">
-      <img src="../img/logos/logo_programa_somar.webp" alt width="260" height="60">
+    <a href="index.html" class="logo__link" title="Home | Ajuda RS">
+      <img src="../img/logos/logo_cores_ods.svg" alt width="60" height="60">
+			<h1 class="titulo">Ajuda RS</h1>
     </a>
 
     <div class="header__div">
@@ -30,7 +31,7 @@ export function insertHeaderAndFooter() {
 
   footer.innerHTML = `
     <div class="footer__div">
-      <img src="../img/logos/logo_fecomercio_branco.webp" alt class="footer__img"></a>
+      <img src="../img/logos/bandeira-rs.svg" alt="Bandeira do Rio Grande do Sul - Liberdade, igualdade e humanidade" class="footer__img"></a>
     
       <ul class="footer__social">
         <li><a href="https://www.linkedin.com/in/xlucaspx/" class="social__link social__link--linkedin"
@@ -47,6 +48,6 @@ export function insertHeaderAndFooter() {
       ${nav}
     </div>
 
-    <p class="creditos">Devs da 222 &copy; 2023</p>
+    <p class="creditos">Lucas da Paz &copy; 2024</p>
   `;
 }

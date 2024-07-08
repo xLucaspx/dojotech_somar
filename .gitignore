@@ -1,8 +1,3 @@
-node_modules
-
 /.vscode/
 
-.env
-
-outros
-coverage
+outros/

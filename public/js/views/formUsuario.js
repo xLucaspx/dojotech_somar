@@ -36,7 +36,7 @@ if (token) {
     idUsuario = sub;
     const usuario = await usuarioController.buscaPorId(sub, token);
 
-    document.title = "Editar informações de usuário | Programa Somar";
+    document.title = "Editar informações de usuário | Ajuda RS";
     tituloForm.innerHTML = "Editar suas informações";
     btnForm.textContent = "Atualizar informações";
 

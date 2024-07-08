@@ -60,7 +60,7 @@ if (idProjeto) {
 				`Você não tem permissão para acessar esta página! Apenas o usuário que cadastrou o projeto pode editar suas informações.`
 			);
 
-		document.title = `Editar projeto ${projeto.name} | Programa Somar`;
+		document.title = `Editar projeto ${projeto.name} | Ajuda RS`;
 
 		btnVoltar.title = `Voltar à página do projeto ${projeto.name}`;
 
