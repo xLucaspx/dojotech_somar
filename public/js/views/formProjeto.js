@@ -189,7 +189,11 @@ form.onsubmit = async (event) => {
 			i++;
 		}
 
-		if (formData) await projetoController.cadastraMidias(id, formData, token);
+		try {
+			if (formData) await projetoController.cadastraMidias(id, formData, token);
+		} catch (error) {
+			alert(error.message);
+		}
 
 		alert(
 			!idProjeto

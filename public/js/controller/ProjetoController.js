@@ -24,19 +24,17 @@ class ProjetoController extends Controller {
 		}
 	}
 
-	async geraRelatorio(token = "") {
+	async geraRelatorio() {
 		try {
-			const res = await fetch(`${this.url}/relatorio`, {
+			const res = await fetch(`${this.url}/report`, {
 				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					authorization: `Bearer ${token}`,
-				},
+				headers: {"Content-Type": "application/json"}
 			});
 
-			if (res.ok) return;
-
 			const data = await res.json();
+
+			if (res.ok) return data.report;
+
 			throw new Error(data.error);
 		} catch (error) {
 			throw error;
@@ -56,7 +54,7 @@ class ProjetoController extends Controller {
 			body: formData,
 		});
 
-		if (res.ok) return;
+		if (res.status == 200) return;
 
 		const data = await res.json();
 		throw new Error(data.error);
