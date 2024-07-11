@@ -38,7 +38,7 @@ renderizaDados(listaOds, await odsController.buscaDados(), criaCheckboxOds);
 const btnVoltar = document.querySelector(".btnVoltar");
 btnVoltar.onclick = cancelarAlterações;
 
-const tituloForm = document.querySelector(".titulo");
+const tituloForm = document.querySelector(".titulo--form");
 const btnForm = document.getElementById("cadastro_projeto__btnCadastro");
 
 const inputNome = document.getElementById("cadastro_projeto__nome");
