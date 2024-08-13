@@ -1,3 +1,4 @@
+import { BASE_URL } from "../baseUrl.js";
 import {
 	OdsController,
 	ProjetoController,
@@ -19,8 +20,8 @@ let idUsuario;
 
 if (token) {
 	try {
-		const usuario = await usuarioController.autenticaUsuario(token);
-		idUsuario = usuario.id;
+		const { sub } = await usuarioController.autenticaUsuario(token);
+		idUsuario = sub;
 	} catch (error) {
 		alert(`Erro ao autenticar usuário:\n${error.message}`);
 		removeCookie("tokenJwt");
@@ -37,7 +38,7 @@ renderizaDados(listaOds, await odsController.buscaDados(), criaCheckboxOds);
 const btnVoltar = document.querySelector(".btnVoltar");
 btnVoltar.onclick = cancelarAlterações;
 
-const tituloForm = document.querySelector(".titulo");
+const tituloForm = document.querySelector(".titulo--form");
 const btnForm = document.getElementById("cadastro_projeto__btnCadastro");
 
 const inputNome = document.getElementById("cadastro_projeto__nome");
@@ -54,48 +55,50 @@ if (idProjeto) {
 		projeto = await projetoController.buscaPorId(idProjeto);
 
 		if (!projeto) throw new Error("Projeto não encontrado!");
-		if (projeto.id_usuario !== idUsuario)
+		if (projeto.userId !== idUsuario)
 			throw new Error(
 				`Você não tem permissão para acessar esta página! Apenas o usuário que cadastrou o projeto pode editar suas informações.`
 			);
 
-		document.title = `Editar projeto ${projeto.nome} | Programa Somar`;
+		document.title = `Editar projeto ${projeto.name} | Ajuda RS`;
 
-		btnVoltar.title = `Voltar à página do projeto ${projeto.nome}`;
+		btnVoltar.title = `Voltar à página do projeto ${projeto.name}`;
 
 		tituloForm.innerHTML = "Editar projeto";
 		btnForm.textContent = "Atualizar projeto";
 
-		inputNome.value = projeto.nome;
-		inputCausa.value = projeto.causa;
-		inputObjetivo.value = projeto.objetivo;
-		inputPublico.value = projeto.publico_alvo;
-		inputCidade.value = projeto.cidade;
-		inputParceiros.value = projeto.parceiros;
-		inputResumo.value = projeto.resumo;
+		inputNome.value = projeto.name;
+		inputCausa.value = projeto.cause;
+		inputObjetivo.value = projeto.goal;
+		inputPublico.value = projeto.target;
+		inputCidade.value = projeto.city;
+		inputParceiros.value = projeto.partners;
+		inputResumo.value = projeto.summary;
 
 		// marcando as ODS do projeto:
-		projeto.Ods.forEach(
+		projeto.sdg.forEach(
 			(ods) => (document.getElementById(`ods_${ods.id}`).checked = true)
 		);
 
-		for (let i = 0; i < projeto.Midia.length; i++) {
-			const midia = projeto.Midia[i];
-			const input = fileTypes.video.includes(midia.tipo)
+		for (let i = 0; i < projeto.medias.length; i++) {
+			const midia = projeto.medias[i];
+
+			// pegando o input
+			const input = fileTypes.video.includes(midia.type)
 				? document.getElementById("cadastro_projeto__video--1")
 				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
 
-			const itemMidia = await fetch(midia.url);
-			const blobMidia = await itemMidia.blob();
-			const dt = new DataTransfer();
-			dt.items.add(
-				new File([blobMidia], midia.nome, {
-					type: blobMidia.type,
-					lastModified: new Date(),
-				})
+			// atualizando midia info
+			const info = input.parentElement.querySelector(
+				".cadastro_projeto__midia-info"
 			);
-			input.files = dt.files;
-			input.dispatchEvent(new Event("change"));
+			info.innerHTML = midia.url.split("/").pop();
+
+			// atualizando botão de remover mídia
+			const btnRemoverMidia =
+				input.parentElement.querySelector(".btnRemoverMidia");
+			btnRemoverMidia.classList.remove("btnRemoverMidia--hidden");
+			btnRemoverMidia.dataset.idMidia = midia.id;
 		}
 	} catch (error) {
 		alert(`Houve um erro ao acessar a página:\n${error.message}`);
@@ -104,11 +107,28 @@ if (idProjeto) {
 }
 
 const btnRemoverMidia = document.querySelectorAll(".btnRemoverMidia");
-
 btnRemoverMidia.forEach((btn) =>
-	btn.addEventListener("click", () => {
+	btn.addEventListener("click", async () => {
 		const input = btn.parentElement.querySelector(".cadastro_projeto__midia");
-		input.value = "";
+
+		if (btn.dataset.idMidia) {
+			const remove = confirm(
+				"Tem certeza que deseja excluir esta mídia do seu projeto?\nNão é possível desfazer esta ação!"
+			);
+
+			if (!remove) return;
+
+			await projetoController.removeMidia(
+				idProjeto,
+				btn.dataset.idMidia,
+				token
+			);
+			btn.dataset.idMidia = "";
+		} else {
+			input.value = "";
+		}
+
+		// atualizando input
 		input.dispatchEvent(new Event("change"));
 	})
 );
@@ -121,26 +141,38 @@ form.onsubmit = async (event) => {
 	event.preventDefault();
 
 	const projeto = {
-		nome: escapeHtmlTags(inputNome.value),
-		causa: escapeHtmlTags(inputCausa.value),
-		objetivo: escapeHtmlTags(inputObjetivo.value),
-		publico_alvo: escapeHtmlTags(inputPublico.value),
-		cidade: escapeHtmlTags(inputCidade.value),
-		parceiros: escapeHtmlTags(inputParceiros.value),
-		resumo: escapeHtmlTags(inputResumo.value),
-		id_usuario: idUsuario,
+		name: escapeHtmlTags(inputNome.value),
+		cause: escapeHtmlTags(inputCausa.value),
+		goal: escapeHtmlTags(inputObjetivo.value),
+		target: escapeHtmlTags(inputPublico.value),
+		city: escapeHtmlTags(inputCidade.value),
+		partners: escapeHtmlTags(inputParceiros.value),
+		summary: escapeHtmlTags(inputResumo.value),
+		userId: idUsuario,
 	};
 	const inputOds = document.querySelectorAll("input[name=ods]:checked");
 	const ods = Array.from(inputOds).map((input) => input.value);
+
+	if (idProjeto) {
+		projeto.id = idProjeto;
+	}
 
 	try {
 		if (ods.length <= 0) {
 			throw new Error("Você precisa selecionar pelo menos um ODS!");
 		}
 
-		const { id } = !idProjeto
-			? await projetoController.cadastra({ projeto, ods }, token)
-			: await projetoController.atualiza({ projeto, ods }, idProjeto, token);
+		let id;
+		if (idProjeto) {
+			await projetoController.atualiza({ project: projeto, sdg: ods }, token);
+			id = idProjeto;
+		} else {
+			const res = await projetoController.cadastra(
+				{ project: projeto, sdg: ods },
+				token
+			);
+			id = res.id;
+		}
 
 		let formData;
 		let i = 1;
@@ -150,19 +182,18 @@ form.onsubmit = async (event) => {
 
 			if (!formData) formData = new FormData();
 
-			let file = input.files[0];
-			// pega a extensão do arquivo:
-			const ext = file.name.split(".").pop();
-			// renomeia o arquivo:
-			file = fileTypes.video.includes(file.type)
-				? renameFile(file, `video.${ext}`)
-				: renameFile(file, `midia_${i}.${ext}`);
+			// renomeia e retorna o arquivo:
+			const file = renameFile(input.files[0]);
 
 			formData.append(file.name, file);
 			i++;
 		}
 
-		if (formData) await projetoController.cadastraMidias(id, formData, token);
+		try {
+			if (formData) await projetoController.cadastraMidias(id, formData, token);
+		} catch (error) {
+			alert(error.message);
+		}
 
 		alert(
 			!idProjeto
@@ -205,6 +236,6 @@ function cancelarAlterações() {
 		msg = `Tem certeza que deseja retornar à página do projeto ${projeto.nome}?`;
 	}
 
-	if (confirm(msg + "\nTodas as alterações serão perdidas!"))
+	if (confirm(msg + "\nAs alterações podem ser perdidas!"))
 		window.location.replace(url);
 }

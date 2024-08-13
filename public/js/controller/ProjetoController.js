@@ -1,93 +1,82 @@
 import Controller from "./Controller.js";
 
 class ProjetoController extends Controller {
-  constructor() {
-    super("/projetos");
-  }
+	constructor() {
+		super("/project");
+	}
 
-  async buscaPorFiltro(filtro, valor) {
-    const url = this.url + `/filtro?${filtro}=${valor}`;
+	async buscaPorFiltro(filtro, valor) {
+		const url = this.url + `?${filtro}=${valor}`;
 
-    try {
-      const res = await fetch(url, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
+		try {
+			const res = await fetch(url, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+			});
 
-      const data = await res.json();
+			const data = await res.json();
 
-      if (res.ok) return data;
+			if (res.ok) return data;
 
-      throw new Error(data.error);
-    } catch (error) {
-      throw error;
-    }
-  }
+			throw new Error(data.error);
+		} catch (error) {
+			throw error;
+		}
+	}
 
-  async buscaPorUsuario(idUsuario, token = "") {
-    const url = this.url + `/usuario?idUsuario=${idUsuario}`;
+	async geraRelatorio() {
+		try {
+			const res = await fetch(`${this.url}/report`, {
+				method: "GET",
+				headers: {"Content-Type": "application/json"}
+			});
 
-    try {
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+			const data = await res.json();
 
-      const data = await res.json();
+			if (res.ok) return data.report;
 
-      if (res.ok) return data;
+			throw new Error(data.error);
+		} catch (error) {
+			throw error;
+		}
+	}
 
-      throw new Error(data.error);
-    } catch (error) {
-      throw error;
-    }
-  }
+	async cadastraMidias(idProjeto, formData, token = "") {
+		const url = this.url + `/media?projectId=${idProjeto}`;
 
-  async geraRelatorio(token = "") {
-    try {
-      const res = await fetch(`${this.url}/relatorio`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
+		const res = await fetch(url, {
+			method: "POST",
+			headers: {
+				// não colocar o content-type para que o browser defina o
+				// boundary=----WebKitFormBoundary, que delimita os arquivos
+				authorization: `Bearer ${token}`,
+			},
+			body: formData,
+		});
 
-      if (res.ok) return;
+		if (res.status == 200) return;
 
-      const data = await res.json();
-      throw new Error(data.error);
-    } catch (error) {
-      throw error;
-    }
-  }
+		const data = await res.json();
+		throw new Error(data.error);
+	}
 
-  async cadastraMidias(idProjeto, formData, token = "") {
-    const url = this.url + `/${idProjeto}/midias`;
+	async removeMidia(idProjeto, idMidia, token = "") {
+		const url = this.url + `/media`;
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          // não colocar o content-type para que o browser defina o
-          // boundary=----WebKitFormBoundary, que delimita os arquivos
-          authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+		const res = await fetch(url, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({ projectId: idProjeto, mediaId: idMidia }),
+		});
 
-      if (res.ok) return;
+		if (res.ok) return;
 
-      const data = await res.json();
-      throw new Error(data.error);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
+		const data = await res.json();
+		throw new Error(data.error);
+	}
 }
 
 export default ProjetoController;

@@ -11,12 +11,12 @@ import { insertHeaderAndFooter } from "./utils/insertHeaderAndFooter.js";
   if (token) {
     try {
       const usuarioController = new UsuarioController();
-      const { nome } = await usuarioController.autenticaUsuario(token);
+      const { name } = await usuarioController.autenticaUsuario(token);
 
       const profileLink = document.createElement("li");
       profileLink.classList.add("nav__list__item");
       profileLink.innerHTML = `<a href="perfil.html" title="Suas informações" class="nav__link nav__link--profile">${
-        nome.split(" ")[0]
+        name.split(" ")[0]
       }</a>`;
 
       navList.appendChild(profileLink);

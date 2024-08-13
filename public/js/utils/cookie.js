@@ -1,5 +1,5 @@
 function defineCookie(chave, valor) {
-  document.cookie = `${chave}=${valor};path=/public/views`;
+  document.cookie = `${chave}=${valor};path="/public/views"`;
 }
 
 function buscaCookie(chave) {
