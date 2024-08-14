@@ -1,81 +1,80 @@
 .footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #3e3e3e;
-  color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #3e3e3e;
+	color: #fff;
 }
 
 .footer__img {
-  width: 215px;
-  height: 150px;
+	width: 215px;
+	height: 150px;
 }
 
 .footer__div {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 .footer__social {
-  width: 300px;
-  display: flex;
-  justify-content: space-evenly;
+	width: 300px;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .social__link {
-  display: block;
-  width: 45px;
-  height: 45px;
-  border: none;
-  overflow: hidden;
+	display: block;
+	width: 45px;
+	height: 45px;
+	border: none;
+	overflow: hidden;
 }
 
 .social__link:hover,
 .social__link:focus {
-  transition: 0.5s ease-in;
-  opacity: 75%;
+	transition: 0.5s ease-in;
+	opacity: 75%;
 }
 
 .social__link--linkedin {
-  background-image: url("../../img/redes/logo-linkedin.svg");
+	background-image: url("../../img/redes/logo-linkedin.svg");
 }
 
 .social__link--instagram {
-  background-image: url("../../img/redes/logo-instagram.webp");
+	background-image: url("../../img/redes/logo-instagram.webp");
 }
 
 .social__link--twitter {
-  background-image: url("../../img/redes/logo-twitter.svg");
+	background-image: url("../../img/redes/logo-twitter.svg");
 }
 
 .creditos {
-  font-size: 14px;
-  font-weight: 300;
+	font-size: 14px;
+	font-weight: 300;
 }
 
 /* telas até 880px */
-@media screen
-and (max-width: 880px) {
-  .footer__img {
-    height: 90px;
-  }
+@media screen and (max-width: 880px) {
+	.footer__img {
+		height: 90px;
+	}
 
-  .footer__div {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.75rem;
+	.footer__div {
+		flex-direction: column;
+		align-items: center;
+		gap: 1.75rem;
 		margin-bottom: 1rem;
-  }
+	}
 
-  .footer__social {
-    order: 1;
-    width: 250px;
-  }
+	.footer__social {
+		order: 1;
+		width: 250px;
+	}
 
-  .nav__list {
-    order: 0;
-  }
+	.nav__list {
+		order: 0;
+	}
 }

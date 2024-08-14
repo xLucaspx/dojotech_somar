@@ -1,11 +1,10 @@
-import { BASE_URL } from "../baseUrl.js";
 import {
 	OdsController,
 	ProjetoController,
 	UsuarioController,
 } from "../controller/index.js";
 import { buscaCookie } from "../utils/cookie.js";
-import { fileTypes } from "../utils/fileTypes.js";
+import { FILE_TYPES, MAX_UPLOAD_SIZE_BYTES } from "../utils/fileTypes.js";
 import { limpaInputs } from "../utils/input.js";
 import { escapeHtmlTags } from "../utils/regex.js";
 import { renameFile } from "../utils/renameFile.js";
@@ -84,7 +83,7 @@ if (idProjeto) {
 			const midia = projeto.medias[i];
 
 			// pegando o input
-			const input = fileTypes.video.includes(midia.type)
+			const input = FILE_TYPES.video.includes(midia.type)
 				? document.getElementById("cadastro_projeto__video--1")
 				: document.getElementById(`cadastro_projeto__imagem--${i + 1}`);
 
@@ -132,6 +131,9 @@ btnRemoverMidia.forEach((btn) =>
 		input.dispatchEvent(new Event("change"));
 	})
 );
+
+const mediaMaxSizeField = document.getElementById('midia-max-size');
+mediaMaxSizeField.innerHTML = `Tamanho máximo de cada arquivo: ${(MAX_UPLOAD_SIZE_BYTES / 1e+6).toFixed(1)} MB`
 
 const listaInputMidia = document.querySelectorAll(".cadastro_projeto__midia");
 
@@ -233,7 +235,7 @@ function cancelarAlterações() {
 
 	if (idProjeto) {
 		url = `projeto.html?id=${idProjeto}`;
-		msg = `Tem certeza que deseja retornar à página do projeto ${projeto.nome}?`;
+		msg = `Tem certeza que deseja retornar à página do projeto ${projeto.name}?`;
 	}
 
 	if (confirm(msg + "\nAs alterações podem ser perdidas!"))

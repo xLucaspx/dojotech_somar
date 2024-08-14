@@ -1,203 +1,218 @@
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
 }
 
 .form__descricao {
-  margin-bottom: 1.25rem;
-  font-size: 1.2rem;
-  width: 100%;
-  text-align: center;
+	margin-bottom: 1.25rem;
+	font-size: 1.2rem;
+	width: 100%;
+	text-align: center;
 }
 
 .legend-asterisco {
-  color: var(--vermelho);
-  font-weight: 500;
+	color: var(--vermelho);
+	font-weight: 500;
 }
 
 .form__label--required::after {
-  content: "*";
-  color: var(--vermelho);
-  font-weight: 500;
+	content: "*";
+	color: var(--vermelho);
+	font-weight: 500;
 }
 
 .form__fieldset--texto,
 .form__fieldset--btn {
-  display: flex;
+	display: flex;
 }
 
 .form__fieldset--texto {
-  flex-direction: column;
-  padding: 0.75rem 0rem 0;
-  gap: 3px;
-  width: 100%;
-  max-width: 575px;
-  box-sizing: border-box;
-  position: relative;
-  background-color: #fff;
-  border-radius: 8px;
+	flex-direction: column;
+	padding: 0.75rem 0rem 0;
+	gap: 3px;
+	width: 100%;
+	max-width: 575px;
+	box-sizing: border-box;
+	position: relative;
+	background-color: #fff;
+	border-radius: 8px;
 }
 
 .form__fieldset--btn {
-  align-items: center;
-  justify-content: center;
-  gap: 1.75rem;
-  width: 100%;
+	align-items: center;
+	justify-content: center;
+	gap: 1.75rem;
+	width: 100%;
 }
 
 .form__fieldset--checkbox,
 .form__fieldset--file {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: auto;
-  gap: 0.75rem;
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	grid-template-rows: repeat(3, auto);
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
 }
 
 .form__fieldset--readonly {
-  background-color: var(--cinza_claro);
+	background-color: var(--cinza_claro);
 }
 
 .form__fieldset__legend {
-  font-family: var(--fonte_titulo);
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-bottom: 0.45rem;
+	font-family: var(--fonte_titulo);
+	font-weight: 500;
+	font-size: 1.2rem;
+	margin-bottom: 0.45rem;
 }
 
 .form__fieldset--select {
-  display: flex;
+	display: flex;
 }
 
 .form__select {
-  font-family: inherit;
-  font-size: inherit;
-  background-color: #fff;
-  border: 1px solid var(--cinza_escuro);
-  border-radius: 5px;
-  padding: 0.25rem 0.5rem;
-  min-width: 150px;
-  width: 100%;
-  cursor: pointer;
-  line-height: 1.1;
-  transition: 0.3s;
+	font-family: inherit;
+	font-size: inherit;
+	background-color: #fff;
+	border: 1px solid var(--cinza_escuro);
+	border-radius: 5px;
+	padding: 0.25rem 0.5rem;
+	min-width: 150px;
+	width: 100%;
+	cursor: pointer;
+	line-height: 1.1;
+	transition: 0.3s;
 }
 
 .form__select:hover {
-  filter: brightness(80%);
+	filter: brightness(80%);
 }
 
 .form__select:focus {
-  outline: 2px solid var(--azul);
+	outline: 2px solid var(--azul);
 }
 
 .form__input--checkbox,
 .form__label--checkbox {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .form__input--checkbox:focus-visible {
-  outline: 2px solid var(--azul);
+	outline: 2px solid var(--azul);
 }
 
 .form__texto {
-  font-family: inherit;
-  color: inherit;
-  font-size: inherit;
-  border: none;
-  border-bottom: 2px solid var(--cinza_escuro);
-  outline: none;
-  padding: 1rem 0.25rem 0.3rem;
-  margin: 0 0.75rem;
-  transition: 0.25s ease-out;
+	font-family: inherit;
+	color: inherit;
+	font-size: inherit;
+	border: none;
+	border-bottom: 2px solid var(--cinza_escuro);
+	outline: none;
+	padding: 1rem 0.25rem 0.3rem;
+	margin: 0 0.75rem;
+	transition: 0.25s ease-out;
 }
 
 .form__texto::placeholder {
-  visibility: hidden;
+	visibility: hidden;
 }
 
 .form__texto:focus {
-  border-color: var(--azul);
+	border-color: var(--azul);
 }
 
 .form__label {
-  position: absolute;
-  top: 1.2rem;
-  left: 1rem;
-  margin-bottom: 0.5rem;
-  font-family: var(--fonte_titulo);
-  transition: all 0.3s;
+	position: absolute;
+	top: 1.2rem;
+	left: 1rem;
+	margin-bottom: 0.5rem;
+	font-family: var(--fonte_titulo);
+	transition: all 0.3s;
 }
 
-.form__texto:not(:placeholder-shown) + .form__label,
-.form__texto:focus + .form__label {
-  font-size: 0.75rem;
-  top: 0.3rem;
-  left: 1rem;
+.form__texto:not(:placeholder-shown)+.form__label,
+.form__texto:focus+.form__label {
+	font-size: 0.75rem;
+	top: 0.3rem;
+	left: 1rem;
 }
 
 .form__texto--valido {
-  border-color: var(--verde);
+	border-color: var(--verde);
 }
 
 .form__texto--invalido {
-  border-color: var(--vermelho);
+	border-color: var(--vermelho);
 }
 
 .form__input {
-  max-height: 50px;
+	max-height: 50px;
 }
 
 .form__input--readonly {
-  background-color: inherit;
+	background-color: inherit;
 }
 
 .form__textarea {
-  resize: none;
-  max-height: 125px;
+	resize: none;
+	max-height: 125px;
 }
 
 .form__fieldset__msg {
-  height: 15px;
-  margin: 0 1rem 5px;
-  font-size: 14.6px;
-  text-align: left;
-  color: var(--vermelho);
-  box-sizing: border-box;
+	height: 15px;
+	margin: 0 1rem 5px;
+	font-size: 14.6px;
+	text-align: left;
+	color: var(--vermelho);
+	box-sizing: border-box;
 }
 
 .btnCancelar {
-  border: 1px solid var(--vermelho);
-  color: var(--vermelho);
-  background-color: transparent;
+	border: 1px solid var(--vermelho);
+	color: var(--vermelho);
+	background-color: transparent;
 }
 
 .btnCancelar:hover,
 .btnCancelar:active {
-  background-color: var(--vermelho);
-  color: #fff;
+	background-color: var(--vermelho);
+	color: #fff;
 }
 
 /* telas até 700px */
 @media screen and (max-width: 700px) {
-  .form__fieldset--checkbox {
-    grid-template-columns: auto auto;
-    gap: 0.75rem 0.5rem;
-    font-size: 15px;
-  }
+	.form__fieldset--checkbox {
+		grid-template-columns: auto auto;
+		gap: 0.75rem 0.5rem;
+		font-size: 15px;
+	}
 
-  .form__fieldset__legend {
-    font-size: 18px;
-  }
+	.form__fieldset__legend {
+		font-size: 18px;
+	}
 
-  .form__fieldset__msg {
-    font-size: 13.5px;
-    min-height: 15px;
-    height: fit-content;
-  }
+	.form__fieldset__msg {
+		font-size: 13.5px;
+		min-height: 15px;
+		height: fit-content;
+	}
 
-  .form__fieldset--btn {
-    flex-direction: column;
-  }
+	.form__fieldset--btn {
+		flex-direction: column;
+	}
+
+	.form__fieldset--file {
+		grid-template-columns: auto;
+		grid-template-rows: repeat(7, auto);
+	}
+}
+
+/* telas até 1000px */
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+	.form__fieldset--file {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(4, auto);
+	}
 }

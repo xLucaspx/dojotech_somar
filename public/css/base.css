@@ -1,153 +1,153 @@
 :root {
-  /* Fonte */
-  --fonte_titulo: "Ubuntu", sans-serif;
-  --fonte_texto: "Bitter", serif;
-  --cor_fonte: #4c4c4c;
+	/* Fonte */
+	--fonte_titulo: "Ubuntu", sans-serif;
+	--fonte_texto: "Bitter", serif;
+	--cor_fonte: #4c4c4c;
 
-  /* Fundos */
-  --fundo_prata: #e5e9f3;
-  --fundo_platina: #eaeaea;
-  --fundo_cinza_medio: #efefef;
-  --fundo_cinza_claro: #f7f4f4;
-  --fundo_branco: #f7f7f7;
+	/* Fundos */
+	--fundo_prata: #e5e9f3;
+	--fundo_platina: #eaeaea;
+	--fundo_cinza_medio: #efefef;
+	--fundo_cinza_claro: #f7f4f4;
+	--fundo_branco: #f7f7f7;
 
-  /* Cores */
-  --azul: #009dda;
-  --azul_escuro: #005eab;
-  --cinza_claro: #f0f0f0;
-  --cinza_escuro: #3e3e3e;
-  --vermelho: #de1010;
-  --vermelho_escuro: #920505;
-  --verde: #10de10;
+	/* Cores */
+	--azul: #009dda;
+	--azul_escuro: #005eab;
+	--cinza_claro: #f0f0f0;
+	--cinza_escuro: #3e3e3e;
+	--vermelho: #de1010;
+	--vermelho_escuro: #920505;
+	--verde: #10de10;
 }
 
 html {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--fonte_texto);
-  color: var(--cor_fonte);
-  line-height: 1.5;
+	font-family: var(--fonte_texto);
+	color: var(--cor_fonte);
+	line-height: 1.5;
 }
 
 .pularNavegacao,
 .hidden {
-  display: block;
-  overflow: hidden;
-  width: 0;
-  height: 0;
-  font-size: 0;
-  border: none;
-  border-color: transparent;
-  color: transparent;
-  position: absolute;
-  transition: 0.5s;
+	display: block;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	border: none;
+	border-color: transparent;
+	color: transparent;
+	position: absolute;
+	transition: 0.5s;
 }
 
 .pularNavegacao:focus {
-  font-size: 18px;
-  font-weight: 700;
-  padding: 5px;
-  color: #fff;
-  background-color: var(--azul);
-  width: fit-content;
-  height: 20px;
+	font-size: 18px;
+	font-weight: 700;
+	padding: 5px;
+	color: #fff;
+	background-color: var(--azul);
+	width: fit-content;
+	height: 20px;
 }
 
 .container {
-  padding: 3.5rem 5% 2.5rem;
+	padding: 3.5rem 5% 2.5rem;
 }
 
 .titulo,
 .subtitulo {
-  font-family: var(--fonte_titulo);
+	font-family: var(--fonte_titulo);
 }
 
 .titulo {
-  text-align: center;
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 2.5rem;
+	text-align: center;
+	font-size: 40px;
+	font-weight: 700;
+	margin-bottom: 2.5rem;
 }
 
 .subtitulo {
-  font-size: 32px;
-  font-weight: 500;
+	font-size: 32px;
+	font-weight: 500;
 }
 
 .texto--destaque {
-  font-weight: 700;
+	font-weight: 700;
 }
 
 .midia {
-  box-shadow: 5px 7px 7px rgba(0, 0, 0, 0.25);
-  transition: 0.3s ease-out;
+	box-shadow: 5px 7px 7px rgba(0, 0, 0, 0.25);
+	transition: 0.3s ease-out;
 }
 
 .midia:hover {
-  box-shadow: 7px 9px 5px rgba(0, 0, 0, 0.45);
+	box-shadow: 7px 9px 5px rgba(0, 0, 0, 0.45);
 }
 
 .link {
-  color: var(--azul);
-  outline: none;
-  border-bottom: 1px solid transparent;
-  transition: 0.5s ease-out;
+	color: var(--azul);
+	outline: none;
+	border-bottom: 1px solid transparent;
+	transition: 0.5s ease-out;
 }
 
 .link:hover,
 .link:focus {
-  filter: brightness(90%);
-  border-color: var(--azul_escuro);
-  color: var(--azul_escuro);
+	filter: brightness(90%);
+	border-color: var(--azul_escuro);
+	color: var(--azul_escuro);
 }
 
 .scrollTop {
-  position: fixed;
-  bottom: 1.25rem;
-  right: 1rem;
-  content: url('../img/icons/scroll_up.svg');
-  transition: 0.5s ease-out;
+	position: fixed;
+	bottom: 1.25rem;
+	right: 1rem;
+	content: url('../img/icons/scroll_up.svg');
+	transition: 0.5s ease-out;
 }
 
 .scrollTop:hover,
 .scrollTop:focus {
-  filter: brightness(75%);
+	filter: brightness(75%);
 }
 
 /* telas até 700px */
 @media screen and (max-width: 700px) {
-  .container {
-    padding: 2.5rem 5% 1.75rem;
-  }
+	.container {
+		padding: 2.5rem 5% 1.75rem;
+	}
 
-  .titulo {
-    font-size: 30px;
-    margin-bottom: 1.75rem;
-  }
+	.titulo {
+		font-size: 30px;
+		margin-bottom: 1.75rem;
+	}
 
-  .subtitulo {
-    font-size: 25px;
-  }
+	.subtitulo {
+		font-size: 25px;
+	}
 
-  .scrollTop {
-    display: none;
-  }
+	.scrollTop {
+		display: none;
+	}
 }
 
 /* telas até 1000px */
 @media screen and (min-width: 701px) and (max-width: 1000px) {
-  .titulo {
-    font-size: 35px;
-  }
+	.titulo {
+		font-size: 35px;
+	}
 
-  .subtitulo {
-    font-size: 30px;
-  }
+	.subtitulo {
+		font-size: 30px;
+	}
 
-  .scrollTop {
-    bottom: 1rem;
-    right: 0.75rem;
-  }
+	.scrollTop {
+		bottom: 1rem;
+		right: 0.75rem;
+	}
 }

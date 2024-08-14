@@ -1,7 +1,7 @@
 import { BASE_URL } from "../baseUrl.js";
 import { ProjetoController, UsuarioController } from "../controller/index.js";
 import { buscaCookie } from "../utils/cookie.js";
-import { fileTypes } from "../utils/fileTypes.js";
+import { FILE_TYPES } from "../utils/fileTypes.js";
 import {
 	criaItemOds,
 	criaItemParceiro,
@@ -67,7 +67,7 @@ const galeria = document.querySelector(".projeto__display__galeria");
 if (projeto.medias.length > 0) {
 	const midiaDestaque = projeto.medias[0];
 	handleMidiaDestaque(
-		fileTypes.image.includes(midiaDestaque.type) ? "IMG" : "VIDEO",
+		FILE_TYPES.image.includes(midiaDestaque.type) ? "IMG" : "VIDEO",
 		BASE_URL + midiaDestaque.url
 	);
 	renderizaDados(galeria, projeto.medias, criaMiniaturaMidia);

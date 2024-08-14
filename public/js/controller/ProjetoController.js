@@ -28,7 +28,7 @@ class ProjetoController extends Controller {
 		try {
 			const res = await fetch(`${this.url}/report`, {
 				method: "GET",
-				headers: {"Content-Type": "application/json"}
+				headers: { "Content-Type": "application/json" },
 			});
 
 			const data = await res.json();
@@ -54,7 +54,7 @@ class ProjetoController extends Controller {
 			body: formData,
 		});
 
-		if (res.status == 200) return;
+		if (res.status == 201) return;
 
 		const data = await res.json();
 		throw new Error(data.error);

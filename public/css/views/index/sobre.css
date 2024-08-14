@@ -1,93 +1,91 @@
 .sobre {
-  background-color: var(--fundo_cinza_claro);
+	background-color: var(--fundo_cinza_claro);
 }
 
 .sobre__conteudo {
-  display: flex;
-  justify-content: space-evenly;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .sobre__descricao {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .sobre__texto,
 .sobre__linebreak {
-  width: calc(50vw - 5%);
-  max-width: 600px;
+	width: calc(50vw - 5%);
+	max-width: 600px;
 }
 
 .sobre__texto {
-  margin: 1rem 0;
-  line-height: 1.5;
+	margin: 1rem 0;
+	line-height: 1.5;
 }
 
 .sobre__linebreak {
-  height: 1px;
-  margin: 2rem 1rem 0 1rem;
-  background-color: var(--cinza_escuro);
+	height: 1px;
+	margin: 2rem 1rem 0 1rem;
+	background-color: var(--cinza_escuro);
 }
 
 .sobre__logo-somar {
-  width: 20rem;
-  height: auto;
-  max-height: 275px;
+	width: 20rem;
+	height: auto;
+	max-height: 275px;
 	margin-top: 5rem;
 }
 
 .sobre__img {
-  content: url("../../../img/home/sobre_img.webp");
-  width: 45%;
-  max-width: 400px;
-  height: auto;
-  max-height: 550px;
+	content: url("../../../img/home/about.webp");
+	width: 45%;
+	max-width: 400px;
+	height: auto;
+	max-height: 600px;
 }
 
 /* telas até 700px */
 @media screen and (max-width: 700px) {
-  .sobre__conteudo {
-    flex-direction: column;
-  }
+	.sobre__conteudo {
+		flex-direction: column;
+	}
 
-  .sobre__descricao {
-    align-items: initial;
-  }
+	.sobre__descricao {
+		align-items: initial;
+	}
 
-  .sobre__texto,
-  .sobre__linebreak {
-    width: auto;
-  }
+	.sobre__texto,
+	.sobre__linebreak {
+		width: auto;
+	}
 
-  .sobre__img {
-    display: none;
-  }
+	.sobre__img {
+		display: none;
+	}
 
-  .sobre__logo-somar {
-    width: 18.5rem;
-    margin: 2rem auto;
-  }
+	.sobre__logo-somar {
+		width: 18.5rem;
+		margin: 2rem auto;
+	}
 }
 
 /* telas até 1000px */
-@media screen
-and (min-width: 701px)
-and (max-width: 1000px) {
-  .sobre__descricao {
-    align-items: initial;
-  }
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+	.sobre__descricao {
+		align-items: initial;
+	}
 
-  .sobre__texto,
-  .sobre__linebreak {
-    width: auto;
-  }
+	.sobre__texto,
+	.sobre__linebreak {
+		width: auto;
+	}
 
-  .sobre__img {
-    display: none;
-  }
+	.sobre__img {
+		display: none;
+	}
 
-  .sobre__logo-somar {
-    margin: 3rem auto;
-  }
+	.sobre__logo-somar {
+		margin: 3rem auto;
+	}
 }

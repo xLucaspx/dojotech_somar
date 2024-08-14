@@ -1,12 +1,12 @@
 .login {
-  background-color: var(--fundo_platina);
-  min-height: 50vh;
+	background-color: var(--fundo_platina);
+	min-height: 50vh;
 }
 
 .form__fieldset--texto {
-  height: 70px;  
+	height: 70px;
 }
 
 .form__fieldset--btn {
-  flex-direction: column;
+	flex-direction: column;
 }

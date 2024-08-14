@@ -45,7 +45,7 @@ if (token) {
 		inputUsuario.value = usuario.username;
 		inputTelefone.value = usuario.phone.replace(
 			/^(\d{2})(9?)(\d{4})(\d{4})$/,
-			"($1) $2 $3-$4"
+			"($1) $2$3-$4"
 		);
 		inputCep.value = usuario.address.postalCode.replace(
 			/^(\d{5})(\d{3})$/,

@@ -85,7 +85,7 @@ try {
 	email.innerHTML = usuario.email;
 	telefone.innerHTML = usuario.phone.replace(
 		/^(\d{2})(9?)(\d{4})(\d{4})$/,
-		"($1) $2 $3-$4"
+		"($1) $2$3-$4"
 	);
 	cep.innerHTML = usuario.address.postalCode.replace(
 		/^(\d{5})(\d{3})$/,

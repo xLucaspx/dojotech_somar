@@ -1,78 +1,76 @@
 .projetos {
-  background-color: var(--fundo_branco);
-  text-align: center;
+	background-color: var(--fundo_branco);
+	text-align: center;
 }
 
 .projetos__descricao {
-  line-height: 1.8;
-  font-size: 20px;
-  max-width: 46rem;
-  margin: 0 auto 2rem;
+	line-height: 1.8;
+	font-size: 20px;
+	max-width: 46rem;
+	margin: 0 auto 2rem;
 }
 
 .projetos__lista_ods {
-  display: grid;
-  grid-template-columns: repeat(6, auto);
-  grid-template-rows: repeat(3, auto);
-  justify-items: center;
-  align-items: center;
-  gap: 1rem 0.5rem;
+	display: grid;
+	grid-template-columns: repeat(6, auto);
+	grid-template-rows: repeat(3, auto);
+	justify-items: center;
+	align-items: center;
+	gap: 1rem 0.5rem;
 }
 
 .lista_ods__btn {
-  width: fit-content;
-  height: fit-content;
-  border: none;
-  cursor: pointer;
-  outline: 4px outset transparent;
-  outline-offset: 4px;
-  transition: 0.3s ease-in;
+	width: fit-content;
+	height: fit-content;
+	border: none;
+	cursor: pointer;
+	outline: 4px outset transparent;
+	outline-offset: 4px;
+	transition: 0.3s ease-in;
 }
 
 .lista_ods__btn:focus {
-  outline-color: var(--azul);
+	outline-color: var(--azul);
 }
 
 .lista_ods__img {
-  width: calc(75vw / 6);
+	width: calc(75vw / 6);
 }
 
 .projetos__logo_ods {
-  content: url("../../../img/logos/logo_ods_com_tagline.webp");
-  width: 60vw;
-  margin: 2.75rem auto;
+	content: url("../../../img/logos/logo_ods_com_tagline.webp");
+	width: 60vw;
+	margin: 2.75rem auto;
 }
 
 /* telas até 700px */
 @media screen and (max-width: 700px) {
-  .projetos__descricao {
-    font-size: 17px;
-  }
+	.projetos__descricao {
+		font-size: 17px;
+	}
 
-  .projetos__lista_ods {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(6, auto);
-    justify-items: center;
-    align-items: center;
-    gap: 1rem 0.5rem;
-  }
+	.projetos__lista_ods {
+		display: grid;
+		grid-template-columns: repeat(3, auto);
+		grid-template-rows: repeat(6, auto);
+		justify-items: center;
+		align-items: center;
+		gap: 1rem 0.5rem;
+	}
 
-  .lista_ods__img {
-    width: calc(75vw / 3);
-  }
+	.lista_ods__img {
+		width: calc(75vw / 3);
+	}
 
-  .projetos__logo_ods {
-    width: 85vw;
-    margin: 1.75rem auto;
-  }
+	.projetos__logo_ods {
+		width: 85vw;
+		margin: 1.75rem auto;
+	}
 }
 
 /* telas até 1000px */
-@media screen
-and (min-width: 701px)
-and (max-width: 1000px) {
-  .projetos__descricao {
-    font-size: 18px;
-  }
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+	.projetos__descricao {
+		font-size: 18px;
+	}
 }

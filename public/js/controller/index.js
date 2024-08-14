@@ -1,5 +1,5 @@
-import UsuarioController from "./UsuarioController.js";
 import OdsController from "./OdsController.js";
 import ProjetoController from "./ProjetoController.js";
+import UsuarioController from "./UsuarioController.js";
 
-export { UsuarioController, OdsController, ProjetoController };
+export { OdsController, ProjetoController, UsuarioController };

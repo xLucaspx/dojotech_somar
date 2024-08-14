@@ -11,154 +11,154 @@
 
 /* Definindo container e áreas: */
 .usuario__grid_container {
-  display: grid;
-  gap: 1.3rem 5rem;
-  justify-content: center;
-  grid-template-columns: repeat(2, 40%);
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-areas:
-    "nome username"
-    "email telefone"
-    "cep endereco"
-    "bairro cidade"
-  ;
+	display: grid;
+	gap: 1.3rem 5rem;
+	justify-content: center;
+	grid-template-columns: repeat(2, 40%);
+	grid-template-rows: repeat(4, 1fr);
+	grid-template-areas:
+		"nome username"
+		"email telefone"
+		"cep endereco"
+		"bairro cidade"
+	;
 }
 
 .usuario__nome {
-  grid-area: nome;
+	grid-area: nome;
 }
 
 .usuario__username {
-  grid-area: username;
+	grid-area: username;
 }
 
 .usuario__email {
-  grid-area: email;
+	grid-area: email;
 }
 
 .usuario__telefone {
-  grid-area: telefone;
+	grid-area: telefone;
 }
 
 .usuario__cep {
-  grid-area: cep;
+	grid-area: cep;
 }
 
 .usuario__endereco {
-  grid-area: endereco;
+	grid-area: endereco;
 }
 
 .usuario__bairro {
-  grid-area: bairro;
+	grid-area: bairro;
 }
 
 .usuario__cidade {
-  grid-area: cidade;
+	grid-area: cidade;
 }
 
 /* Estilização: */
 
 .usuario {
-  background-color: var(--fundo_cinza_claro);
+	background-color: var(--fundo_cinza_claro);
 }
 
 .usuario__botoes_controle {
-  display: flex;
-  gap: 0.75rem;
+	display: flex;
+	gap: 0.75rem;
 }
 
 .usuario__info {
-  display: flex;
-  flex-direction: column;
-  font-size: 20px;
+	display: flex;
+	flex-direction: column;
+	font-size: 20px;
 }
 
 .usuario__info:nth-child(odd) {
-  align-items: end;
-  text-align: end;
+	align-items: end;
+	text-align: end;
 }
 
 .usuario__subtitulo {
-  font-family: var(--fonte_titulo);
-  font-weight: 500;
-  font-size: 1.75rem;
-  margin-bottom: 0.45rem;
+	font-family: var(--fonte_titulo);
+	font-weight: 500;
+	font-size: 1.75rem;
+	margin-bottom: 0.45rem;
 }
 
 .relatorio__texto {
-  margin-top: 3.5rem;
-  font-size: 20px;
-  text-align: center;
+	margin-top: 3.5rem;
+	font-size: 20px;
+	text-align: center;
 }
 
 .btnRelatorio {
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  font: inherit;
-  cursor: pointer;
-  font-weight: 700;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	font: inherit;
+	cursor: pointer;
+	font-weight: 700;
 }
 
 .projeto__ods__lista {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem;
 }
 
 .projeto__ods__img {
-  width: 135px;
-  height: 135px;
+	width: 135px;
+	height: 135px;
 }
 
 .usuario__projetos {
-  background-color: var(--fundo_cinza_medio);
+	background-color: var(--fundo_cinza_medio);
 }
 
 /* Telas até 1000px */
 @media screen and (max-width: 1000px) {
-  .usuario__grid_container {
-    gap: 1.75rem;
-    align-items: center;
-    grid-template-columns: 85%;
-    grid-template-rows: repeat(8, auto);
-    grid-template-areas:
-      "nome"
-      "username"
-      "email"
-      "telefone"
-      "cep"
-      "endereco"
-      "bairro"
-      "cidade"
-    ;
-  }
+	.usuario__grid_container {
+		gap: 1.75rem;
+		align-items: center;
+		grid-template-columns: 85%;
+		grid-template-rows: repeat(8, auto);
+		grid-template-areas:
+			"nome"
+			"username"
+			"email"
+			"telefone"
+			"cep"
+			"endereco"
+			"bairro"
+			"cidade"
+		;
+	}
 
-  .usuario__botoes_controle {
-    gap: 0.45rem;
-  }
+	.usuario__botoes_controle {
+		gap: 0.45rem;
+	}
 
-  .usuario__subtitulo {
-    font-size: 1.45rem;
-    text-align: center;
-  }
+	.usuario__subtitulo {
+		font-size: 1.45rem;
+		text-align: center;
+	}
 
-  .usuario__info,
-  .usuario__info:nth-child(odd) {
-    font-size: 18px;
-    align-items: center;
-    text-align: start;
-  }
+	.usuario__info,
+	.usuario__info:nth-child(odd) {
+		font-size: 18px;
+		align-items: center;
+		text-align: start;
+	}
 
-  .usuario__email {
-    word-break: break-all;
-  }
+	.usuario__email {
+		word-break: break-all;
+	}
 
-  .relatorio__texto {
-    font-size: 18px;
-  }
+	.relatorio__texto {
+		font-size: 18px;
+	}
 }
