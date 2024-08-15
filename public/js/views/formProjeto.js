@@ -24,11 +24,11 @@ if (token) {
 	} catch (error) {
 		alert(`Erro ao autenticar usuário:\n${error.message}`);
 		removeCookie("tokenJwt");
-		window.location.href = "login.html";
+		window.location.href = "/login.html";
 	}
 } else {
 	alert("Você precisa estar logado para acessar esta página!");
-	window.location.href = "login.html";
+	window.location.href = "/login.html";
 }
 
 const listaOds = document.querySelector(".form__lista_ods");
@@ -101,7 +101,7 @@ if (idProjeto) {
 		}
 	} catch (error) {
 		alert(`Houve um erro ao acessar a página:\n${error.message}`);
-		window.location.href = "projetos.html";
+		window.location.href = "/projetos.html";
 	}
 }
 
@@ -217,7 +217,7 @@ form.onsubmit = async (event) => {
 
 		setTimeout(() => {
 			window.location.replace(
-				!idProjeto ? "projetos.html" : `projeto.html?id=${idProjeto}`
+				!idProjeto ? "/projetos.html" : `/projeto.html?id=${idProjeto}`
 			);
 		}, 0);
 	} catch (error) {
@@ -230,11 +230,11 @@ const btnCancelar = document.getElementById("cadastro_projeto__btnCancelar");
 btnCancelar.onclick = cancelarAlterações;
 
 function cancelarAlterações() {
-	let url = "projetos.html";
+	let url = "/projetos.html";
 	let msg = "Tem certeza que deseja retornar à página de projetos?";
 
 	if (idProjeto) {
-		url = `projeto.html?id=${idProjeto}`;
+		url = `/projeto.html?id=${idProjeto}`;
 		msg = `Tem certeza que deseja retornar à página do projeto ${projeto.name}?`;
 	}
 

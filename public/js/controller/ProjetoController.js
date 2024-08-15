@@ -24,13 +24,17 @@ class ProjetoController extends Controller {
 		}
 	}
 
-	async geraRelatorio() {
+	async geraRelatorio(token) {
 		try {
 			const res = await fetch(`${this.url}/report`, {
 				method: "GET",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${token}`
+				}
 			});
 
+			console.log(res);
 			const data = await res.json();
 
 			if (res.ok) return data.report;

@@ -26,7 +26,7 @@ function criaCardProjeto(dados) {
 	const coverImageUrl = BASE_URL + dados.coverImageUrl;
 
 	const conteudo = `
-		<a href="projeto.html?id=${dados.id}" title="Abrir página do projeto ${dados.name}" class="projeto__link">
+		<a href="./projeto.html?id=${dados.id}" title="Abrir página do projeto ${dados.name}" class="projeto__link">
 			<img src="${coverImageUrl}" alt class="projeto__miniatura">
 
 			<h2 class="projeto__nome subtitulo">${dados.name}</h2>

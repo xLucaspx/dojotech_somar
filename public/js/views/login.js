@@ -9,7 +9,7 @@ if (token) {
 	try {
 		await usuarioController.autenticaUsuario(token);
 		alert("Você já está logado!");
-		window.location.href = "perfil.html";
+		window.location.href = "/perfil.html";
 	} catch (error) {
 		alert(`Erro ao autenticar usuário:\n${error.message}`);
 		removeCookie("tokenJwt");
@@ -34,7 +34,7 @@ form.onsubmit = async (event) => {
 			password: senha,
 		});
 		defineCookie("tokenJwt", token);
-		window.location.href = "index.html";
+		window.location.href = "/";
 	} catch (error) {
 		alert(`Erro ao fazer login:\n${error.message}`);
 	} finally {

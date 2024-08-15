@@ -41,7 +41,7 @@ if (idUsuario && idUsuario === projeto.userId) {
 	const botoesProjeto = document.querySelector(".projeto__botoes_controle");
 
 	botoesProjeto.innerHTML = `
-    <a href="form_projeto.html?idProjeto=${projeto.id}" class="btnEditar btn btnPadrao btnNav" title="Editar projeto ${projeto.name}">Editar</a>
+    <a href="./form_projeto.html?idProjeto=${projeto.id}" class="btnEditar btn btnPadrao btnNav" title="Editar projeto ${projeto.name}">Editar</a>
     <button type="button" class="btnExcluir btn btnNav" title="Excluir projeto ${projeto.name}">Excluir</button>
   `;
 

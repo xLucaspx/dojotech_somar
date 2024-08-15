@@ -14,18 +14,18 @@ if (token) {
 	} catch (error) {
 		alert(`Erro ao autenticar usuário:\n${error.message}`);
 		removeCookie("tokenJwt");
-		window.location.href = "login.html";
+		window.location.href = "/login.html";
 	}
 } else {
 	alert("Faça login para acessar as informações do usuário!");
-	window.location.href = "login.html";
+	window.location.href = "/login.html";
 }
 
 const btnRelatorio = document.getElementById("btn-relatorio");
 btnRelatorio.onclick = async (event) => {
 	event.preventDefault();
 	try {
-		const relatorio = await projetoController.geraRelatorio();
+		const relatorio = await projetoController.geraRelatorio(token);
 
 		const link = document.createElement("a");
 		link.download = "relatorio-projetos.txt";
@@ -59,7 +59,7 @@ try {
 	const projetos = await usuarioController.buscaProjetos(idUsuario, token);
 
 	botoesUsuario.innerHTML = `
-    <a href="form_usuario.html" class="btnEditar btn btnPadrao btnNav" title="Editar suas informações">Editar</a>
+    <a href="./form_usuario.html" class="btnEditar btn btnPadrao btnNav" title="Editar suas informações">Editar</a>
     <button type="button" class="btnExcluir btn btnNav" title="Excluir sua conta">Excluir</button>
   `;
 
@@ -73,7 +73,7 @@ try {
 			if (excluir) {
 				await usuarioController.deleta(idUsuario, token);
 				removeCookie("tokenJwt");
-				window.location.replace("index.html");
+				window.location.replace("/");
 			}
 		} catch (error) {
 			alert(`Ocorreu um erro ao tentar excluir a conta:\n${error.message}`);
@@ -110,13 +110,13 @@ try {
 	}
 
 	msgProjetos.innerHTML += `
-    <a href="form_projeto.html" class="link" title="Cadastre um projeto | Ajuda RS">
+    <a href="./form_projeto.html" class="link" title="Cadastre um projeto | Ajuda RS">
       <strong class="texto--destaque">Cadastre um projeto!</strong>
     </a>
   `;
 } catch (error) {
 	alert(`Erro ao buscar informações do usuário:\n${error.message}`);
-	window.location.replace("index.html");
+	window.location.replace("/");
 }
 
 function criaStringEndereco(logradouro, numero, complemento) {

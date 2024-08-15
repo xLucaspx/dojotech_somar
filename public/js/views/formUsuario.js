@@ -64,7 +64,7 @@ if (token) {
 	} catch (error) {
 		alert(`Erro ao autenticar usuário:\n${error.message}`);
 		removeCookie("tokenJwt");
-		window.location.href = "login.html";
+		window.location.href = "/login.html";
 	}
 }
 
@@ -118,7 +118,7 @@ form.onsubmit = async (event) => {
 			inputCidade,
 			inputUf
 		);
-		window.location.replace(!idUsuario ? "login.html" : "perfil.html");
+		window.location.replace(!idUsuario ? "/login.html" : "/perfil.html");
 	} catch (error) {
 		let msg = !idUsuario
 			? "Erro ao cadastrar usuário"
@@ -131,11 +131,11 @@ const btnCancelar = document.getElementById("cadastro_usuario__btnCancelar");
 btnCancelar.onclick = cancelarAlteracoes;
 
 function cancelarAlteracoes() {
-	let url = "login.html";
+	let url = "/login.html";
 	let msg = "Tem certeza que deseja retornar à página de login?";
 
 	if (idUsuario) {
-		url = "perfil.html";
+		url = "/perfil.html";
 		msg = "Tem certeza que deseja retornar ao perfil?";
 	}
 
